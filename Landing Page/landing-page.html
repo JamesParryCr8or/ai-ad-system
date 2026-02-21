@@ -931,6 +931,232 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* ── AI Arsenal Section ── */
+        .ai-arsenal-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            background: var(--bg-surface);
+            padding: 80px 40px;
+        }
+
+        .ai-arsenal-wrapper .ambient-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(232, 121, 249, 0.05) 0%, transparent 40%);
+        }
+
+        .ai-arsenal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .arsenal-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .arsenal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 24px;
+        }
+
+        .arsenal-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            box-shadow: 0 0 8px var(--emerald-400);
+            animation: arsenal-pulse 2s infinite;
+        }
+
+        @keyframes arsenal-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .arsenal-header h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .arsenal-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .model-category {
+            margin-bottom: 40px;
+            background: rgba(13, 11, 26, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .category-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .model-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-chip:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .model-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .model-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .model-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .model-provider {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-chip.pro {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .model-chip.pro .model-name {
+            color: var(--cyan-400);
+        }
+
+        .arsenal-footer {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .arsenal-footer p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .ai-arsenal-wrapper {
+                padding: 60px 20px;
+            }
+
+            .model-category {
+                padding: 20px;
+            }
+
+            .model-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -959,10 +1185,234 @@
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg></a>
-        </section><!-- ⚔️ THE CR8OR AI ARSENAL -->
-        <section style="margin-bottom: 80px; animation: fadeUp 0.8s ease-out both;"><iframe
-                src="ai-arsenal-component.html" width="100%" height="950px" frameborder="0"
-                style="border-radius: 32px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);"></iframe>
+        </section> <!-- ⚔️ THE CR8OR AI ARSENAL -->
+        <section class="ai-arsenal-wrapper" style="animation: fadeUp 0.8s ease-out both;">
+            <div class="ambient-glow"></div>
+            <div class="ai-arsenal-container">
+                <div class="arsenal-header">
+                    <div class="arsenal-badge"><span class="dot"></span>Fully Automated Intelligence</div>
+                    <h2>The Growth Arsenal</h2>
+                    <p>We don't just use one AI. We deploy a multi-model strike force. Our system dynamically switches
+                        between the world's most powerful engines to deliver the winning creative for your brand.</p>
+                </div>
+
+                <!-- 🎬 VIDEO MODELS -->
+                <div class="model-category">
+                    <div class="category-label">
+                        <div class="category-icon">🎬</div>
+                        <div class="category-info">
+                            <h3>Video Generation</h3>
+                            <span>12 Models Deployed</span>
+                        </div>
+                    </div>
+                    <div class="model-grid">
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199"
+                                alt="OpenAI">
+                            <div class="model-info"><span class="model-name">Sora 2 Pro</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199"
+                                alt="OpenAI">
+                            <div class="model-info"><span class="model-name">Sora 2</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3.1</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3.1 Fast</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197"
+                                alt="Kling">
+                            <div class="model-info"><span class="model-name">Kling 2.5 Turbo Pro</span><span
+                                    class="model-provider">Kling AI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Qwen.png?_wwcv=1770391171200"
+                                alt="Alibaba">
+                            <div class="model-info"><span class="model-name">Wan 2.2 i2V Fast</span><span
+                                    class="model-provider">Alibaba</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Bytedance.png?_wwcv=1770391163027"
+                                alt="ByteDance">
+                            <div class="model-info"><span class="model-name">Seedance 1 Pro</span><span
+                                    class="model-provider">ByteDance</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 2</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197"
+                                alt="Kling">
+                            <div class="model-info"><span class="model-name">Kling v2.1</span><span
+                                    class="model-provider">Kling AI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Bytedance.png?_wwcv=1770391163027"
+                                alt="ByteDance">
+                            <div class="model-info"><span class="model-name">Seedance 1 Lite</span><span
+                                    class="model-provider">ByteDance</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3 Fast</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🖼️ IMAGE MODELS -->
+                <div class="model-category">
+                    <div class="category-label">
+                        <div class="category-icon">🖼️</div>
+                        <div class="category-info">
+                            <h3>Image & Photorealism</h3>
+                            <span>11 Models Deployed</span>
+                        </div>
+                    </div>
+                    <div class="model-grid">
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux 1.1 Pro Ultra</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fdeepmind-veo3.svg&w=96&q=75" alt="Google">
+                            <div class="model-info"><span class="model-name">Imagen 4.0 Ultra</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fsora-2.webp&w=96&q=75" alt="OpenAI">
+                            <div class="model-info"><span class="model-name">GPT Image 1</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Kontext Max</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Kontext Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux 1.1 Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Krea Dev</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Dev</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fflux.svg&w=96&q=75" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Schnell</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fdeepmind-veo3.svg&w=96&q=75" alt="Google">
+                            <div class="model-info"><span class="model-name">Nano Banana</span><span
+                                    class="model-provider">Experimental</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🎙️ AUDIO & UGC & TOOLS -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🎙️</div>
+                            <div class="category-info">
+                                <h3>Audio & Voice</h3><span>Elite Soundscape</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip pro"><img class="model-logo"
+                                    src="https://galaxy.ai/_next/image?url=%2Felevenlabs.svg&w=96&q=75"
+                                    alt="ElevenLabs">
+                                <div class="model-info"><span class="model-name">ElevenLabs</span><span
+                                        class="model-provider">Voice & SFX</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🗣️</div>
+                            <div class="category-info">
+                                <h3>AI UGC</h3><span>Avatar Strike Force</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip pro"><img class="model-logo"
+                                    src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/CR8OR_AI_Logo__1080_X_1080_.png?_wwcv=1743328997940"
+                                    alt="CR8OR">
+                                <div class="model-info"><span class="model-name">CR8OR LipDub</span><span
+                                        class="model-provider">Bespoke UGC Video</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🔧</div>
+                            <div class="category-info">
+                                <h3>Intelligence Tools</h3><span>Operational Layer</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip">
+                                <div class="model-logo"
+                                    style="display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(34,211,238,0.1);color:var(--cyan-400);">
+                                    ✍️</div>
+                                <div class="model-info"><span class="model-name">AI Copywriting</span><span
+                                        class="model-provider">Ad-Tuned Scripts</span></div>
+                            </div>
+                            <div class="model-chip">
+                                <div class="model-logo"
+                                    style="display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(232, 121, 249, 0.1);color:var(--fuchsia-400);">
+                                    🔥</div>
+                                <div class="model-info"><span class="model-name">Firecrawl</span><span
+                                        class="model-provider">Market Scraping</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arsenal-footer">
+                    <p>Our infrastructure matches your growth ambitions. Battle-tested, machine-optimized, and
+                        model-agnostic.</p>
+                </div>
+            </div>
         </section>
         <!-- ═══════════════════════════════════════ --><!-- MISSIONS DEPLOYED: PROVEN RESULTS --><!-- ═══════════════════════════════════════ -->
         <section class="proof-section">
@@ -1039,7 +1489,8 @@
                     <h3 style="margin-bottom: 20px;">Your Brand is Next</h3>
                     <p>We install the system. You pull the trigger. Every channel optimised 24/7.</p><a
                         href="quiz-funnel.html" class="cta-button"
-                        style="background: var(--purple-500); width: 100%; justify-content: center;">Start Assessment
+                        style="background: var(--purple-500); width: 100%; justify-content: center;">Start
+                        Assessment
                         →</a>
                 </div>
             </div>
@@ -1358,7 +1809,8 @@
                     and evolves the entire system automatically.</p>
                 <div class="loop-tags"><span class="loop-tag">Winner Scaling</span><span class="loop-tag">New Brief
                         Generation</span><span class="loop-tag">Audience Refinement</span><span
-                        class="loop-tag">Creative Iteration</span><span class="loop-tag">Budget Reallocation</span>
+                        class="loop-tag">Creative
+                        Iteration</span><span class="loop-tag">Budget Reallocation</span>
                 </div>
             </div>
         </div>
