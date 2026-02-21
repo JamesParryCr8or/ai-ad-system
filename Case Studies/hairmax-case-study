@@ -1,0 +1,271 @@
+Our strongest case study to date at CR8OR AI is that with Saks Brands Marketing, HairMax.
+
+
+It was an absolute pleasure to work with this family business which was a UK distributor or hair care and hair loss products in the UK, with a strong medical in the hair care space.
+
+The group operated a plethora of distributor contracts and bespoke for hair brands, such as Dermatch, Split Ender, and HairMax.
+
+Here’s a quick overview of one of the brand's performance since working with them. 
+
+It looks like a Boeing 747 experiencing some serious G force off the runway! 
+
+
+Below I break down the growth of the brand step by step, diving into each needle mover in depth.
+
+Audit
+With limited scope and resources allocated to this project, it was not possible to grow every website in the portfolio.
+
+At the time of taking working with the team of Saks Brands, there was a lean time of Jason, CEO, Jonathan, Head of Operations, Joe Deputy CEO, Nikki who helped our with operations and fulfillment, and Lyn on fulfillment. Only 3 team members were full time and I was assisting for approx 2.5 full days a week.
+
+Having this solid team in place already meant that I could devote all my attention to scaling the brand and growth.
+
+However, with limited resources, we tried to narrow our focus on where we could apply the most leveraged growth. After a thorough audit of the profitability and brand strength of several of the companies websites HairMax was quickly identified as the the most promising in terms of growth.
+
+Not only was it already the highest in terms of sales volume, the brand had a solid track record of 20 years around it, medical journals to support its claims that it helped hair regrowth, and a strong AOV with good contribution margin which leant itself to scaling with Meta and Google ads.
+
+In terms of marketing, the brand had strong US brand awareness and some great product photos and even branded videos. Testimonials from Drs in the US also helped, but had been tried by the team before hand on a UK audience where they didn’t resonate as much.
+
+So some assets did exist for Meta but were currently switched off as the cost was deducting from profitability with the brand. Google was driving most of the sales with a strong ROAS but not a great sales volume, maybe £15K p/m. This was set up by a Google Ads specialist agency beforehand.
+
+Organic search was also bringing in sales, and there were some redirects from the US website going to UK which helped bring in a decent bassline of sales, circa another £10K p/m.
+
+There was also no email or SMS marketing going on at this point, which lost lots of extra revenue.
+
+Research
+Recognising the strong margin we had to play with, one of the first things I did was work on a batch of static ad creatives for the site. Having a background in creative strategy really helped here. I dug into customer reviews, comments on the posts, reddit forums, keyword analysis, to really try and extract the true allure of these products and the psychology behind people wanted hair in the first place.
+
+Because, as Jason used to tell me “There is no reason why people need hair, some people are completely bald and OK with it, others lose a tiny bit of hair and are extremely distressed by it”
+
+The first job was copy writing, so I created some custom GPTs for the brand, which I go over below
+
+Custom GPTs
+To build a custom GPT, use the below feature in ChatGPT. You need all the context from the brand to make it high quality.
+
+
+Tell it your building a digital CMO for this brand “…”. Here is all the reference material that it needs, then upload all the following files. I would suggest adding in brand guidelines, product info as well as customer reviews. It’s also recommended to add some written context of the brand and its message and who it targets.
+
+Here’s some detail on how to get the product information. Download the product file from Shopify, then convert it to JSON using a tool like https://www.convertcsv.com/csv-to-json.htm.
+
+Do the same with customer reviews. I like to use https://chromewebstore.google.com/detail/instant-data-scraper/ofaokhiedipichpaobibbnahnkdoiiah?pli=1 Instant Data scraper on a site like Trustpilot to simply get the reviews. If your store uses Amazon, or a Shopify reviews app like https://judge.me/ or https://stamped.io/, then that’s also recommended.
+
+Copywriting
+Having done some solid research, I set to work on creating lots of messaging copy for the various avatars, products and angles we wanted to test.
+
+To brainstorm here I would create a Google sheet to keep a tab of all the copy assets I was creating, use Claude or ChatGPT with your custom GPT to create new assets here. For instance, give me 10 Google Ads headlines for product X to serve this avatar.
+
+I also extracted current best performing copy from Meta and Google and the brand guidelines and added my own creative copy to the list.
+
+
+This way, it was easy to consistently reference the copy across platforms and campaigns and not have to re-invent the wheel every time. It also made it a lot easier when having to translate our copy. This could be done in bulk and just added to another column.
+
+If you want a copy of the sheet, please download it here https://docs.google.com/spreadsheets/d/10vN7LcxsnYBfuTtpeHyohXC_ta8fPVFJhY6XErIwWxo/copy
+
+Ad Creatives
+After completing the ad copy, the next step was to bring this to life with ad creatives.
+
+These were a selection of the roughly two dozen static ad creatives I came up with:
+
+Ad Creatives
+
+Ad Creatives
+
+	
+	
+
+
+The static creatives were then deployed all across Meta and Google in various testing campaigns.
+
+The top right creative with the purple background was actually created with the help of AI for the background, then overlaid with Canva assets afterwards
+
+These instantly started improving our ROAS on Meta and Google and allowed me to start incrementally improving the ad budgets.
+
+Google Ads
+The next thing I did was to ensure all attribution was properly getting reported, I was using the tool https://simprosys.com/ which helped me sync all my product data to Meta and Google Merchant centre, and set up my tracking conversions for ‘Add To Cart’, ‘Abandon Checkout’ and ‘Purchase’.
+
+Lots of work was done on feed optimisation here as well, as although our products were on the Merchant feed, they weren’t showing up first when we searched for the keywords. Nor did they have reviews, even when other brands like Debenhams who we sold the product to, to essentially dropship from our own Shopify feed, did display reviews and were outranking us on the shopping feed.
+
+We optimised titles here, putting the brand name in the product title, using Title case, and ensuring all the GTINs and product categories were properly set up
+
+We also spent a tonne of time building brand new PMax campaigns. We built out product specific PMax campaigns which turned out to be our strongest performers, building out lots of new messaging, new audiences and demographics and refined our negative keywords.
+
+Having forensic profitability reporting by SKU was important for this to scale.
+
+I used some Google scripts to automate daily spend into a Google sheet, combined this with sales data split by SKU and COGS values so that we could get some solid insights into SKU level profitability. Then adjusted the budgets to optimise for the profitable SKUs.
+
+
+Email Marketing
+Email marketing was an obvious void that we needed to fill within our marketing stack, that had shown promise but had just not been able to be fulfilled because of a lack of resources.
+
+Our approach was to initially spruce up the email campaigns which were dated and not as clickable as we would like by upgrading our template in Klaviyo and then doing a smart technique where we were actually exporting the HTML code from the US HairMax brand’s email campaigns which were done externally, importing that into Figma using the Figma HTML to Design plugin https://www.figma.com/community/plugin/1159123024924461424/html-to-design-by-divriots-import-websites-to-figma-designs-web-html-css and then re-editing that for the UK market.
+
+In the interests of time we also hired in email marketing specialists Plethora https://www.plthora.com/ to build out our email marketing flows, which were present in a skeletal form but were improved dramatically. The abandoned cart, browse abandonment, welcome flow, post purchase flow, sunset flow etc all were added or improved.
+
+For our campaigns, I pulled together a resource with hundreds of email marketing templates for our team to draw inspiration from so they were only creating the highest quality email marketing campaigns https://www.figma.com/design/QIVLy9lludGAJUWiq46m4z/639-Templates?node-id=0-1&t=cCkeersfWkMK8B80-1, then created a system in Notion where Eds, our remote email marketing specialist, would create the email templates and I could review and approve emails and suggest edits, before eventually being loaded into Klaviyo ready to send.
+
+
+Our results were very impressive for this campaign, as you can see over £416K in attributed conversions in the last 12 months, coming from Klaviyo, with 33% from flows and 67% from campaigns.
+
+
+Also integral for our email process was the custom GPT I created for the brand.
+
+SMS Marketing
+Our SMS marketing approach was simplistic but effective. We created simple cart abandonment and browse abandonment flows using Touch, our in-house CRM (try it free for 30 days: HERE). This SMS 1 text alone added over £24K in revenue attributed specifically to that discount code.
+
+The 4th message in the sequence, offering a 15% discount code, added an additional £35K in revenue.
+
+
+Phone Sales
+Whilst we never got around to it, I did suggest we get a phone team in house to also help with this abandon cart rate. I built a CRM to track all our browse abandonments and abandon carts, using Touch CRM, and you can see it is pretty well stocked!
+
+Having someone on the phone to contact these people would have helped convert some of these interested customers, in my opinion. But given the lack of full time staff it meant that there was nobody available to be on this and there was no appetite to hire some especially for this. Notwithstanding, there is still an inbound number for people to enquire and there is scope to try this in the future.
+
+
+The team which at it’s current level is down to one full time head, Head of Ops, Jonathan. Joe, now CEO, is on this split between his other businesses. Myself and our email marketing specialist Eds on this 40% of our time. We also have one remote team member, Annerie, helping out with customer support part-time, 40% say.
+
+As you can tell, we operate pretty lean! 
+
+Internationalisation
+One of the leading parts of growth, spearheaded by our CEO Joe, was our internationalisation strategy. When I started working with HairMax we only operated in the UK.
+
+Joe and his Dad, Jason, had worked on their relationship with the US brand, and due to our outstanding performance in the UK market, we managed to secure distribution rights for, initially, France, Germany, Spain and Italy. And eventually after continued strong performance, the rest of Europe.
+
+This was great on paper, but the reality of serving all these markets with our tiny team would be for most companies incomprehensible and a dilution of resources.
+
+For our forward thinking and versatile team, we managed to rollout out a sophisticated and profitable internationalisation strategy, starting with acquiring several new domains for the French, Italian, German and Spanish markets.
+
+https://hairmax.de/
+
+https://hairmax.it/
+
+https://hairmaxfrance.com/
+
+https://hairmax.es/
+
+To expedite our internationalisation, we used the Langify app as well as ChatGPT to translate all our copy. We also had to completely upgrade our theme to a Shopify 2.0 theme so we could have different assets for each market domain. For instance, since our hero image contained text, we needed to make versions localised for each territory.
+
+The same needed to be done for all the assets on the product pages, all the Meta ads creatives, all the Google campaigns. The merchant feeds needed duplicating and creating a localised version with Simprosys to put into Merchant Centre, new local Merchant Centre accounts with localised shipping setting etc.
+
+
+It’s important not to understate the weight of this undertaking, it took hundreds of hours to pull this off effectively, since it was our first time doing it and there were a lot of learning curves.
+
+One issue we faced, for instance, was that our products kept getting disapproved on Google shopping for our local domains. This issue alone couldn’t be solved for weeks, the Google support, nor our old specialist Google Ads agency could crack it.
+
+We were using a custom CSS provider, Inydy, which we thought was the route of the problem, but after switching back to Google managed CSS, realised it wasn’t the issue
+
+Then we thought it was connected to our page redirect, since we had EU specific SKUs, sent from a separate warehouse in the Netherlands, and the EU sites would redirect traffic from the UK back to the .co.uk store.
+
+We assumed that the Google scraping approval bot was based in the UK, so when it tried to verify our SKUs in Europe the page redirected the bot back to the UK.
+
+So we switched the redirect off, and we would get products approved, only to be disapproved the next week. This went on for months, because the feedback cycles took weeks, and it was very frustrating as we kept thinking we had gotten to the route of the issue!
+
+We eventually solved the problem after realising our EU SKUs had a merchant centre product URL with URL parameters in it, causing page load errors. 
+
+If you type in https://hairmax.es/products/laserband-41-comfortflex-eu it will stay on the hairmax.es domain.
+
+But if you type in https://hairmax.es/products/laserband-41-comfortflex-eu?currency=EUR&variant=49406249042230, which is the default format for merchant feed from Simprosys (I couldn’t remove any more parameters) it redirected do our .co.uk domain, and because the SKU was a EU SKU it was hidden from our UK site, leading to the page not being rendered properly.
+
+So, eventually we contacted Simprosys and got them to amend our XML feed for the international markets, a custom setting which wasn’t on the Simprosys dashboard, and this eventually fixed our issue!
+
+This let to a big revenue uplift afterwards and massive additional brand visibility.
+
+Website Optimisation
+Site optimisation has been a game changed for this store.
+
+We were initially on an aged theme which meant we didn’t have access to the Shopify 2.0 features like markets and custom code, and custom product pages.
+
+Aside from updating the visual assets and hero sections, I also went to work on some custom code components using Claude, ChatGPT and Cursor.
+
+Here is one such section, I collated around 30 medical journals which reference HairMax and Low-Level Light Therapy (LLLT), and documented them all with screenshots of the journals, journal titles and key findings.
+
+This really helped improved trust, authority and legitimacy with our site visitors, especially with people just hearing about us for the first time.
+
+
+I also collated this before and after image slider which showcased some of our transitions in a interactive and reassuring way. Again, these all had to be internationalised.
+
+
+Other tweaks like optimising image size, mobile optimisation, adding dynamic checkout buttons, banners sliders and SEO optimisation also helped, as well as revamping our blogs to be formatted better.
+
+Sales
+Having a solid sales cadence was integral for us. We didn’t want to be discounting every month, we we basically have a process of Big Black Friday Sale, which is ongoing from Black Friday to Christmas to New Year, about the 10th January.
+
+Then for the rest of the year, usually a Summer Sale + 1 other one, perhaps Easter
+
+These sales had to be quick for us to put together, here are the assets that each sale basically consists of:
+
+
+Updated banners, discount codes, some email campaigns written text and graphical usually with an encore campaign, so 2 sale announcements on day 1 with value add emails in between then some more urgency scarcity emails towards the end.
+
+Importantly, we have purchase exclusion logic for the last 30 days so as to remove anyone who takes action or has recently purchased, so as not to bombard them.
+
+The encore offer is the day after the sale finishes, so the banners etc aren’t visible. We reach out usually via a written text email and offer them one last chance to buy, sometimes at an increased discount, say an extra 5%, in case they were on the fence. This usually has a pretty high uptick rate.
+
+We ensure to add codes in Google Merchant Centre for the shopping feed and Google Ads as well, and also do SMS campaigns.
+
+We always try and do these for each language and territory, which of course is quite a lot more work! But we are starting to see solid results now for our international territories, which is grande.
+
+It’s worth noting that these can always be completed ahead of time for each brand and sale, which we are doing at the moment for a separate brand, though we often find ourselves completing the sale campaigns last minute!
+
+If you want my sale asset template - please download here! https://docs.google.com/spreadsheets/d/1snDxtY6COS6c8sLAq7a-3FwJpzsEQ8axykK2TlVyUoE/copy
+
+Fulfillment & Logistics
+It goes without saying that your sales can only be as good as the stock you have on hand. 
+
+The only caveat here being integrating the use of pre-orders, this is a strategy I would recommend all brands try when waiting for lead and logistics time before products are in the warehouse. We used an app called PreProduct next‑gen pre‑order to manage this for us, and usually just built up lists we could notify when the product was in transit, then we would experience a flood of sales for that product.
+
+Concerning stock management in general, Jonathan, Head of Operations, did a fantastic job in just-in-time stock planning, which meant that I could completely focus on the marketing side and driving sales.
+
+Joe and Jonathan also re-structured our international fulfilment operation, an integral part of our profitability growth, working with an EU 3PL partner. Our products were over a certain import threshold into the EU, which meant that we were having to deliver duty paid, and pay an additional £50 when delivering to the EU.
+
+After transitioning to a 3PL in the Netherlands, we saved a lot on European distribution costs, which had a positive impact straight to the bottom line. As well as improving our delivery costs, and save a lot on import duty, we improved delivery speed and customer satisfaction.
+
+Customer Service
+Similarly, an integral part of any brand is good and responsive customer service. Nicky, Annerie and Jonathan managed this flawlessly, being available on email, phone and also through social media to reply to comments.
+
+This helps dramatically with reviews, repeat purchase rate and lowering refunds.
+
+Profit & Loss Reporting
+Integral to our success, was P/L reporting. We needed to know in real time whether our ad spend was working and dial in or dial back according.
+
+The first thing I did was set up Lifetimely, they used to have a free version which allowed you 30 days history of your sales and ad spend data, however I think it’s only paid now.
+
+This is what it looks like:
+
+
+However, we quickly realised that we wanted to have a longer timeline history than that, as well as customise our reporting more than we could within the tool.
+
+Such as have different postage costs for EU and UK orders, add in our expense etc
+
+So I set to working on building a real-time profit and loss dashboard, I’ve coined, Spine.
+
+Via Shopify API Key, and some Google scripts, it integrates with your Shopify sales, pulls in Google Ad spend via a script, and only requires a manual refresh of Facebook ads spend incrementally (which I’ll be automating soon)
+
+It gives you full financial analyst style breakdowns of your stores performance.
+
+It’s only taken me the best part of 8 years to build! You can try the Spine template here, and save £2.3K per year on SaaS fees: https://docs.google.com/spreadsheets/d/1P08r97oYLVMJA-k95lORdTRfTr8IvOLhBMExPZiq6JA/copy
+
+
+Above are some example screen shots from the P/L
+
+If you want to install it, set up the Google ad script here and connect it to your sheet: https://docs.google.com/document/d/1KuLb494CMsWKHZHUgOeSFUlZGd_yb2NJSC5S-KjjmXE/edit?usp=sharing
+
+It’s completely customisable for your specific ad costs, additional sales items, expenses, distribution costs etc.
+
+Conclusion
+That’s pretty much a wrap for this case study, on how we helped grow HairMax an average of 160% Vs. before we started working with them in Jul’23.
+
+This was a multi-faceted and complex journey and shows what can be done with a credible brand, a small and versatile team, a sprinkling of AI and some solid creative and data foundations.
+
+If you would like to enquire about growing your brand with CR8OR, please email james@cr8or.co.uk
+
+
+James parry
+
+Founder, CR8OR AI | Fund Rocket | DREAMSILK | Spine
+Manchester, England, United Kingdom
+James has consulted with over 100 CPG & DTC brands to crack the code on scaling with performance ad creative, media buying, real-time P/L reporting, CRM automation & business funding. 
+
+He previously held fractional CMO roles at leading brands including HairMax and T3, and has experience working with major clients like NATO, TikTok, and THG.
+
+Now he's building a comprehensive suite of tools for founders, focusing on AI-powered ad creative generation (CR8OR AI), CRM automation (Touch), real-time P/L reporting (Spine), and business funding solutions (Fund Rocket).
+
+Connect with James on LinkedIn

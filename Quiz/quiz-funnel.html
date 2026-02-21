@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR8OR AI — Growth Assessment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --purple-500: #8B5CF6;
+            --purple-400: #A78BFA;
+            --purple-300: #C4B5FD;
+            --fuchsia-500: #D946EF;
+            --cyan-400: #22D3EE;
+            --emerald-400: #34D399;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --border: rgba(139, 92, 246, 0.15);
+            --glow: rgba(139, 92, 246, 0.3);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Ambient background */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.06) 0%, transparent 60%);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 650px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 15px var(--glow));
+            animation: logo-float 6s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .quiz-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .quiz-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--purple-500), var(--fuchsia-500));
+            box-shadow: 0 0 10px var(--glow);
+            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateX(4px);
+        }
+
+        .option-btn::after {
+            content: '→';
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .option-btn:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--purple-500);
+            background: var(--bg-card);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--purple-500), var(--purple-600));
+            border: none;
+            border-radius: 12px;
+            padding: 18px;
+            color: white;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+            filter: brightness(1.1);
+        }
+
+        /* Loader */
+        .loader-container {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .loader-circle {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(139, 92, 246, 0.1);
+            border-top-color: var(--cyan-400);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--cyan-400);
+        }
+
+        /* Results */
+        .result-card {
+            text-align: center;
+            animation: resultFadeIn 0.8s ease;
+        }
+
+        @keyframes resultFadeIn {
+            from {
+                opacity: 0;
+                scale: 0.95;
+            }
+
+            to {
+                opacity: 1;
+                scale: 1;
+            }
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 100px;
+            color: var(--cyan-400);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .result-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--text-primary);
+            color: var(--bg-deep);
+            padding: 18px 36px;
+            border-radius: 14px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            background: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 32px 24px;
+            }
+
+            .quiz-header h1 {
+                font-size: 24px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option-btn {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient"></div>
+    <div class="noise"></div>
+
+    <div class="quiz-container">
+        <div id="quiz-flow">
+            <!-- Header -->
+            <div class="quiz-header">
+                <img src="CR8OR AI Logo (1080 X 1080).png" alt="CR8OR AI" class="logo">
+                <h1>Growth Assessment</h1>
+                <p>Find your fastest AI revenue path in 45 seconds.</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-wrapper">
+                <div class="progress-meta">
+                    <span id="step-name">Step 1 of 6</span>
+                    <span id="step-pct">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="step active" data-step="1">
+                <div class="question-text">What stage is your business at?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(1, 'Pre-revenue / exploring')">🌱 Pre-revenue /
+                        exploring</button>
+                    <button class="option-btn" onclick="nextStep(1, '£1k–£10k/month')">📈 £1k–£10k/month</button>
+                    <button class="option-btn" onclick="nextStep(1, '£10k–£50k/month')">🚀 £10k–£50k/month</button>
+                    <button class="option-btn" onclick="nextStep(1, '£50k+/month')">💎 £50k+/month</button>
+                    <button class="option-btn" onclick="nextStep(1, 'Agency managing clients')">🏢 Agency /
+                        Multi-client</button>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="step" data-step="2">
+                <div class="question-text">What’s your biggest growth bottleneck?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(2, 'Creating high-performing video ads')">🎬
+                        High-performing video ads</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Scaling ad creative volume')">🔥 Creative volume &
+                        velocity</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Lead capture & automation')">⚡ Lead capture &
+                        automation</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Team inefficiency')">👥 Team bandwidth /
+                        bottlenecks</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Understanding how to use AI properly')">🧠 AI
+                        Strategy & Implementation</button>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="step" data-step="3">
+                <div class="question-text">How involved do you want to be?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(3, 'Build it for me')">⚔️ Done-For-You (Install
+                        it)</button>
+                    <button class="option-btn" onclick="nextStep(3, 'I want control + support')">🛠️ Done-With-You
+                        (Support me)</button>
+                    <button class="option-btn" onclick="nextStep(3, 'Just give me the tools')">🧰 Do-It-Yourself (I'll
+                        build it)</button>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="step" data-step="4">
+                <div class="question-text">How quickly do you want to hit your goals?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(4, 'ASAP (next 30 days)')">⚡ Now (Next 30
+                        Days)</button>
+                    <button class="option-btn" onclick="nextStep(4, '60–90 days')">🗓️ Controlled (60-90 Days)</button>
+                    <button class="option-btn" onclick="nextStep(4, 'Just exploring')">🔍 Just Exploring</button>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="step" data-step="5">
+                <div class="question-text">What’s your monthly ad/content budget?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(5, '£0–£1k')">🥉 £0–£1k</button>
+                    <button class="option-btn" onclick="nextStep(5, '£1k–£5k')">🥈 £1k–£5k</button>
+                    <button class="option-btn" onclick="nextStep(5, '£5k–£20k')">🥇 £5k–£20k</button>
+                    <button class="option-btn" onclick="nextStep(5, '£20k+')">💎 £20k+</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Info Gathering -->
+            <div class="step" data-step="6">
+                <div class="question-text">Analyze Your Results</div>
+                <form id="lead-form" onsubmit="handleLeadSubmit(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-input" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <div style="display: flex; gap: 8px;">
+                            <select class="form-input" style="width: 100px; flex-shrink: 0;" name="country_code">
+                                <option value="+44" selected>🇬🇧 +44</option>
+                                <option value="+1">🇺🇸 +1</option>
+                                <option value="+61">🇦🇺 +61</option>
+                                <option value="+353">🇮🇪 +353</option>
+                                <option value="+971">🇦🇪 +971</option>
+                            </select>
+                            <input type="tel" class="form-input" name="phone" placeholder="7000 000000" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-input" name="company" placeholder="Acme Corp" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Website URL</label>
+                        <input type="text" class="form-input" name="website" placeholder="company.co.uk" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Reveal My Strategy →</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Final Result Placeholder -->
+        <div id="quiz-result" style="display: none;">
+            <!-- Result will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            answers: {},
+            currentStep: 1,
+            totalSteps: 6
+        };
+
+        function nextStep(step, answer) {
+            quizData.answers[step] = answer;
+
+            const currentElement = document.querySelector(`.step[data-step="${step}"]`);
+            const nextElement = document.querySelector(`.step[data-step="${step + 1}"]`);
+
+            if (nextElement) {
+                currentElement.classList.remove('active');
+                nextElement.classList.add('active');
+                quizData.currentStep = step + 1;
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const pct = Math.round(((quizData.currentStep - 1) / quizData.totalSteps) * 100);
+            document.getElementById('progress-bar').style.width = pct + '%';
+            document.getElementById('step-pct').innerText = pct + '%';
+            document.getElementById('step-name').innerText = `Step ${quizData.currentStep} of ${quizData.totalSteps}`;
+        }
+
+        async function handleLeadSubmit(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const leadData = Object.fromEntries(formData.entries());
+
+            // Combine with quiz answers
+            const payload = {
+                lead: leadData,
+                assessment: {
+                    business_stage: quizData.answers[1],
+                    bottleneck: quizData.answers[2],
+                    involvement: quizData.answers[3],
+                    speed_preference: quizData.answers[4],
+                    budget: quizData.answers[5]
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            // Show loader
+            document.getElementById('quiz-flow').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('quiz-result').innerHTML = `
+        <div class="loader-container">
+          <div class="loader-circle"></div>
+          <div class="loading-text">CALCULATING REVENUE PATH...</div>
+          <div class="loading-text" id="loader-subtext" style="font-size: 11px; margin-top: 10px; opacity: 0.6;">Analyzing business stage...</div>
+        </div>
+      `;
+
+            // Fake sequence for effect
+            const subtexts = [
+                "Analyzing business stage...",
+                "Identifying bottleneck leverage points...",
+                "Mapping AI creative systems...",
+                "Finalizing growth blueprint..."
+            ];
+
+            for (let i = 0; i < subtexts.length; i++) {
+                await new Promise(r => setTimeout(r, 800));
+                const sub = document.getElementById('loader-subtext');
+                if (sub) sub.innerText = subtexts[i];
+            }
+
+            // Determine result based on logic
+            const result = calculateResult(payload.assessment);
+
+            // Send webhook (placeholder)
+            try {
+                await fetch('https://services.leadconnectorhq.com/hooks/u3QaT76YAw3PJvfiuGkZ/webhook-trigger/670f31d1-572d-4da8-8230-cdbe34598b6c', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.warn("Webhook failed (expected for placeholder):", e);
+            }
+
+            displayResult(result);
+        }
+
+        function calculateResult(ans) {
+            const revenue = ans.business_stage;
+            const budget = ans.budget;
+            const involvement = ans.involvement;
+            const speed = ans.speed_preference;
+
+            // Tier 1: High Ticket
+            if (
+                (revenue.includes('£10k') || revenue.includes('£50k')) &&
+                (budget.includes('£5k') || budget.includes('£20k')) &&
+                involvement === 'Build it for me' &&
+                speed === 'ASAP (next 30 days)'
+            ) {
+                return 'tier1';
+            }
+
+            // Tier 3: Low Friction
+            if (
+                revenue === 'Pre-revenue / exploring' ||
+                budget === '£0–£1k' ||
+                involvement === 'Just give me the tools'
+            ) {
+                return 'tier3';
+            }
+
+            // Tier 2: Default
+            return 'tier2';
+        }
+
+        function displayResult(tier) {
+            const container = document.getElementById('quiz-result');
+            const name = document.querySelector('input[name="name"]').value.split(' ')[0];
+            const company = document.querySelector('input[name="company"]').value;
+            const bottleneck = quizData.answers[2];
+
+            let html = '';
+
+            if (tier === 'tier1') {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥇 LEVEL 3: FAST TRACK ELITE</div>
+            <h2 class="result-title">Target Locked, ${name}.</h2>
+            <p class="result-desc">Based on ${company}'s current trajectory and your need to solve <strong>${bottleneck}</strong>, you qualify for the <strong>AI Ad System Fast Track.</strong></p>
+            
+            <div style="background: rgba(139, 92, 246, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid var(--border);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--emerald-400); margin-bottom: 12px; text-transform: uppercase;">// STRATEGIC DEPLOYMENT PLAN</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🎯</span> <strong>Phase 1 (Recon):</strong> Deep avatar research & competitor intel for ${company}.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🔥</span> <strong>Phase 2 (Forge):</strong> Full AI UGC & Video asset production system installed.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>⚡</span> <strong>Phase 3 (Strike):</strong> Multi-channel parallel deployment across Meta/Google/TikTok.</li>
+                <li style="display: flex; gap: 10px;"><span>🔁</span> <strong>Phase 4 (Evolve):</strong> SPINE connected for real-time profitability loops.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; font-style: italic;">
+              Welcome to the elite rank of operators. We don't wait for creators. We deploy.
+            </p>
+            
+            <a href="https://calendly.com/cr8or-ai/discovery" class="cta-button">Secure Fast Track Install →</a>
+          </div>
+        `;
+            } else if (tier === 'tier3') {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥉 LEVEL 1: STUDIO ACCESS</div>
+            <h2 class="result-title">Ready to Build, ${name}?</h2>
+            <p class="result-desc">At ${company}'s current stage, your fastest path to solving <strong>${bottleneck}</strong> is raw creative power. It's time to access the arsenal.</p>
+            
+            <div style="background: rgba(34, 211, 238, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid rgba(34, 211, 238, 0.15);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-400); margin-bottom: 12px; text-transform: uppercase;">// THE ARSENAL UNLOCKED</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🎬</span> Access Sora 2, Veo 3, and Kling for elite video output.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🗣️</span> Create unlimited AI UGC talking head variants.</li>
+                <li style="display: flex; gap: 10px;"><span>✍️</span> Brand-tuned AI copywriting to kill creative fatigue.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">
+              Join a group of forward-thinking executors building the future of marketing.
+            </p>
+
+            <a href="/studio-access" class="cta-button">Enter the Studio →</a>
+          </div>
+        `;
+            } else {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥈 LEVEL 2: COMMAND CENTRE</div>
+            <h2 class="result-title">Control the Machine, ${name}.</h2>
+            <p class="result-desc">You have the momentum. To dominate <strong>${bottleneck}</strong> at ${company}, you need the full operational stack, not just tools.</p>
+            
+            <div style="background: rgba(217, 70, 239, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid rgba(217, 70, 239, 0.15);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fuchsia-400); margin-bottom: 12px; text-transform: uppercase;">// COMMAND CENTRE FEATURES</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🏛️</span> Full CRM & GHL Stack integration for ${company}.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>📊</span> SPINE Real-Time Profitability Dashboards.</li>
+                <li style="display: flex; gap: 10px;"><span>🧪</span> Advanced A/B testing & AI funnel automation.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">
+              Operate at 10x speed. Join the elite executors using systems to scale.
+            </p>
+
+            <a href="/command-centre" class="cta-button">Access Command Centre →</a>
+          </div>
+        `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+
+</html>

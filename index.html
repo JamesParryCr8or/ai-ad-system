@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ad System — CR8OR</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --purple-100: #F3E8FF;
+            --purple-200: #DDD6FE;
+            --purple-300: #C4B5FD;
+            --purple-400: #A78BFA;
+            --purple-500: #8B5CF6;
+            --purple-600: #7C3AED;
+            --purple-700: #6D28D9;
+            --purple-800: #5B21B6;
+            --purple-900: #4C1D95;
+            --violet-500: #8B5CF6;
+            --fuchsia-400: #E879F9;
+            --fuchsia-500: #D946EF;
+            --cyan-400: #22D3EE;
+            --emerald-400: #34D399;
+            --amber-400: #FBBF24;
+            --rose-400: #FB7185;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --border: rgba(139, 92, 246, 0.15);
+            --glow: rgba(139, 92, 246, 0.3);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Ambient background ── */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(34, 211, 238, 0.03) 0%, transparent 60%);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Layout ── */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 40px 100px;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 24px;
+        }
+
+        .header .badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+            }
+
+            50% {
+                opacity: 0.7;
+                box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ── Phase sections ── */
+        .phase {
+            margin-bottom: 24px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .phase-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .phase-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .phase-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+
+        /* Phase colour themes */
+        .phase--research .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--research .phase-title {
+            color: var(--cyan-400);
+        }
+
+        .phase--creative .phase-number {
+            background: rgba(217, 70, 239, 0.15);
+            color: var(--fuchsia-400);
+            border: 1px solid rgba(217, 70, 239, 0.25);
+        }
+
+        .phase--creative .phase-title {
+            color: var(--fuchsia-400);
+        }
+
+        .phase--concepts .phase-number {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple-400);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .phase--concepts .phase-title {
+            color: var(--purple-400);
+        }
+
+        .phase--deploy .phase-number {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--amber-400);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
+
+        .phase--deploy .phase-title {
+            color: var(--amber-400);
+        }
+
+        .phase--capture .phase-number {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--emerald-400);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+        }
+
+        .phase--capture .phase-title {
+            color: var(--emerald-400);
+        }
+
+        .phase--nurture .phase-number {
+            background: rgba(251, 113, 133, 0.15);
+            color: var(--rose-400);
+            border: 1px solid rgba(251, 113, 133, 0.25);
+        }
+
+        .phase--nurture .phase-title {
+            color: var(--rose-400);
+        }
+
+        .phase--loop .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--loop .phase-title {
+            color: var(--cyan-400);
+        }
+
+        /* ── Cards grid ── */
+        .cards {
+            display: grid;
+            gap: 10px;
+        }
+
+        .cards--4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .cards--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .cards--5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .cards--6 {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        @media (max-width: 900px) {
+
+            .cards--4,
+            .cards--5,
+            .cards--6,
+            .cards--3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 560px) {
+
+            .cards--4,
+            .cards--3,
+            .cards--5,
+            .cards--6 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, var(--purple-500)), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(139, 92, 246, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-detail {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card--cyan {
+            --card-accent: var(--cyan-400);
+        }
+
+        .card--fuchsia {
+            --card-accent: var(--fuchsia-400);
+        }
+
+        .card--purple {
+            --card-accent: var(--purple-400);
+        }
+
+        .card--amber {
+            --card-accent: var(--amber-400);
+        }
+
+        .card--emerald {
+            --card-accent: var(--emerald-400);
+        }
+
+        .card--rose {
+            --card-accent: var(--rose-400);
+        }
+
+        /* ── Flow connector ── */
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 0;
+            position: relative;
+        }
+
+        .flow-connector .line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+        }
+
+        .flow-connector .arrow {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .flow-connector .arrow svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--purple-400);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: bounce-down 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce-down {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(3px);
+            }
+        }
+
+        /* ── VSL Section ── */
+        .vsl-section {
+            text-align: center;
+            margin: 60px 0 120px;
+            animation: fadeUp 1s ease-out both;
+        }
+
+        .vsl-headline {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            aspect-ratio: 16 / 9;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-container:hover {
+            transform: scale(1.005);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 80px rgba(139, 92, 246, 0.2);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, var(--bg-card-hover), var(--bg-card));
+        }
+
+        .play-button {
+            width: 90px;
+            height: 90px;
+            background: var(--purple-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 30px var(--purple-600));
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container:hover .play-button {
+            transform: scale(1.15);
+            background: var(--purple-500);
+        }
+
+        .quiz-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, var(--purple-500), var(--fuchsia-500));
+            color: white;
+            padding: 24px 56px;
+            border-radius: 100px;
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-cta:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .quiz-cta svg {
+            transition: transform 0.3s;
+        }
+
+        .quiz-cta:hover svg {
+            transform: translateX(6px);
+        }
+
+        /* ── Proof Section ── */
+        .proof-section {
+            margin: 100px 0;
+            padding: 60px;
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.8s ease-out both;
+        }
+
+        .proof-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .proof-header h2 {
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, var(--emerald-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: rgba(7, 6, 14, 0.6);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--emerald-400);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--emerald-400);
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .case-card {
+            background: rgba(13, 11, 26, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--purple-400);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-card-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .case-card-content {
+            padding: 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--emerald-400);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .case-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .case-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .case-stats {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 20px;
+        }
+
+        .case-stat-item .val {
+            display: block;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .case-stat-item .lbl {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .case-study-visuals {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 32px;
+            align-items: center;
+            background: rgba(13, 11, 26, 0.4);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .case-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .case-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-image-wrapper:hover .case-image {
+            transform: scale(1.05);
+        }
+
+        .case-content h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        .case-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .case-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .case-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .case-list li svg {
+            color: var(--emerald-400);
+            flex-shrink: 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        /* ── Feedback loop ── */
+        .feedback-loop {
+            margin-top: 40px;
+            padding: 28px 32px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(139, 92, 246, 0.05), rgba(217, 70, 239, 0.05));
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .feedback-loop .loop-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            animation: spin-slow 6s linear infinite;
+        }
+
+        .loop-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--cyan-400);
+            margin-bottom: 4px;
+        }
+
+        .loop-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .loop-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .loop-tag {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Parallel Channels ── */
+        .parallel-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .parallel-section {
+            background: rgba(13, 11, 26, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .parallel-section .section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .parallel-section .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+
+        .mini-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: all 0.3s;
+        }
+
+        .mini-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+
+        .mini-card .mc-icon {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .mini-card .mc-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mini-card .mc-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 2px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .footer .brand {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--purple-400), var(--fuchsia-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 900px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-study-visuals {
+                grid-template-columns: 1fr;
+            }
+
+            .parallel-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient"></div>
+    <div class="noise"></div>
+    <div class="container"><!-- Header -->
+        <header class="header">
+            <div class="badge"><span class="dot"></span>Fully Automated System</div>
+            <h1>The AI Ad System</h1>
+            <p>From deep avatar research to revenue — every channel running in parallel,
+                optimised by AI,
+                24/7.</p>
+        </header><!-- VSL & CTA Section -->
+        <section class="vsl-section">
+            <h2 class="vsl-headline">Scale Your Business With Automated <br>AI Creative Systems</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-button"><svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+                            <path d="M8 5v14l11-7z" />
+                        </svg></div>
+                </div>
+            </div><a href="quiz-funnel.html" class="quiz-cta">Start Growth Assessment <svg width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg></a>
+        </section>
+        <!-- ═══════════════════════════════════════ --><!-- MISSIONS DEPLOYED: PROVEN RESULTS --><!-- ═══════════════════════════════════════ -->
+        <section class="proof-section">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--emerald-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Missions Deployed</div>
+                <h2>Engineered for Market Dominance</h2>
+            </div><!-- Featured Case: HairMax -->
+            <div class="case-study-visuals">
+                <div class="case-image-wrapper"><img src="Results%20Screenshots/Shopify%20%C2%A32.8M%20Results.png"
+                        alt="HairMax Results" class="case-image"></div>
+                <div class="case-content"><span class="case-tag">Scale Mission: HairMax</span>
+                    <h3>+160% Revenue Growth for Legacy Brand</h3>
+                    <p>HairMax was stuck at a creative plateau. We installed the end-to-end system—from deep avatar
+                        research to automated Klaviyo flows—generating £2.8M in revenue with 100% automated P&L
+                        intelligence.</p>
+                    <ul class="case-list">
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>AI-Forge generated 24+high-converting variants</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>SMS & Email added £470K+backend revenue</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>SPINE connected for real-time SKU profitability</li>
+                    </ul>
+                </div>
+            </div><!-- Secondary Cases Grid -->
+            <div class="case-study-grid"><!-- PCP Case -->
+                <div class="case-card"><img src="Ad%20Creative/Get%20My%20Claim/PCP%20Ad%20Creative%201.png"
+                        alt="Legal Tech Deployment" class="case-card-image">
+                    <div class="case-card-content"><span class="case-tag">Lead-Gen Mission: PCP Claims</span>
+                        <h3>17,
+                            000+Claimants in 5 Months</h3>
+                        <p>Bespoke frontend engineering integrated with DVLA APIs to auto-fill registration data,
+                            capturing 7,
+                            000+digital signatures and 4,
+                            000 IDs automatically.</p>
+                        <div class="case-stats">
+                            <div class="case-stat-item"><span class="val">17K</span><span class="lbl">Claimants</span>
+                            </div>
+                            <div class="case-stat-item"><span class="val">DVLA</span><span class="lbl">API Sync</span>
+                            </div>
+                            <div class="case-stat-item"><span class="val">7K+</span><span class="lbl">Signatures</span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- DREAMSILK Case -->
+                <div class="case-card"><img src="Ad%20Creative/DREAMSILK/DREAMSILK%20Hero%20Image.png"
+                        alt="DREAMSILK Brand Launch" class="case-card-image">
+                    <div class="case-card-content"><span class="case-tag">Brand Launch: DREAMSILK</span>
+                        <h3>Scoring E-com Success From Zero</h3>
+                        <p>End-to-end brand creation,
+                            product sourcing,
+                            and multi-channel marketing. Scaled to £300K+revenue with a 17% repeat customer rate via
+                            SMS/Push loops.</p>
+                        <div class="case-stats">
+                            <div class="case-stat-item"><span class="val">£300K+</span><span class="lbl">Revenue</span>
+                            </div>
+                            <div class="case-stat-item"><span class="val">17%</span><span class="lbl">Repeat Rate</span>
+                            </div>
+                            <div class="case-stat-item"><span class="val">0→1</span><span class="lbl">Genesis</span>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- Result Card -->
+                <div class="case-card"
+                    style="border-style: dashed; background: transparent; justify-content: center; align-items: center; padding: 40px; text-align: center;">
+                    <h3 style="margin-bottom: 20px;">Your Brand is Next</h3>
+                    <p>We install the system. You pull the trigger. Every channel optimised 24/7.</p><a
+                        href="quiz-funnel.html" class="cta-button"
+                        style="background: var(--purple-500); width: 100%; justify-content: center;">Start Assessment
+                        →</a>
+                </div>
+            </div>
+        </section><!-- ═══════════════════════════════════════ --><!-- PHASE 1: DEEP RESEARCH -->
+        <div class="phase phase--research">
+            <div class="phase-header">
+                <div class="phase-number">01</div>
+                <div>
+                    <div class="phase-title">Deep Avatar Research</div>
+                    <div class="phase-subtitle">AI-powered market intelligence & customer profiling</div>
+                </div>
+            </div>
+            <div class="cards cards--5">
+                <div class="card card--cyan"><span class="card-icon">🔬</span>
+                    <div class="card-name">ICP Deep Dive</div>
+                    <div class="card-detail">Pain points · desires · objections · buying triggers</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">⭐</span>
+                    <div class="card-name">Review Mining</div>
+                    <div class="card-detail">Trustpilot · Amazon · G2 · Reddit sentiment</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🏪</span>
+                    <div class="card-name">Site & Product Analysis</div>
+                    <div class="card-detail">Sitemap scraping · PDP data · brand voice extraction</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🕵️</span>
+                    <div class="card-name">Competitor Intel</div>
+                    <div class="card-detail">Ad library · creative swipes · positioning gaps</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🧠</span>
+                    <div class="card-name">Brand Node Build</div>
+                    <div class="card-detail">AI knowledge base · tone · assets · testimonials</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Research feeds creative briefs </div>
+        </div><!-- PHASE 2: AI CREATIVE GENERATION -->
+        <div class="phase phase--creative">
+            <div class="phase-header">
+                <div class="phase-number">02</div>
+                <div>
+                    <div class="phase-title">AI Creative Generation</div>
+                    <div class="phase-subtitle">Unlimited assets produced at scale from brand node</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--fuchsia"><span class="card-icon">🎬</span>
+                    <div class="card-name">AI Video</div>
+                    <div class="card-detail">Sora 2 · Veo 3 · Kling · Runway</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🗣️</span>
+                    <div class="card-name">AI UGC Avatars</div>
+                    <div class="card-detail">Talking heads · testimonials · unboxings</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🖼️</span>
+                    <div class="card-name">AI Image</div>
+                    <div class="card-detail">Midjourney · Flux · Ideogram · SD</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🎙️</span>
+                    <div class="card-name">AI Voice & Sound</div>
+                    <div class="card-detail">ElevenLabs · voice cloning · SFX</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Assets flow into storyboards & ad concepts </div>
+        </div><!-- PHASE 3: STORYBOARDS & AD CONCEPTS -->
+        <div class="phase phase--concepts">
+            <div class="phase-header">
+                <div class="phase-number">03</div>
+                <div>
+                    <div class="phase-title">Storyboards & Ad Concepts</div>
+                    <div class="phase-subtitle">AI builds ad variations mapped to avatar pain points</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--purple"><span class="card-icon">📐</span>
+                    <div class="card-name">Hook Frameworks</div>
+                    <div class="card-detail">Pattern interrupt · curiosity · authority · UGC-style</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">✍️</span>
+                    <div class="card-name">AI Ad Copy</div>
+                    <div class="card-detail">Headlines · body · CTAs · mapped to ICP pain points</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">🎞️</span>
+                    <div class="card-name">Video Storyboards</div>
+                    <div class="card-detail">Scene-by-scene · timing · hook-story-offer structure</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">🧪</span>
+                    <div class="card-name">Creative Variants</div>
+                    <div class="card-detail">3+angles per concept · A/B test ready</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Deployed across all channels simultaneously </div>
+        </div><!-- PHASE 4: OMNICHANNEL AD DEPLOYMENT -->
+        <div class="phase phase--deploy">
+            <div class="phase-header">
+                <div class="phase-number">04</div>
+                <div>
+                    <div class="phase-title">Omnichannel Ad Deployment</div>
+                    <div class="phase-subtitle">All channels running in parallel — AI manages budget & creative</div>
+                </div>
+            </div>
+            <div class="parallel-wrapper">
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">📘</span>Facebook &
+                        Instagram </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">🎯</div>
+                            <div class="mc-name">Paid Ads</div>
+                            <div class="mc-sub">Image · Video · Carousel</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🔄</div>
+                            <div class="mc-name">Retargeting</div>
+                            <div class="mc-sub">Dynamic creative</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">👥</div>
+                            <div class="mc-name">Lookalikes</div>
+                            <div class="mc-sub">AI audience build</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">🔍</span>Google &
+                        Bing </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">🔎</div>
+                            <div class="mc-name">Search Ads</div>
+                            <div class="mc-sub">Intent-based PPC</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">📺</div>
+                            <div class="mc-name">YouTube</div>
+                            <div class="mc-sub">AI video pre-roll</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🌐</div>
+                            <div class="mc-name">Display</div>
+                            <div class="mc-sub">GDN retargeting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parallel-wrapper">
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">🎵</span>TikTok &
+                        Social </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">📱</div>
+                            <div class="mc-name">TikTok Ads</div>
+                            <div class="mc-sub">UGC-style native</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">📣</div>
+                            <div class="mc-name">Organic Posts</div>
+                            <div class="mc-sub">AI-generated content</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">📝</div>
+                            <div class="mc-name">AI Blogs</div>
+                            <div class="mc-sub">SEO content engine</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">📧</span>Email &
+                        Direct </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">📧</div>
+                            <div class="mc-name">Klaviyo Flows</div>
+                            <div class="mc-sub">AI email sequences</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">💬</div>
+                            <div class="mc-name">WhatsApp</div>
+                            <div class="mc-sub">Broadcast campaigns</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">📨</div>
+                            <div class="mc-name">Direct Mail</div>
+                            <div class="mc-sub">AI personalised</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Prospects captured across all touchpoints </div>
+        </div><!-- PHASE 5: LEAD CAPTURE -->
+        <div class="phase phase--capture">
+            <div class="phase-header">
+                <div class="phase-number">05</div>
+                <div>
+                    <div class="phase-title">AI Lead Capture & Bespoke Forms</div>
+                    <div class="phase-subtitle">High-fidelity data capture with deep API integrations</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--emerald"><span class="card-icon">📋</span>
+                    <div class="card-name">FB Lead Forms</div>
+                    <div class="card-detail">Instant capture · auto CRM sync · GHL pipeline</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">🌐</span>
+                    <div class="card-name">Bespoke Lead Systems</div>
+                    <div class="card-detail">Custom forms · DVLA/API integration · ID verification</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">💬</span>
+                    <div class="card-name">AI Chat Qualification</div>
+                    <div class="card-detail">Chatbot pre-qualifies · books calls · segments</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">🛒</span>
+                    <div class="card-name">Checkout & Booking</div>
+                    <div class="card-detail">Optimised conversion · upsells · scheduling</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Leads enter multi-channel nurture </div>
+        </div><!-- PHASE 6: NURTURE & FOLLOW-UP -->
+        <div class="phase phase--nurture">
+            <div class="phase-header">
+                <div class="phase-number">06</div>
+                <div>
+                    <div class="phase-title">AI Nurture & Follow-Up</div>
+                    <div class="phase-subtitle">All channels firing simultaneously — 24/7 automated pursuit</div>
+                </div>
+            </div>
+            <div class="cards cards--6">
+                <div class="card card--rose"><span class="card-icon">📧</span>
+                    <div class="card-name">AI Emails</div>
+                    <div class="card-detail">Klaviyo · GHL sequences</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">📱</span>
+                    <div class="card-name">AI SMS</div>
+                    <div class="card-detail">GHL campaigns</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">📞</span>
+                    <div class="card-name">AI Voice Calls</div>
+                    <div class="card-detail">ElevenLabs · Vapi</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">🎯</span>
+                    <div class="card-name">Retargeting Ads</div>
+                    <div class="card-detail">Dynamic creative</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">💬</span>
+                    <div class="card-name">WhatsApp</div>
+                    <div class="card-detail">Automated follow-up</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">🤖</span>
+                    <div class="card-name">AI Chatbot</div>
+                    <div class="card-detail">Objection handling</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Performance data flows back </div>
+        </div><!-- PHASE 7: FEEDBACK LOOP -->
+        <div class="phase phase--loop">
+            <div class="phase-header">
+                <div class="phase-number">07</div>
+                <div>
+                    <div class="phase-title">Performance Intelligence & Feedback Loop</div>
+                    <div class="phase-subtitle">AI analyses everything — optimises the entire system automatically</div>
+                </div>
+            </div>
+            <div class="cards cards--3">
+                <div class="card card--cyan"><span class="card-icon">🧠</span>
+                    <div class="card-name">SPINE Analysis</div>
+                    <div class="card-detail">Real-time profitability · decision trees · MER tracking</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">📊</span>
+                    <div class="card-name">Automated Reporting</div>
+                    <div class="card-detail">Performance DB · client dashboards · KPI alerts</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🔄</span>
+                    <div class="card-name">AI Optimisation Engine</div>
+                    <div class="card-detail">New briefs generated · winning angles scaled · losers killed</div>
+                </div>
+            </div>
+        </div><!-- Feedback Loop Banner -->
+        <div class="feedback-loop">
+            <div class="loop-icon">🔁</div>
+            <div class="loop-content">
+                <h3>Continuous Feedback Loop</h3>
+                <p>Performance data feeds back into deep research & brand node — AI generates new creative briefs from
+                    winning patterns,
+                    scales top performers,
+                    kills underperformers,
+                    and evolves the entire system automatically.</p>
+                <div class="loop-tags"><span class="loop-tag">Winner Scaling</span><span class="loop-tag">New Brief
+                        Generation</span><span class="loop-tag">Audience Refinement</span><span
+                        class="loop-tag">Creative Iteration</span><span class="loop-tag">Budget Reallocation</span>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p><span class="brand">CR8OR</span>— The AI Ad System</p>
+        </footer>
+    </div>
+</body>
+
+</html>
