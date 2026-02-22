@@ -1427,46 +1427,268 @@
             line-height: 1.6;
         }
 
-        /* ── Bonuses ── */
-        .bonuses-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 40px 0;
-        }
-
-        .bonus-card {
-            background: linear-gradient(135deg, rgba(217, 70, 239, 0.1), rgba(139, 92, 246, 0.1));
-            border: 1px solid var(--fuchsia-400);
-            border-radius: 20px;
-            padding: 32px;
-            text-align: left;
+        /* ── iPhone Mockup Styling ── */
+        .iphone-mockup-container {
             position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            aspect-ratio: 0.5;
         }
 
-        .bonus-badge {
+        .iphone-mockup-container .iphone-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow:
+                0 0 0 3px #333,
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .iphone-frame {
+            transform: scale(1.02);
+        }
+
+        .iphone-mockup-container .iphone-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 42px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .iphone-mockup-container .notch {
             position: absolute;
-            top: -12px;
-            right: 20px;
-            background: var(--fuchsia-500);
-            padding: 4px 12px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 800;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .bonus-card h4 {
-            font-size: 20px;
-            margin-bottom: 12px;
+        .iphone-mockup-container .notch::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 42px;
+            overflow: hidden;
+        }
+
+        .iphone-mockup-container .mockup-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 42px;
+        }
+
+        .iphone-mockup-container .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .iphone-mockup-container .side-button {
+            position: absolute;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .volume-up {
+            top: 120px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .volume-down {
+            top: 170px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .power-button {
+            top: 140px;
+            right: -4px;
+            width: 8px;
+            height: 60px;
+        }
+
+        .iphone-mockup-container .youtube-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 10px 15px 15px;
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .youtube-controls {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .progress-container-yt {
+            margin-bottom: 8px;
+        }
+
+        .iphone-mockup-container .progress-bar-yt {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .progress-fill-yt {
+            height: 100%;
+            background: #ff0000;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .iphone-mockup-container .progress-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            left: 0%;
+        }
+
+        .iphone-mockup-container .progress-bar-yt:hover .progress-handle {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .iphone-mockup-container .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .iphone-mockup-container .yt-btn {
+            background: none;
+            border: none;
             color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
         }
 
-        .bonus-value {
-            color: var(--fuchsia-400);
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: uppercase;
+        .iphone-mockup-container .yt-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
+
+        .iphone-mockup-container .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .iphone-mockup-container .volume-slider-wrapper {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease;
+        }
+
+        .iphone-mockup-container .volume-control:hover .volume-slider-wrapper {
+            width: 50px;
+        }
+
+        .iphone-mockup-container .volume-slider-yt {
+            width: 50px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .volume-slider-yt::-webkit-slider-thumb {
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .time-display {
+            color: white;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .iphone-mockup-container {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iphone-mockup-container {
+                max-width: 200px;
+            }
+
+            .iphone-mockup-container .notch {
+                width: 100px;
+                height: 20px;
+            }
+        }
+    </style>
     </style>
 </head>
 
@@ -1490,18 +1712,127 @@
                     <div class="play-button"><svg width="40" height="40" viewBox="0 0 24 24" fill="white">
                             <path d="M8 5v14l11-7z" />
                         </svg></div>
-                </div>
+                    <div style="margin-top: 40px; text-align: center;">
+                        <p
+                            style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 20px;">
+                            Brands Powered By Our Systems</p>
+                        <img src="Landing%20Page/Brands%20We've%20Worked%20With.png" alt="Brands we've worked with"
+                            style="max-width: 800px; width: 100%; opacity: 0.8; filter: brightness(0) invert(1);">
+                    </div>
+
+                    <div
+                        style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 40px;">
+                        <a href="#pricing" class="quiz-cta">Get Instant Access For £27 <svg width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg></a>
+                        <p
+                            style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">
+                            100% Risk Free — 60 Day money back guarantee</p>
+                    </div>
+        </section>
+
+        <!-- 📸 REAL UGC SHOWCASE -->
+        <section class="ugc-showcase" style="margin: 80px 0; text-align: center; animation: fadeUp 0.8s ease-out both;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--fuchsia-400);">Real Results — Not AI</div>
+                <h2>Battle-Tested UGC Performance</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 20px auto;">While our AI systems are
+                    revolutionary, we also deploy high-performance human UGC. Here are a few examples of the styles we
+                    model our AI after.</p>
             </div>
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 16px;">
-                <a href="#pricing" class="quiz-cta">Get Instant Access For £27 <svg width="24" height="24"
-                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg></a>
-                <p
-                    style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">
-                    100% Risk Free — 60 Day money back guarantee</p>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px;">
+                <!-- Block 1 -->
+                <div
+                    style="background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border);">
+                    <video id="ugc-video-1" src="https://d1uylimwm3s9zq.cloudfront.net/Tiktoks/Untitled+design+(3).mp4"
+                        autoplay loop muted playsinline
+                        style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover;"></video>
+                </div>
+
+                <!-- Block 2 (iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/Naked+Sunday+Example+.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 3 (iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/ac34dc93-e8ee-49e6-bb85-91029aa5f033.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section> <!-- ⚔️ THE CR8OR AI ARSENAL -->
         <section class="ai-arsenal-wrapper" style="animation: fadeUp 0.8s ease-out both;">
@@ -2207,10 +2538,7 @@
         <!-- 👨‍💻 FOUNDER SECTION -->
         <section class="founder-section">
             <div class="founder-image-wrapper">
-                <div
-                    style="aspect-ratio: 1/1; background: var(--bg-card-hover); border-radius: 24px; display: flex; align-items: center; justify-content: center; font-size: 64px;">
-                    👤</div>
-                <!-- <img src="james-parry.jpg" alt="James Parry" class="founder-image"> -->
+                <img src="Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image">
             </div>
             <div class="founder-content">
                 <div class="header-badge"
@@ -2226,6 +2554,39 @@
             </div>
         </section>
 
+        <!-- 💬 WHATSAPP RESULTS SECTION -->
+        <section class="whatsapp-results" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--emerald-400);">From the Frontlines</div>
+                <h2>Client Wins & Daily Logs</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 20px auto;">Real conversations with
+                    real clients seeing massive growth using the system.</p>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 60px;">
+                <div style="background: var(--bg-card); padding: 10px; border-radius: 20px; border: 1px solid var(--border); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="Case%20Studies/Results/TikTok%20Leads%20%C2%A35.87%20CPL.png" alt="TikTok Results"
+                        style="width: 100%; border-radius: 12px;">
+                </div>
+                <div style="background: var(--bg-card); padding: 10px; border-radius: 20px; border: 1px solid var(--border); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="Case%20Studies/Results/%C2%A34K%20Daily%20Spend%2C%20%C2%A330%20CPA%20for%20Sim%20Card.png"
+                        alt="Daily Spend Results" style="width: 100%; border-radius: 12px;">
+                </div>
+                <div style="background: var(--bg-card); padding: 10px; border-radius: 20px; border: 1px solid var(--border); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="Case%20Studies/Results/Black%20Friday%20Pump.png" alt="Black Friday Results"
+                        style="width: 100%; border-radius: 12px;">
+                </div>
+                <div style="background: var(--bg-card); padding: 10px; border-radius: 20px; border: 1px solid var(--border); transition: transform 0.3s;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="Case%20Studies/Results/PCP%20Leads%20%C2%A39%20Per%20E-Sign%2C%20%C2%A319%20ID%2C%20%C2%A371%20Docs%20Uploaded.png"
+                        alt="PCP Results" style="width: 100%; border-radius: 12px;">
+                </div>
+            </div>
+        </section>
+
         <!-- 💰 PRICING SECTION -->
         <section id="pricing" class="pricing-section">
             <div class="proof-header">
@@ -2238,7 +2599,11 @@
                 <p style="color: var(--purple-300); font-weight: 700; margin-top: 10px;">One-time payment. Instant
                     access.</p>
             </div>
-            <a href="https://buy.stripe.com/example" class="quiz-cta">Get Instant Access Now</a>
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <a href="https://buy.stripe.com/example" class="quiz-cta">Get Instant Access Now</a>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg"
+                    alt="Stripe" style="height: 25px; opacity: 0.6;">
+            </div>
 
             <div class="guarantee-box">
                 <h3>Our Insane "Double Your Money" Guarantee</h3>
@@ -2319,13 +2684,88 @@
             });
         });
 
-        // Initialize FAQ (hide all answers except a default one if needed)
-        document.querySelectorAll('.faq-answer').forEach(answer => {
-            answer.style.display = 'none';
+        // iPhone Mockup Logic
+        document.addEventListener('DOMContentLoaded', function () {
+            const containers = document.querySelectorAll('.iphone-mockup-container');
+
+            containers.forEach(function (container) {
+                const videoUrl = container.getAttribute('data-video');
+                if (!videoUrl) return;
+
+                const video = container.querySelector('.mockup-video');
+                const playPauseBtn = container.querySelector('.play-pause-yt');
+                const playIcon = container.querySelector('.play-icon');
+                const volumeBtn = container.querySelector('.volume-btn');
+                const volumeIcon = container.querySelector('.volume-icon');
+                const volumeSlider = container.querySelector('.volume-slider-yt');
+                const progressBar = container.querySelector('.progress-bar-yt');
+                const progressFill = container.querySelector('.progress-fill-yt');
+                const progressHandle = container.querySelector('.progress-handle');
+                const timeDisplay = container.querySelector('.time-display');
+                const fullscreenBtn = container.querySelector('.fullscreen-btn');
+
+                video.src = videoUrl;
+
+                playPauseBtn.addEventListener('click', () => {
+                    if (video.paused) { video.play(); playIcon.textContent = '⏸️'; }
+                    else { video.pause(); playIcon.textContent = '▶️'; }
+                });
+
+                volumeBtn.addEventListener('click', () => {
+                    video.muted = !video.muted;
+                    updateVol();
+                    volumeSlider.value = video.muted ? 0 : video.volume;
+                });
+
+                volumeSlider.addEventListener('input', (e) => {
+                    video.volume = e.target.value;
+                    video.muted = e.target.value == 0;
+                    updateVol();
+                });
+
+                function updateVol() {
+                    if (video.muted || video.volume == 0) volumeIcon.textContent = '🔇';
+                    else if (video.volume < 0.5) volumeIcon.textContent = '🔉';
+                    else volumeIcon.textContent = '🔊';
+                }
+
+                video.addEventListener('timeupdate', () => {
+                    if (!video.duration) return;
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressFill.style.width = progress + '%';
+                    progressHandle.style.left = progress + '%';
+
+                    const curMin = Math.floor(video.currentTime / 60);
+                    const curSec = Math.floor(video.currentTime % 60);
+                    const durMin = Math.floor(video.duration / 60);
+                    const durSec = Math.floor(video.duration % 60);
+                    timeDisplay.textContent = `${curMin}:${curSec.toString().padStart(2, '0')} / ${durMin}:${durSec.toString().padStart(2, '0')}`;
+                });
+
+                progressBar.addEventListener('click', (e) => {
+                    const rect = progressBar.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    video.currentTime = percent * video.duration;
+                });
+
+                fullscreenBtn.addEventListener('click', () => {
+                    if (video.requestFullscreen) video.requestFullscreen();
+                    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+                });
+
+                video.addEventListener('canplay', () => {
+                    video.play().catch(() => playIcon.textContent = '▶️');
+                });
+
+                video.addEventListener('play', () => playIcon.textContent = '⏸️');
+                video.addEventListener('pause', () => playIcon.textContent = '▶️');
+                updateVol();
+            });
         });
-        document.querySelectorAll('.faq-question span').forEach(span => {
-            span.style.transition = 'transform 0.3s';
-        });
+
+        // Initialize FAQ
+        document.querySelectorAll('.faq-answer').forEach(answer => answer.style.display = 'none');
+        document.querySelectorAll('.faq-question span').forEach(span => span.style.transition = 'transform 0.3s');
     </script>
 </body>
 
