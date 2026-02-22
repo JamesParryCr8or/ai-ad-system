@@ -1690,36 +1690,29 @@
             }
         }
 
-        /* ── VSL Layout Fix ── */
         .vsl-grid {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto 60px;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 32px;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        @media (min-width: 900px) {
-            .vsl-grid {
-                padding: 40px;
-            }
+            padding: 0;
+            overflow: visible;
         }
 
         .vsl-video-box {
             width: 100%;
-            aspect-ratio: 1/1;
+            aspect-ratio: 16/9;
             background: #000;
-            border-radius: 20px;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            overflow: hidden;
         }
 
         .vsl-cta-box {
@@ -1728,6 +1721,44 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
+            width: 100%;
+        }
+
+        /* ── Sticky Bottom Bar ── */
+        .sticky-cta {
+            position: fixed;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 15px 20px;
+            z-index: 9999;
+            transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta .quiz-cta {
+            margin: 0;
+            max-width: 500px;
+            width: 100%;
+            padding: 18px 30px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .sticky-cta .quiz-cta span {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -1740,39 +1771,34 @@
             <h2 class="vsl-headline" style="font-size: clamp(32px, 5vw, 56px); margin-bottom: 40px;">The Ultimate
                 Revenue Multiplier: <br>Scale Your Business With The AI Ad System</h2>
             <div class="vsl-grid">
-                <div class="vsl-video-box" style="max-width: 800px;">
-                    <div class="play-button" style="position: absolute; z-index: 10;"><svg width="40" height="40"
+                <div class="vsl-video-box">
+                    <div class="play-button" style="position: absolute; z-index: 10;"><svg width="60" height="60"
                             viewBox="0 0 24 24" fill="white">
                             <path d="M8 5v14l11-7z" />
                         </svg></div>
                     <div
-                        style="width: 100%; height: 100%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-                        [VSL VIDEO IMAGE]
+                        style="width: 100%; height: 100%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 20px; font-weight: 600; letter-spacing: 0.1em;">
+                        [WATCH THE CASE STUDY VSL]
                     </div>
                 </div>
                 <div class="vsl-cta-box">
-                    <a href="#pricing" class="quiz-cta"
-                        style="max-width: 400px; width: 100%; padding: 30px 40px; border-radius: 20px;">
+                    <a href="quiz-funnel.html" class="quiz-cta"
+                        style="max-width: 450px; width: 100%; padding: 25px 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);">
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
-                            <span>GET INSTANT ACCESS FOR</span>
-                            <span style="font-size: 32px;">£27</span>
+                            <span style="letter-spacing: 0.1em;">START YOUR GROWTH ASSESSMENT</span>
+                            <span style="font-size: 14px; opacity: 0.8;">Launch AI Strategy Audit →</span>
                         </div>
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
                     </a>
                     <p
-                        style="font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7;">
+                        style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">
                         Risk Free — 60 Day Guarantee
                     </p>
                 </div>
             </div>
 
-            <div style="text-align: center; margin-top: 20px;">
+            <div style="text-align: center; margin-top: 40px;">
                 <p
-                    style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 15px; font-weight: 600;">
+                    style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 20px; font-weight: 600;">
                     Brands Powered By Our Systems</p>
                 <img src="Landing%20Page/Brands%20We've%20Worked%20With.png" alt="Brands we've worked with"
                     style="max-width: 600px; width: 100%; opacity: 0.6; filter: brightness(0) invert(1);">
@@ -2008,6 +2034,12 @@
                     <p>Our infrastructure matches your growth ambitions. Battle-tested, machine-optimized, and
                         model-agnostic.</p>
                 </div>
+                <div style="display: flex; justify-content: center; margin-top: 40px;">
+                    <a href="quiz-funnel.html" class="quiz-cta"
+                        style="max-width: 400px; padding: 20px 30px; border-radius: 12px;">
+                        START YOUR ASSESSMENT →
+                    </a>
+                </div>
             </div>
         </section>
 
@@ -2047,7 +2079,15 @@
                 </div>
             </div>
         </section>
-        <!-- 👨‍💻 FOUNDER SECTION -->
+
+        <div style="display: flex; justify-content: center; margin: 0 auto 80px;">
+            <a href="quiz-funnel.html" class="quiz-cta"
+                style="max-width: 500px; width: 100%; padding: 25px 40px; border-radius: 15px; text-align: center;">
+                <span style="display: block; font-size: 18px; letter-spacing: 0.1em;">GET THE FULL REVENUE SYSTEM</span>
+                <span style="display: block; font-size: 13px; opacity: 0.8; margin-top: 4px;">Start Your 30-Day
+                    Risk-Free Trial →</span>
+            </a>
+        </div>
         <section class="founder-section">
             <div class="founder-image-wrapper">
                 <img src="Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image">
@@ -2762,7 +2802,26 @@
                 updateVolumeIcon();
             });
         });
+
+        // Sticky Bottom Bar Logic
+        window.addEventListener('scroll', function () {
+            const stickyBar = document.getElementById('sticky-cta-bar');
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+            if (scrollPercent > 25) {
+                stickyBar.classList.add('visible');
+            } else {
+                stickyBar.classList.remove('visible');
+            }
+        });
     </script>
+
+    <!-- Sticky Bottom Bar -->
+    <div id="sticky-cta-bar" class="sticky-cta">
+        <a href="quiz-funnel.html" class="quiz-cta">
+            <span>START YOUR GROWTH ASSESSMENT</span>
+        </a>
+    </div>
 </body>
 
 </html>
