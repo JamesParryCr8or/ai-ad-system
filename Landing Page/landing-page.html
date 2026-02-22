@@ -1692,11 +1692,11 @@
 
         /* ── VSL Layout Fix ── */
         .vsl-grid {
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            flex-direction: column;
             gap: 40px;
             align-items: center;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto 60px;
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -1707,7 +1707,6 @@
 
         @media (min-width: 900px) {
             .vsl-grid {
-                grid-template-columns: 1fr 400px;
                 padding: 40px;
             }
         }
@@ -1734,21 +1733,14 @@
 </head>
 
 <body>
-    <div class="top-banner">⚡ LIMITED TIME: Get the Vibe Marketing AI Ad System for only £27! ⚡</div>
     <div class="ambient"></div>
     <div class="noise"></div>
-    <div class="container"><!-- Header -->
-        <header class="header" style="animation: fadeUp 0.6s ease-out both;">
-            <div class="badge"><span class="dot"></span>Limited Time Offer</div>
-            <h1>THE CR8OR AI AD SYSTEM</h1>
-            <p style="font-size: clamp(18px, 3vw, 24px); color: var(--text-secondary); margin-top: 10px;">Modus
-                Operandi: The Silent Growth Engine</p>
-        </header>
-
-        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both;">
-            <h2 class="vsl-headline">Scale Your Business With Automated <br>AI Creative System</h2>
+    <div class="container">
+        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both; padding-top: 80px;">
+            <h2 class="vsl-headline" style="font-size: clamp(32px, 5vw, 56px); margin-bottom: 40px;">The Ultimate
+                Revenue Multiplier: <br>Scale Your Business With The AI Ad System</h2>
             <div class="vsl-grid">
-                <div class="vsl-video-box">
+                <div class="vsl-video-box" style="max-width: 800px;">
                     <div class="play-button" style="position: absolute; z-index: 10;"><svg width="40" height="40"
                             viewBox="0 0 24 24" fill="white">
                             <path d="M8 5v14l11-7z" />
@@ -1760,7 +1752,7 @@
                 </div>
                 <div class="vsl-cta-box">
                     <a href="#pricing" class="quiz-cta"
-                        style="max-width: 100%; padding: 30px 40px; border-radius: 20px;">
+                        style="max-width: 400px; width: 100%; padding: 30px 40px; border-radius: 20px;">
                         <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
                             <span>GET INSTANT ACCESS FOR</span>
                             <span style="font-size: 32px;">£27</span>
@@ -1772,8 +1764,8 @@
                         </svg>
                     </a>
                     <p
-                        style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4;">
-                        100% RISK FREE — 60 DAY MONEY BACK GUARANTEE
+                        style="font-size: 10px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.7;">
+                        Risk Free — 60 Day Guarantee
                     </p>
                 </div>
             </div>
@@ -1787,11 +1779,7 @@
             </div>
         </section>
 
-        <!-- ⚔️ THE CR8OR AI ARSENAL -->
-        <section style="margin-bottom: 80px; animation: fadeUp 0.8s ease-out both;"><iframe
-                src="ai-arsenal-component.html" width="100%" height="950px" frameborder="0"
-                style="border-radius: 32px; border: 1px solid var(--border); box-shadow: 0 40px 100px rgba(0,0,0,0.5);"></iframe>
-        </section> <!-- ⚔️ THE CR8OR AI ARSENAL -->
+
 
         <!-- ⚔️ THE CR8OR AI ARSENAL -->
         <section class="ai-arsenal-wrapper" style="animation: fadeUp 0.8s ease-out both;">
@@ -2023,6 +2011,7 @@
             </div>
         </section>
 
+
         <!-- 🏢 INDUSTRIES WE SERVE -->
         <section class="industries-section" style="animation: fadeUp 0.8s ease-out both;">
             <div class="proof-header">
@@ -2056,6 +2045,24 @@
                 <div class="industry-card"><span class="industry-icon">⚙️</span>
                     <div class="industry-name">SaaS</div>
                 </div>
+            </div>
+        </section>
+        <!-- 👨‍💻 FOUNDER SECTION -->
+        <section class="founder-section">
+            <div class="founder-image-wrapper">
+                <img src="Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image">
+            </div>
+            <div class="founder-content">
+                <div class="header-badge"
+                    style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Meet the Founder</div>
+                <h2>Hey, I'm James Parry</h2>
+                <p>Over the last 10 years I have consulted with over 100 CPG & DTC brands to crack the code on scaling
+                    with performance ad creative, media buying, and CRM automation.</p>
+                <p>I created my own DTC brand, DREAMSILK, scaling to over 10,000 customers, and founded CR8OR to help
+                    other brands leverage the same systems.</p>
+                <p>Now I'm building a comprehensive suite of tools for brands & founders, focusing on AI-powered ad
+                    creative (CR8OR AI), CRM automation and real-time P/L reporting.</p>
             </div>
         </section>
         <!-- ═══════════════════════════════════════ --><!-- MISSIONS DEPLOYED: PROVEN RESULTS --><!-- ═══════════════════════════════════════ -->
@@ -2461,24 +2468,7 @@
 
 
 
-        <!-- 👨‍💻 FOUNDER SECTION -->
-        <section class="founder-section">
-            <div class="founder-image-wrapper">
-                <img src="Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image">
-            </div>
-            <div class="founder-content">
-                <div class="header-badge"
-                    style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
-                    Meet the Founder</div>
-                <h2>Hey, I'm James Parry</h2>
-                <p>Over the last 10 years I have consulted with over 100 CPG & DTC brands to crack the code on scaling
-                    with performance ad creative, media buying, and CRM automation.</p>
-                <p>I created my own DTC brand, DREAMSILK, scaling to over 10,000 customers, and founded CR8OR to help
-                    other brands leverage the same systems.</p>
-                <p>Now I'm building a comprehensive suite of tools for brands & founders, focusing on AI-powered ad
-                    creative (CR8OR AI), CRM automation and real-time P/L reporting.</p>
-            </div>
-        </section>
+
 
         <!-- 💬 WHATSAPP RESULTS SECTION -->
         <section class="whatsapp-results" style="margin: 120px 0; text-align: center;">
