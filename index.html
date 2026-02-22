@@ -1670,6 +1670,7 @@
             color: white;
             font-size: 11px;
             white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
         }
 
         @media (max-width: 768px) {
@@ -1688,7 +1689,47 @@
                 height: 20px;
             }
         }
-    </style>
+
+        /* ── VSL Layout Fix ── */
+        .vsl-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        @media (min-width: 900px) {
+            .vsl-grid {
+                grid-template-columns: 1fr 400px;
+                padding: 40px;
+            }
+        }
+
+        .vsl-video-box {
+            width: 100%;
+            aspect-ratio: 1/1;
+            background: #000;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .vsl-cta-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
     </style>
 </head>
 
@@ -1699,39 +1740,55 @@
     <div class="container"><!-- Header -->
         <header class="header" style="animation: fadeUp 0.6s ease-out both;">
             <div class="badge"><span class="dot"></span>Limited Time Offer</div>
-            <h1>Generate Viral UGC Ads <br>In Under 5 Minutes</h1>
-            <p>Steal the exact AI prompts, tools and workflows that created £5M+ in ad revenue.
-                Optimise every channel in parallel, 24/7.</p>
+            <h1>THE CR8OR AI AD SYSTEM</h1>
+            <p style="font-size: clamp(18px, 3vw, 24px); color: var(--text-secondary); margin-top: 10px;">Modus
+                Operandi: The Silent Growth Engine</p>
         </header><!-- VSL & CTA Section -->
-        <section class="vsl-section">
-            <h2 class="vsl-headline">"The #1 Way To Create Winning Ads <br>With AI For Only £27"</h2>
-            <p style="color: var(--text-secondary); margin-bottom: 30px; font-size: 18px;">If you DON'T get better
+        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both;">
+            <h2 class="vsl-headline" style="margin-bottom: 20px;">"The #1 Way To Create Winning Ads <br>With AI For Only
+                £27"</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 40px; font-size: 18px; text-align: center;">If you
+                DON'T get better
                 results in 7 days, get a full refund + £100 extra*</p>
-            <div class="video-container">
-                <div class="video-placeholder">
-                    <div class="play-button"><svg width="40" height="40" viewBox="0 0 24 24" fill="white">
+
+            <div class="vsl-grid">
+                <div class="vsl-video-box">
+                    <div class="play-button" style="position: absolute; z-index: 10;"><svg width="40" height="40"
+                            viewBox="0 0 24 24" fill="white">
                             <path d="M8 5v14l11-7z" />
                         </svg></div>
-                    <div style="margin-top: 40px; text-align: center;">
-                        <p
-                            style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 20px;">
-                            Brands Powered By Our Systems</p>
-                        <img src="Landing%20Page/Brands%20We've%20Worked%20With.png" alt="Brands we've worked with"
-                            style="max-width: 800px; width: 100%; opacity: 0.8; filter: brightness(0) invert(1);">
-                    </div>
-
                     <div
-                        style="display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: 40px;">
-                        <a href="#pricing" class="quiz-cta">Get Instant Access For £27 <svg width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg></a>
-                        <p
-                            style="font-size: 12px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;">
-                            100% Risk Free — 60 Day money back guarantee</p>
+                        style="width: 100%; height: 100%; background: #1a1a1a; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+                        [VSL VIDEO IMAGE]
                     </div>
+                </div>
+                <div class="vsl-cta-box">
+                    <a href="#pricing" class="quiz-cta"
+                        style="max-width: 100%; padding: 30px 40px; border-radius: 20px;">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+                            <span>GET INSTANT ACCESS FOR</span>
+                            <span style="font-size: 32px;">£27</span>
+                        </div>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </a>
+                    <p
+                        style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.4;">
+                        100% RISK FREE — 60 DAY MONEY BACK GUARANTEE
+                    </p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <p
+                    style="color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 15px; font-weight: 600;">
+                    Brands Powered By Our Systems</p>
+                <img src="Landing%20Page/Brands%20We've%20Worked%20With.png" alt="Brands we've worked with"
+                    style="max-width: 600px; width: 100%; opacity: 0.6; filter: brightness(0) invert(1);">
+            </div>
         </section>
 
         <!-- 📸 REAL UGC SHOWCASE -->
@@ -1746,12 +1803,46 @@
 
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px;">
-                <!-- Block 1 -->
-                <div
-                    style="background: var(--bg-card); border-radius: 24px; padding: 20px; border: 1px solid var(--border);">
-                    <video id="ugc-video-1" src="https://d1uylimwm3s9zq.cloudfront.net/Tiktoks/Untitled+design+(3).mp4"
-                        autoplay loop muted playsinline
-                        style="width: 100%; height: 100%; border-radius: 16px; object-fit: cover;"></video>
+                <!-- Block 1 (New iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/new-video4.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline>
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Block 2 (iPhone Mockup) -->
@@ -2587,61 +2678,7 @@
             </div>
         </section>
 
-        <!-- 💰 PRICING SECTION -->
-        <section id="pricing" class="pricing-section">
-            <div class="proof-header">
-                <h2>Ready to Create Viral Ads?</h2>
-                <p style="color: var(--text-secondary); margin-top: 10px;">Get the full system + all bonuses today</p>
-            </div>
-            <div class="price-box">
-                <span class="old-price">Value £318</span>
-                <span class="new-price">£27</span>
-                <p style="color: var(--purple-300); font-weight: 700; margin-top: 10px;">One-time payment. Instant
-                    access.</p>
-            </div>
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-                <a href="https://buy.stripe.com/example" class="quiz-cta">Get Instant Access Now</a>
-                <img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg"
-                    alt="Stripe" style="height: 25px; opacity: 0.6;">
-            </div>
-
-            <div class="guarantee-box">
-                <h3>Our Insane "Double Your Money" Guarantee</h3>
-                <p style="font-size: 15px; line-height: 1.6; color: var(--text-primary);">If our AI ad system doesn't
-                    improve your results in 7 days, we'll give you a full refund <strong>plus £100 for your
-                        time</strong>.*</p>
-                <p style="font-size: 12px; color: var(--text-secondary); margin-top: 12px;">*Subject to terms and
-                    conditions below. We're that confident it works.</p>
-            </div>
-        </section>
-
-        <!-- ❓ FAQ SECTION -->
-        <section class="faq-section">
-            <div class="proof-header" style="margin-bottom: 40px;">
-                <h2>Frequently Asked Questions</h2>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">What exactly am I getting? <span>▼</span></div>
-                <div class="faq-answer">You're getting the complete AI Ad System prompts, workflows, and templates we
-                    use to scale brands to £1M+ in ad spend. This includes video scripts, image prompts, and hook
-                    frameworks.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Do these work with other AI tools? <span>▼</span></div>
-                <div class="faq-answer">Yes! Our prompts are designed to be tool-agnostic, working flawlessly with
-                    Midjourney, Sora, Flux, ElevenLabs, and more.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How quickly will I receive this? <span>▼</span></div>
-                <div class="faq-answer">Instantly. As soon as your purchase is complete, you'll receive a link to the
-                    digital assets and training.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Is there a guarantee? <span>▼</span></div>
-                <div class="faq-answer">Yes, we offer a 60-day money-back guarantee if you're not satisfied, plus our
-                    special 7-day performance guarantee.</div>
-            </div>
-        </section>
+        <!-- Deleted Pricing & FAQ as requested -->
 
         <footer class="footer">
             <p><span class="brand">CR8OR</span> — The AI Ad System</p>
@@ -2663,35 +2700,22 @@
     </div>
 
     <script>
-        // FAQ Toggle Logic
-        document.querySelectorAll('.faq-question').forEach(button => {
-            button.addEventListener('click', () => {
-                const faqItem = button.parentElement;
-                const isOpen = faqItem.classList.contains('active');
-
-                // Close all other FAQ items
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    item.classList.remove('active');
-                    item.querySelector('.faq-answer').style.display = 'none';
-                    item.querySelector('span').style.transform = 'rotate(0deg)';
-                });
-
-                if (!isOpen) {
-                    faqItem.classList.add('active');
-                    faqItem.querySelector('.faq-answer').style.display = 'block';
-                    button.querySelector('span').style.transform = 'rotate(180deg)';
-                }
-            });
-        });
-
-        // iPhone Mockup Logic
+        // Smart iPhone Mockup - Auto-generates unique IDs from video filename
         document.addEventListener('DOMContentLoaded', function () {
+            // Find all iPhone mockup containers
             const containers = document.querySelectorAll('.iphone-mockup-container');
 
             containers.forEach(function (container) {
                 const videoUrl = container.getAttribute('data-video');
                 if (!videoUrl) return;
 
+                // Extract filename from URL
+                const parts = videoUrl.split('/');
+                const filename = parts[parts.length - 1];
+
+                console.log('Initializing iPhone mockup for:', filename);
+
+                // Set up all elements within this container
                 const video = container.querySelector('.mockup-video');
                 const playPauseBtn = container.querySelector('.play-pause-yt');
                 const playIcon = container.querySelector('.play-icon');
@@ -2704,68 +2728,99 @@
                 const timeDisplay = container.querySelector('.time-display');
                 const fullscreenBtn = container.querySelector('.fullscreen-btn');
 
+                // Set video source
                 video.src = videoUrl;
 
-                playPauseBtn.addEventListener('click', () => {
-                    if (video.paused) { video.play(); playIcon.textContent = '⏸️'; }
-                    else { video.pause(); playIcon.textContent = '▶️'; }
+                // Exit if any elements are missing
+                if (!video || !playPauseBtn) return;
+
+                // Play/Pause functionality
+                playPauseBtn.addEventListener('click', function () {
+                    if (video.paused) {
+                        video.play();
+                        playIcon.textContent = '⏸️';
+                    } else {
+                        video.pause();
+                        playIcon.textContent = '▶️';
+                    }
                 });
 
-                volumeBtn.addEventListener('click', () => {
+                // Volume control
+                volumeBtn.addEventListener('click', function () {
                     video.muted = !video.muted;
-                    updateVol();
+                    updateVolumeIcon();
                     volumeSlider.value = video.muted ? 0 : video.volume;
                 });
 
-                volumeSlider.addEventListener('input', (e) => {
-                    video.volume = e.target.value;
-                    video.muted = e.target.value == 0;
-                    updateVol();
+                volumeSlider.addEventListener('input', function () {
+                    video.volume = this.value;
+                    video.muted = this.value == 0;
+                    updateVolumeIcon();
                 });
 
-                function updateVol() {
-                    if (video.muted || video.volume == 0) volumeIcon.textContent = '🔇';
-                    else if (video.volume < 0.5) volumeIcon.textContent = '🔉';
-                    else volumeIcon.textContent = '🔊';
+                function updateVolumeIcon() {
+                    if (video.muted || video.volume == 0) {
+                        volumeIcon.textContent = '🔇';
+                    } else if (video.volume < 0.5) {
+                        volumeIcon.textContent = '🔉';
+                    } else {
+                        volumeIcon.textContent = '🔊';
+                    }
                 }
 
-                video.addEventListener('timeupdate', () => {
+                // Progress bar and time display
+                video.addEventListener('timeupdate', function () {
                     if (!video.duration) return;
+
                     const progress = (video.currentTime / video.duration) * 100;
                     progressFill.style.width = progress + '%';
                     progressHandle.style.left = progress + '%';
 
-                    const curMin = Math.floor(video.currentTime / 60);
-                    const curSec = Math.floor(video.currentTime % 60);
-                    const durMin = Math.floor(video.duration / 60);
-                    const durSec = Math.floor(video.duration % 60);
-                    timeDisplay.textContent = `${curMin}:${curSec.toString().padStart(2, '0')} / ${durMin}:${durSec.toString().padStart(2, '0')}`;
+                    // Update time display
+                    const currentMin = Math.floor(video.currentTime / 60);
+                    const currentSec = Math.floor(video.currentTime % 60);
+                    const durationMin = Math.floor(video.duration / 60);
+                    const durationSec = Math.floor(video.duration % 60);
+
+                    timeDisplay.textContent = `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${durationMin}:${durationSec.toString().padStart(2, '0')}`;
                 });
 
-                progressBar.addEventListener('click', (e) => {
+                progressBar.addEventListener('click', function (e) {
                     const rect = progressBar.getBoundingClientRect();
                     const percent = (e.clientX - rect.left) / rect.width;
                     video.currentTime = percent * video.duration;
                 });
 
-                fullscreenBtn.addEventListener('click', () => {
-                    if (video.requestFullscreen) video.requestFullscreen();
-                    else if (video.webkitRequestFullscreen) video.webkitRequestFullscreen();
+                // Fullscreen functionality
+                fullscreenBtn.addEventListener('click', function () {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    }
                 });
 
-                video.addEventListener('canplay', () => {
-                    video.play().catch(() => playIcon.textContent = '▶️');
+                // Handle video loading
+                video.addEventListener('canplay', function () {
+                    video.play().catch(e => {
+                        console.log('Video autoplay prevented:', filename, e);
+                        playIcon.textContent = '▶️';
+                    });
                 });
 
-                video.addEventListener('play', () => playIcon.textContent = '⏸️');
-                video.addEventListener('pause', () => playIcon.textContent = '▶️');
-                updateVol();
+                // Update play icon when video plays/pauses
+                video.addEventListener('play', function () {
+                    playIcon.textContent = '⏸️';
+                });
+
+                video.addEventListener('pause', function () {
+                    playIcon.textContent = '▶️';
+                });
+
+                // Initialize
+                updateVolumeIcon();
             });
         });
-
-        // Initialize FAQ
-        document.querySelectorAll('.faq-answer').forEach(answer => answer.style.display = 'none');
-        document.querySelectorAll('.faq-question span').forEach(span => span.style.transition = 'transform 0.3s');
     </script>
 </body>
 
