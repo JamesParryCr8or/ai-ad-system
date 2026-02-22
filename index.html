@@ -1690,6 +1690,60 @@
             }
         }
 
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .vsl-headline {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
         .vsl-grid {
             display: flex;
             flex-direction: column;
@@ -1767,9 +1821,16 @@
     <div class="ambient"></div>
     <div class="noise"></div>
     <div class="container">
-        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both; padding-top: 80px;">
-            <h2 class="vsl-headline" style="font-size: clamp(32px, 5vw, 56px); margin-bottom: 40px;">The Ultimate
-                Revenue Multiplier: <br>Scale Your Business With The AI Ad System</h2>
+        <header class="header" style="animation: fadeUp 0.6s ease-out both; padding-top: 60px;">
+            <div class="badge"><span class="dot"></span>Fully Automated System</div>
+            <h1>The AI Ad System</h1>
+            <p>From deep avatar research to revenue — every channel running in parallel,
+                optimised by AI,
+                24/7.</p>
+        </header>
+
+        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both;">
+            <h2 class="vsl-headline">Scale Your Business With Automated <br>AI Creative Systems</h2>
             <div class="vsl-grid">
                 <div class="vsl-video-box">
                     <div class="play-button" style="position: absolute; z-index: 10;"><svg width="60" height="60"
