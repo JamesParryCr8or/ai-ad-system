@@ -1,0 +1,89 @@
+# The Design System: Editorial High-Performance Guidelines
+
+## 1. Overview & Creative North Star
+The Creative North Star for this design system is **"The Neon Laboratory."**
+
+This isn't a standard corporate dashboard; it is a high-performance environment that mimics the precision of automated intelligence. We move beyond the "template" look by utilizing deep atmospheric depth, high-contrast neon accents, and a layout that favors intentional negative space and asymmetric content blocks. The goal is to make the user feel like they are operating a futuristic command center where every pixel vibrates with energy and purpose.
+
+Through the use of **Tonal Layering** and **Luminous Accents**, we replace rigid structures with fluid, light-based hierarchy.
+
+---
+
+## 2. Colors & Atmospheric Depth
+Our palette is rooted in the deep void of space, punctuated by the high-frequency energy of artificial light.
+
+### The Foundation
+- **Background:** `#14121b` (The Void)
+- **Surface Tiers:** Use `surface-container-low` (`#1c1a24`) through `highest` (`#35333e`) to define spatial hierarchy.
+
+### The Accents (Light Emission)
+- **Primary:** `primary` (`#d0bcff`) & `primary_container` (`#a078ff`) — Used for intelligence and automation indicators.
+- **Secondary:** `secondary` (`#45dfa4`) — Used for growth, success, and high-performance metrics.
+- **Tertiary:** `tertiary` (`#fbabff`) — Used for disruptive calls to action and "human" intervention points.
+
+### Strategic Guidelines
+* **The "No-Line" Rule:** 1px solid borders are prohibited for sectioning. Contrast must be achieved through background shifts. For example, a `surface-container-low` card should sit directly on a `surface` background. The eye should perceive the boundary through the shift in darkness, not a line.
+* **Surface Hierarchy & Nesting:** Treat the UI as stacked sheets of obsidian glass. An inner component (like a code snippet) should use a `surface-container-lowest` to feel "recessed" into the UI, while a floating modal uses `surface-bright` to feel "closer" to the user.
+* **The "Glass & Gradient" Rule:** Primary buttons and hero sections must utilize linear gradients (e.g., `primary` to `tertiary`) with a `backdrop-blur` of 12px to 20px when floating. This creates "visual soul"—a depth that flat colors lack.
+
+---
+
+## 3. Typography: The Editorial Voice
+We utilize a high-contrast typographic scale to separate data from narrative.
+
+* **Display & Headlines (Plus Jakarta Sans):** These are our "Impact" layers. Use `display-lg` for hero statements with tight letter-spacing (-0.02em). This typeface carries the "Futuristic" weight of the system.
+* **Body & Titles (Inter):** Our "Utility" layer. Inter provides maximum readability at small sizes. Ensure `body-md` uses a comfortable line-height (1.6) to provide breathing room within dense data.
+* **Labels (Space Grotesk):** Our "Technical" layer. Used for mono-spaced metadata, system status, and small badges. This reinforces the "automated" vibe.
+
+---
+
+## 4. Elevation & Depth: Tonal Layering
+Traditional dropshadows are too heavy for this system. We use **Ambient Luminous Shadows**.
+
+* **The Layering Principle:** Depth is achieved by stacking.
+1. Base: `surface`
+2. Section: `surface-container-low`
+3. Card: `surface-container-high`
+* **Ambient Shadows:** For floating elements, use a diffused shadow with an 8% opacity. The shadow color must be a tint of `primary` or `tertiary` rather than black, creating a "glow" rather than a shadow.
+* **The "Ghost Border" Fallback:** If containment is required for accessibility, use `outline-variant` at 15% opacity. It should be felt, not seen.
+* **Glassmorphism:** Navigation bars and floating action buttons must use a semi-transparent `surface` color with a heavy blur to allow the neon background accents to bleed through, integrating the UI into the environment.
+
+---
+
+## 5. Components
+
+### Buttons (The Energy Core)
+* **Primary:** A vibrant gradient from `#8B5CF6` to `#D946EF`. Add a subtle outer glow using the same colors.
+* **Secondary:** Ghost style. No background, `outline` border at 20% opacity, with `secondary` text color.
+* **Tertiary:** `on_surface_variant` text, no border, used for low-priority utility actions.
+
+### Cards (The Data Pods)
+* **Construction:** Use `surface-container-high`. No borders. Use `xl` (1.5rem) roundedness for a modern, friendly-tech feel.
+* **Hover State:** Shift the background to `surface-bright` and increase the glow-shadow intensity.
+
+### Input Fields (The Command Entry)
+* **Style:** `surface-container-lowest` background to create a recessed feel.
+* **Active State:** The bottom border animates to a `primary` gradient. Label moves to `label-sm` using `Space Grotesk`.
+
+### Chips & Badges
+* **Execution:** Small, uppercase `Space Grotesk` text. Backgrounds should be 10% opacity versions of the status color (e.g., 10% `secondary` for a "Live" status), ensuring the text remains the focal point.
+
+---
+
+## 6. Do's and Don'ts
+
+### Do:
+* **Use Asymmetry:** Place a large headline on the left with a significantly smaller technical description on the right to create editorial tension.
+* **Embrace the Dark:** Allow large areas of `#07060E` to exist. Negative space is a luxury in high-end design.
+* **Use Color for Intent:** Only use `#34D399` (Secondary) for successful automation or growth metrics.
+
+### Don't:
+* **Don't use 100% White:** For body text, use `on_surface_variant` (`#cbc3d7`). Pure white (`#FFFFFF`) should be reserved only for the highest-level headings.
+* **Don't use Dividers:** Avoid horizontal lines between list items. Use the spacing scale (`8` or `12`) to create separation through white space.
+* **Don't over-saturate:** If every element has a neon glow, nothing is important. Use neon strictly for interaction points and key data highlights.
+
+---
+
+## 7. Theme Tokens
+
+### Color Tokens (Material Reference)
