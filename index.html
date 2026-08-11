@@ -538,6 +538,13 @@
             transition: var(--transition);
         }
 
+        @media (max-width: 767px) {
+            .video-container {
+                margin-bottom: 30px;
+                border-radius: 16px;
+            }
+        }
+
         .video-container:hover {
             transform: scale(1.005);
             border-color: rgba(139, 92, 246, 0.4);
@@ -1029,6 +1036,45 @@
 
             .parallel-wrapper {
                 grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .container {
+                padding-top: 20px;
+            }
+
+            .header {
+                margin-bottom: 32px;
+            }
+
+            .header h1 {
+                font-size: 28px;
+                letter-spacing: -0.02em;
+                line-height: 1.15;
+            }
+
+            .header p {
+                font-size: 15px;
+            }
+
+            .vsl-section {
+                margin: 32px 0 60px;
+            }
+
+            .vsl-headline {
+                font-size: 26px;
+                margin-bottom: 20px;
+                line-height: 1.2;
+            }
+
+            .quiz-cta {
+                padding: 18px 24px;
+                font-size: 14px;
+            }
+
+            .booking-section {
+                margin: 60px 0 40px;
             }
         }
 
@@ -1824,7 +1870,7 @@
     <div class="ambient"></div>
     <div class="noise"></div>
     <div class="container">
-        <header class="header" style="animation: fadeUp 0.6s ease-out both; padding-top: 60px;">
+        <header class="header" style="animation: fadeUp 0.6s ease-out both; padding-top: 20px;">
             <div class="badge"><span class="dot"></span>Done-For-You AI Ad System</div>
             <h1>Install AI Ad Systems Into Your Business To Slash Your Costs, And Ramp Up Your Top Line</h1>
             <p>Done For You Concept To Campaign: AI Ads That Scale Your EBITDA And Increase Your Profit</p>
