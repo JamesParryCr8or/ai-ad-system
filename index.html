@@ -1806,7 +1806,8 @@
 
         .vsl-video-box {
             width: 100%;
-            aspect-ratio: 16/9;
+            max-width: 480px;
+            aspect-ratio: 9 / 16;
             background: #000;
             border-radius: 24px;
             display: flex;
@@ -1816,6 +1817,14 @@
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border);
             overflow: hidden;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 767px) {
+            .vsl-video-box {
+                max-width: 100%;
+                border-radius: 16px;
+            }
         }
 
         .vsl-cta-box {
@@ -1882,7 +1891,7 @@
                 <div class="vsl-video-box">
                     <video
                         id="vsl-video"
-                        src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/0324.mp4"
+                        src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/1786480289597_2FD1926F-F82B-4E02-9A7F-A0E61952C202.mp4"
                         controls
                         playsinline
                         style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block;">
