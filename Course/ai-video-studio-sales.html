@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The AI Video Studio — Field Manual 01 & Full Model Access</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --void: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --s-lowest: #05040A;
+            --s-low: #0F0D1F;
+            --s-high: #191635;
+            --s-highest: #231F47;
+            
+            --primary: #d0bcff;
+            --primary-c: #a078ff;
+            --purple-400: #A78BFA;
+            --purple-500: #8B5CF6;
+            --purple-600: #7C3AED;
+            --fuchsia-400: #E879F9;
+            --fuchsia-500: #D946EF;
+            --secondary: #45dfa4;
+            --emerald-400: #34D399;
+            --tertiary: #fbabff;
+            --cyan-400: #22D3EE;
+            --amber-400: #FBBF24;
+            --rose-400: #FB7185;
+            
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --body: #cbc3d7;
+            --border: rgba(139, 92, 246, 0.18);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --grad: linear-gradient(120deg, #8B5CF6, #D946EF);
+            --grad-accent: linear-gradient(100deg, #d0bcff 0%, #fbabff 50%, #45dfa4 100%);
+            --glow: 0 10px 40px rgba(139, 92, 246, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--void);
+            color: var(--body);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── Ambient Backdrop Glows ── */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 20% 10%, rgba(139, 92, 246, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 40% 40% at 50% 50%, rgba(34, 211, 238, 0.04) 0%, transparent 60%);
+        }
+
+        .wrap {
+            max-width: 72rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .wrap-narrow {
+            max-width: 48rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Top Bar / Urgency Ticker ── */
+        .top-banner {
+            background: linear-gradient(90deg, #7C3AED, #D946EF);
+            color: #fff;
+            text-align: center;
+            padding: 10px 16px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .top-banner .pill {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        /* ── Hero Section ── */
+        .hero {
+            padding: 4.5rem 0 3.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero .eyebrow-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.12);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 1.6rem;
+        }
+
+        .hero .eyebrow-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+            box-shadow: 0 0 10px var(--secondary);
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.25); }
+        }
+
+        .hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(2.4rem, 6.5vw, 4.4rem);
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            color: #fff;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero h1 .gr {
+            background: var(--grad-accent);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero .sub {
+            font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+            color: #e2dbec;
+            max-width: 44rem;
+            margin: 0 auto 2.2rem;
+            line-height: 1.6;
+        }
+
+        .hero .sub strong {
+            color: #fff;
+            font-weight: 700;
+        }
+
+        /* ── As Seen / Engine Bar ── */
+        .engine-bar {
+            padding: 1.5rem 0 3rem;
+            text-align: center;
+        }
+
+        .engine-bar-label {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .engine-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem 1.25rem;
+            align-items: center;
+        }
+
+        .engine-badge {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.78rem;
+            color: var(--body);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ── Pricing Box Callout ── */
+        .deal-card {
+            background: linear-gradient(180deg, var(--s-high) 0%, var(--bg-card) 100%);
+            border: 2px solid var(--primary-c);
+            border-radius: 1.75rem;
+            padding: 2.5rem 2rem;
+            max-width: 38rem;
+            margin: 0 auto 3.5rem;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(139, 92, 246, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .deal-card::before {
+            content: "SPECIAL 82% OFF EARLY ACCESS";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--grad);
+            color: #fff;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            padding: 6px 0;
+            text-transform: uppercase;
+        }
+
+        .deal-card .price-row {
+            margin-top: 1.2rem;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .deal-card .was {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 1.3rem;
+            color: var(--muted);
+            text-decoration: line-through;
+        }
+
+        .deal-card .now {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 4.2rem;
+            line-height: 1;
+            color: #fff;
+            letter-spacing: -0.04em;
+        }
+
+        .deal-card .now sup {
+            font-size: 2rem;
+            top: -1.2rem;
+        }
+
+        .deal-card .savings-pill {
+            display: inline-block;
+            background: rgba(69, 223, 164, 0.15);
+            color: var(--secondary);
+            border: 1px solid rgba(69, 223, 164, 0.4);
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin: 0.8rem 0 1.5rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* ── Call To Action Buttons ── */
+        .btn {
+            display: inline-block;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: #fff;
+            background: var(--grad);
+            padding: 1.2rem 2.6rem;
+            border-radius: 999px;
+            box-shadow: var(--glow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            max-width: 28rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 50px rgba(217, 70, 239, 0.5);
+        }
+
+        .cta-guarantee {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* ── Stats Rail ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 3.5rem 0;
+        }
+
+        .stat-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .stat-card .num {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 2.2rem;
+            line-height: 1;
+            color: var(--secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .lbl {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ── Headings & Prose ── */
+        h2.sec-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: clamp(1.8rem, 4.5vw, 2.7rem);
+            color: #fff;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .sec-eyebrow {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--tertiary);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        /* ── Contrast Sections (Wrong Buyer vs Brand Studio) ── */
+        .contrast-box {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin: 2.5rem 0 3.5rem;
+        }
+
+        @media (min-width: 52rem) {
+            .contrast-box {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .box-pain {
+            background: rgba(255, 143, 163, 0.04);
+            border: 1px solid rgba(255, 143, 163, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .box-pain h3 {
+            color: #ff8fa3;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .box-win {
+            background: rgba(69, 223, 164, 0.04);
+            border: 1px solid rgba(69, 223, 164, 0.25);
+            border-radius: 1.5rem;
+            padding: 2rem;
+        }
+
+        .box-win h3 {
+            color: var(--secondary);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        ul.clean-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul.clean-list li {
+            padding: 0.55rem 0 0.55rem 1.8rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        ul.clean-list.no li::before {
+            content: "✕";
+            position: absolute;
+            left: 0;
+            color: #ff8fa3;
+            font-weight: 700;
+        }
+
+        ul.clean-list.yes li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* ── Phase & Card Modules (Borrowed from Landing Page) ── */
+        .phase {
+            margin-bottom: 28px;
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .phase-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .phase-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .phase-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .phase--research .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+        }
+
+        .phase--creative .phase-number {
+            background: rgba(232, 121, 249, 0.15);
+            color: var(--fuchsia-400);
+            border: 1px solid rgba(232, 121, 249, 0.3);
+        }
+
+        .phase--concepts .phase-number {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple-400);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .card-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 22px;
+            transition: all 0.3s ease;
+        }
+
+        .card-node:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-3px);
+            border-color: var(--purple-400);
+        }
+
+        .card-node .card-icon {
+            font-size: 26px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .card-node .card-name {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin-bottom: 6px;
+        }
+
+        .card-node .card-detail {
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 16px 0 24px;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        /* ── ⚔️ THE GROWTH ARSENAL COMPONENT ── */
+        .ai-arsenal-wrapper {
+            background: var(--s-lowest);
+            border: 1px solid var(--border);
+            border-radius: 2rem;
+            color: var(--text-primary);
+            padding: 50px 30px;
+            position: relative;
+            overflow: hidden;
+            margin: 4rem 0;
+        }
+
+        .arsenal-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .arsenal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 16px;
+        }
+
+        .arsenal-header h2 {
+            font-size: clamp(28px, 4.5vw, 42px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .arsenal-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            max-width: 680px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .model-category {
+            margin-bottom: 32px;
+            background: rgba(13, 11, 26, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 26px;
+        }
+
+        .category-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .category-icon {
+            font-size: 22px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-info h3 {
+            font-size: 17px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .category-info span {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 10px;
+        }
+
+        .model-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+        }
+
+        .model-chip.pro {
+            border-color: rgba(69, 223, 164, 0.35);
+        }
+
+        .model-chip:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateY(-2px);
+        }
+
+        .model-chip .model-icon {
+            font-size: 18px;
+        }
+
+        .model-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .model-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #FFF;
+        }
+
+        .model-provider {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ── Modules / What's Inside Grid ── */
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 2.5rem 0;
+        }
+
+        .curriculum-card {
+            background: var(--s-high);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.6rem;
+            position: relative;
+        }
+
+        .curriculum-card .phase-badge {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .curriculum-card h4 {
+            color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .curriculum-card p {
+            font-size: 0.9rem;
+            color: var(--body);
+            line-height: 1.55;
+        }
+
+        /* ── 9 Fast-Action Bonuses ── */
+        .bonuses-wrapper {
+            margin: 4rem 0;
+        }
+
+        .bonus-box {
+            background: linear-gradient(180deg, var(--s-high) 0%, var(--bg-surface) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin-bottom: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        @media (min-width: 48rem) {
+            .bonus-box {
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+            }
+        }
+
+        .bonus-tag {
+            background: rgba(217, 70, 239, 0.15);
+            color: var(--tertiary);
+            border: 1px solid rgba(217, 70, 239, 0.35);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        .bonus-content h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .bonus-content p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+        }
+
+        .bonus-value {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        /* ── FAQ Accordion Style ── */
+        .faq-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-card h4 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            color: #fff;
+            margin-bottom: 0.6rem;
+        }
+
+        .faq-card p {
+            font-size: 0.95rem;
+            color: var(--body);
+            line-height: 1.6;
+        }
+
+        /* ── Guarantee & Disclaimers ── */
+        .guarantee-box {
+            background: rgba(13, 11, 26, 0.8);
+            border: 1px dashed var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            max-width: 44rem;
+            margin: 3.5rem auto;
+        }
+
+        .guarantee-box h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #fff;
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer {
+            padding: 4rem 0 5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        .footer p {
+            max-width: 44rem;
+            margin: 0 auto 1rem;
+            line-height: 1.6;
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient"></div>
+
+    <!-- ── TOP URGENCY TICKER ── -->
+    <div class="top-banner">
+        <span>🔥 <b>LIMITED V2.0 LAUNCH:</b> Instant $120 Discount Applied Automatically</span>
+        <span class="pill">Today Only $27</span>
+    </div>
+
+    <div class="wrap">
+
+        <!-- ── HERO ── -->
+        <header class="hero">
+            <div class="eyebrow-badge">
+                <span class="dot"></span> BREAKING: The One-Person AI Video Agency
+            </div>
+            <h1>Run A 1-Person Studio Supplying AI Video Ads To Brands That Pay <span class="gr">$1,000/Project</span> Or <span class="gr">$500/Month</span></h1>
+            <p class="sub">
+                No filming yourself. No personal brand grind. No 6-tool subscription stack.<br>
+                The complete <b>Field Manual + Full Model Arsenal Access</b> to launch your high-margin creative engine.
+            </p>
+
+            <!-- Price Card Anchor -->
+            <div class="deal-card" id="offer">
+                <div class="price-row">
+                    <span class="was">$147.00</span>
+                    <span class="now"><sup>$</sup>27</span>
+                </div>
+                <div class="savings-pill">You Save $120.00 Today (82% Off)</div>
+                <p style="font-size: 0.95rem; color: var(--body); margin-bottom: 1.5rem;">
+                    Instant access to the complete 7,500-word Field Manual, 8-module Technique Library, 90-minute delivery system, and pay-as-you-go CR8OR AI Studio access.
+                </p>
+                <a href="https://cr8or.ai" class="btn">Get Instant Access For $27 →</a>
+                <div class="cta-guarantee">
+                    <span>🔒 256-Bit Secure Checkout</span> · <span>⚡ Instant Digital Access</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ── STATS / PROOF ── -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="num">$1,500–$3k</div>
+                <div class="lbl">Active Industry Rate Card</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">90 Min</div>
+                <div class="lbl">Full Month Delivery Time</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">20 Brands</div>
+                <div class="lbl">$10,000 / Month Retainer Goal</div>
+            </div>
+            <div class="stat-card">
+                <div class="num">$0 / Month</div>
+                <div class="lbl">Zero Fixed Subscription Waste</div>
+            </div>
+        </div>
+
+        <!-- ── ENGINE LOGOS ── -->
+        <div class="engine-bar">
+            <span class="engine-bar-label">Powered By The World's Leading Video & Image Foundation Models</span>
+            <div class="engine-badges">
+                <span class="engine-badge">OpenAI Sora 2 Pro</span>
+                <span class="engine-badge">Google DeepMind Veo 3.1</span>
+                <span class="engine-badge">Kling AI 2.5 Pro</span>
+                <span class="engine-badge">ByteDance Seedance 2.5</span>
+                <span class="engine-badge">Black Forest Labs Flux 1.1</span>
+                <span class="engine-badge">ElevenLabs Turbo Voice</span>
+            </div>
+        </div>
+
+        <!-- ── PROBLEM / WRONG BUYER ── -->
+        <section style="padding: 3rem 0;">
+            <span class="sec-eyebrow">The Trap</span>
+            <h2 class="sec-title">Everyone is selling to the wrong buyer.</h2>
+            <p style="font-size: 1.15rem; color: #ded7e8; margin-bottom: 1.5rem;">
+                Tens of thousands of people have learned how to click generate on AI video generators. Almost none of them have been told who actually pays for it.
+            </p>
+            <p>
+                They do the obvious thing: post faceless TikToks, hope the algorithm smiles on them, and wait for fractions of a penny per view in a queue with millions of others. That is not a business. That is a lottery ticket you enter daily.
+            </p>
+
+            <div class="contrast-box">
+                <div class="box-pain">
+                    <h3><span>❌</span> The "Faceless Influencer" Raffle</h3>
+                    <ul class="clean-list no">
+                        <li>You spend 6 hours/day chasing elusive algorithm views</li>
+                        <li>Social platforms pay fractions of a penny per 1,000 views</li>
+                        <li>You pay $160+/month across 6 different AI subscriptions</li>
+                        <li>You burn out competing against teenage TikTok clippers</li>
+                        <li>One algorithm tweak wipes out 100% of your earnings</li>
+                    </ul>
+                </div>
+
+                <div class="box-win">
+                    <h3><span>✓</span> The B2B AI Video Studio Model</h3>
+                    <ul class="clean-list yes">
+                        <li>You sell directly to brands with existing ad spend</li>
+                        <li>Brands pay <b>$1,000/project</b> or <b>$500/month</b> retainers</li>
+                        <li>You deliver 8 video ads + 30 statics in 90 minutes</li>
+                        <li>Single login with pay-as-you-go model billing ($0 fixed fees)</li>
+                        <li>Predictable compounding cashflow: 20 clients = $10,000/month</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── PHASE 2 & 3 SECTIONS (BORROWED FROM MAIN AD SYSTEM) ── -->
+        <section style="padding: 2rem 0 4rem;">
+            <span class="sec-eyebrow">The Technical System</span>
+            <h2 class="sec-title">How the Studio Engine Actually Works</h2>
+            <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 2.5rem;">
+                You don't guess prompts from scratch. You run a systematic 4-phase pipeline engineered to deliver brand-accurate, high-converting creative every single time.
+            </p>
+
+            <!-- Phase 1 -->
+            <div class="phase phase--research">
+                <div class="phase-header">
+                    <div class="phase-number">01</div>
+                    <div>
+                        <div class="phase-title">Deep Avatar Research & Brand Node</div>
+                        <div class="phase-subtitle">AI extracts customer pain points, competitor gaps, and brand voice in 15 minutes</div>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card-node">
+                        <span class="card-icon">🔬</span>
+                        <div class="card-name">ICP Pain Mining</div>
+                        <div class="card-detail">Extract genuine customer frustrations and buying triggers from reviews.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🧠</span>
+                        <div class="card-name">Brand Node Memory</div>
+                        <div class="card-detail">Lock brand colours, product silhouettes, and tone so the AI never forgets.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🕵️</span>
+                        <div class="card-name">Competitor Swipes</div>
+                        <div class="card-detail">Reverse-engineer top winning competitor ads into structural blueprints.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-connector">↓ Research feeds creative generation ↓</div>
+
+            <!-- Phase 2: AI CREATIVE GENERATION -->
+            <div class="phase phase--creative">
+                <div class="phase-header">
+                    <div class="phase-number">02</div>
+                    <div>
+                        <div class="phase-title">AI Creative Generation</div>
+                        <div class="phase-subtitle">Unlimited assets produced at scale from the persistent brand node</div>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card-node">
+                        <span class="card-icon">🎬</span>
+                        <div class="card-name">AI Video Ads</div>
+                        <div class="card-detail">Sora 2 · Veo 3.1 · Kling 2.5 · Seedance 2.5 — cinematic 9:16 and 16:9 moves.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🗣️</span>
+                        <div class="card-name">AI UGC Avatars</div>
+                        <div class="card-detail">Photorealistic presenters, talking heads, genuine reaction-style unboxings.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🖼️</span>
+                        <div class="card-name">Photoreal Product Stills</div>
+                        <div class="card-detail">Flux 1.1 Pro Ultra · Imagen 4.0 — high-end studio lighting on demand.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🎙️</span>
+                        <div class="card-name">Voice Cloning & SFX</div>
+                        <div class="card-detail">ElevenLabs voice generation with ambient room tone and dynamic mix.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-connector">↓ Assets flow into storyboards & ad concepts ↓</div>
+
+            <!-- Phase 3: STORYBOARDS & AD CONCEPTS -->
+            <div class="phase phase--concepts">
+                <div class="phase-header">
+                    <div class="phase-number">03</div>
+                    <div>
+                        <div class="phase-title">Storyboards & Ad Concepts</div>
+                        <div class="phase-subtitle">AI builds ad variations mapped directly to customer objections</div>
+                    </div>
+                </div>
+                <div class="cards">
+                    <div class="card-node">
+                        <span class="card-icon">📐</span>
+                        <div class="card-name">5 Core Hook Frameworks</div>
+                        <div class="card-detail">Pattern interrupt, before-and-after, problem/agitate, social proof, offer.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">✍️</span>
+                        <div class="card-name">Claude Directing Scripts</div>
+                        <div class="card-detail">Scene-by-scene timing, voiceover sync, and on-screen caption copy.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🎞️</span>
+                        <div class="card-name">Shotlist Director</div>
+                        <div class="card-detail">8 numbered prompts assembled into cohesive 30s multi-shot commercials.</div>
+                    </div>
+                    <div class="card-node">
+                        <span class="card-icon">🧪</span>
+                        <div class="card-name">Creative Testing Inner-Loop</div>
+                        <div class="card-detail">Fast variations tested on thumb-stop rate, CTR, and conversion signal.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── ⚔️ THE GROWTH ARSENAL SECTION ── -->
+        <section class="ai-arsenal-wrapper">
+            <div class="arsenal-header">
+                <div class="arsenal-badge"><span class="dot"></span> Fully Automated Multi-Model Engine</div>
+                <h2>The Growth Arsenal</h2>
+                <p>We don't just teach one tool. We give you the entire multi-model strike force. Our unified studio dynamically connects the world's most powerful engines without monthly subscriptions.</p>
+            </div>
+
+            <!-- Video Models -->
+            <div class="model-category">
+                <div class="category-label">
+                    <div class="category-icon">🎬</div>
+                    <div class="category-info">
+                        <h3>Video Generation</h3>
+                        <span>12 Models Deployed</span>
+                    </div>
+                </div>
+                <div class="model-grid">
+                    <div class="model-chip pro">
+                        <span class="model-icon">⚡</span>
+                        <div class="model-info">
+                            <span class="model-name">Sora 2 Pro</span>
+                            <span class="model-provider">OpenAI</span>
+                        </div>
+                    </div>
+                    <div class="model-chip pro">
+                        <span class="model-icon">⚡</span>
+                        <div class="model-info">
+                            <span class="model-name">Veo 3.1</span>
+                            <span class="model-provider">Google DeepMind</span>
+                        </div>
+                    </div>
+                    <div class="model-chip pro">
+                        <span class="model-icon">⚡</span>
+                        <div class="model-info">
+                            <span class="model-name">Kling 2.5 Turbo Pro</span>
+                            <span class="model-provider">Kling AI</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🎬</span>
+                        <div class="model-info">
+                            <span class="model-name">Seedance 2.5</span>
+                            <span class="model-provider">ByteDance</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🎬</span>
+                        <div class="model-info">
+                            <span class="model-name">Wan 2.2 i2V Fast</span>
+                            <span class="model-provider">Alibaba</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🎬</span>
+                        <div class="model-info">
+                            <span class="model-name">Veo 3 Fast</span>
+                            <span class="model-provider">Google DeepMind</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Image Models -->
+            <div class="model-category">
+                <div class="category-label">
+                    <div class="category-icon">🖼️</div>
+                    <div class="category-info">
+                        <h3>Image & Photorealism</h3>
+                        <span>11 Models Deployed</span>
+                    </div>
+                </div>
+                <div class="model-grid">
+                    <div class="model-chip pro">
+                        <span class="model-icon">⚡</span>
+                        <div class="model-info">
+                            <span class="model-name">Flux 1.1 Pro Ultra</span>
+                            <span class="model-provider">Black Forest Labs</span>
+                        </div>
+                    </div>
+                    <div class="model-chip pro">
+                        <span class="model-icon">⚡</span>
+                        <div class="model-info">
+                            <span class="model-name">Imagen 4.0 Ultra</span>
+                            <span class="model-provider">Google DeepMind</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🖼️</span>
+                        <div class="model-info">
+                            <span class="model-name">GPT Image 1</span>
+                            <span class="model-provider">OpenAI</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🖼️</span>
+                        <div class="model-info">
+                            <span class="model-name">Flux Kontext Max</span>
+                            <span class="model-provider">Black Forest Labs</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🖼️</span>
+                        <div class="model-info">
+                            <span class="model-name">Nano Banana</span>
+                            <span class="model-provider">Experimental Flash</span>
+                        </div>
+                    </div>
+                    <div class="model-chip">
+                        <span class="model-icon">🖼️</span>
+                        <div class="model-info">
+                            <span class="model-name">Flux Dev & Schnell</span>
+                            <span class="model-provider">Black Forest Labs</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Voice, UGC & Ops -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div class="model-category" style="margin-bottom:0;">
+                    <div class="category-label">
+                        <div class="category-icon">🎙️</div>
+                        <div class="category-info">
+                            <h3>Audio & Voice</h3>
+                            <span>ElevenLabs Elite</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary)">Natural pacing, multi-accent selection, voice cloning, and dynamic room-hum mixing.</p>
+                </div>
+                <div class="model-category" style="margin-bottom:0;">
+                    <div class="category-label">
+                        <div class="category-icon">🗣️</div>
+                        <div class="category-info">
+                            <h3>AI UGC Avatars</h3>
+                            <span>CR8OR LipDub</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary)">Build 2–3 house presenters you own outright. No creator fees, no negotiation delays.</p>
+                </div>
+                <div class="model-category" style="margin-bottom:0;">
+                    <div class="category-label">
+                        <div class="category-icon">🤖</div>
+                        <div class="category-info">
+                            <h3>MCP Automation</h3>
+                            <span>Claude Desktop Sync</span>
+                        </div>
+                    </div>
+                    <p style="font-size:0.88rem;color:var(--text-secondary)">Operate the entire studio via natural chat. Claude handles prompting, rendering and file saving.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── WHAT'S INSIDE THE FIELD MANUAL ── -->
+        <section>
+            <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="sec-eyebrow">Curriculum Breakdown</span>
+                <h2 class="sec-title">What You'll Master Inside Field Manual 01</h2>
+                <p style="color: var(--text-secondary)">A rigorous, no-filler 7,500-word blueprint divided into two clear tracks.</p>
+            </div>
+
+            <div class="curriculum-grid">
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 1 · The Craft</span>
+                    <h4>Phase 01–03: Frame & Motion</h4>
+                    <p>Fixed prompt structuring (subject → action → setting → light → lens → mood) and keyframe corridors that eliminate AI drift.</p>
+                </div>
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 1 · The Craft</span>
+                    <h4>Phase 04–05: Sound & Consistency</h4>
+                    <p>The 4 consistency locks (face, outfit, place, voice) and the 3-layer audio mix (voice, room tone, music) that makes renders look real.</p>
+                </div>
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 1 · The Craft</span>
+                    <h4>Phase 06–09: Ads & Multi-Shot</h4>
+                    <p>The 5 universal ad angles, 8-scene shotlist directing, clone consent rules, and MCP automated studio workflows.</p>
+                </div>
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 2 · The Business</span>
+                    <h4>The 90-Minute Delivery Run</h4>
+                    <p>The exact timer breakdown: 15 min setup, 10 min angles, 40 min build, 15 min cull, 10 min deliver. Repeat for 20 clients.</p>
+                </div>
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 2 · The Business</span>
+                    <h4>The 8-Module Technique Library</h4>
+                    <p>Three-asset build, character sheets, reverse-engineering winners, anti-plastic prompting, location locks, and scene surgery.</p>
+                </div>
+                <div class="curriculum-card">
+                    <span class="phase-badge">Part 2 · The Business</span>
+                    <h4>The $500/Mo Retainer Conversion</h4>
+                    <p>How to pitch the initial $1,000 project, deliver excellence, and convert 1-in-3 into recurring monthly retainers without sales calls.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── 9 FAST ACTION BONUSES ── -->
+        <section class="bonuses-wrapper">
+            <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="sec-eyebrow">Bonus Bundle</span>
+                <h2 class="sec-title">Included Free When You Order Today</h2>
+                <p style="color: var(--text-secondary)">We've packed in every template, framework, and tool bridge so you have zero roadblocks.</p>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #1</span>
+                    <h4>Full CR8OR AI Studio Access Pass</h4>
+                    <p>Access to 12 video models, 11 image engines, voice cloning, and brand nodes with zero monthly platform subscriptions.</p>
+                </div>
+                <div class="bonus-value">Value: $497</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #2</span>
+                    <h4>The 90-Minute Client Delivery Checklist</h4>
+                    <p>Printable step-by-step operational SOP ensuring every asset batch is exported, named, and formatted without errors.</p>
+                </div>
+                <div class="bonus-value">Value: $197</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #3</span>
+                    <h4>The 8-Module Technique Library</h4>
+                    <p>Copy-paste prompt recipes for character turnarounds, product accuracy inpainting, and anti-plastic lighting triggers.</p>
+                </div>
+                <div class="bonus-value">Value: $297</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #4</span>
+                    <h4>Claude MCP Studio Integration Script</h4>
+                    <p>The configuration file to connect Claude Desktop directly to CR8OR so AI can build your video shotlists autonomously.</p>
+                </div>
+                <div class="bonus-value">Value: $397</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #5</span>
+                    <h4>The "Finished Asset" Cold Outreach Script</h4>
+                    <p>The exact word-for-word email and DM script that lands paying brand clients by sending pre-rendered spec creative.</p>
+                </div>
+                <div class="bonus-value">Value: $197</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #6</span>
+                    <h4>The 5-Angle Hook Framework Swipe File</h4>
+                    <p>25 proven short-form hook formulas tailored for problem/agitate, before-and-after, and social proof ecommerce video ads.</p>
+                </div>
+                <div class="bonus-value">Value: $147</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #7</span>
+                    <h4>Brand Node Setup & Onboarding Template</h4>
+                    <p>The Notion document to store client color hexes, typography, logo assets, and ICP profiles in one central place.</p>
+                </div>
+                <div class="bonus-value">Value: $97</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #8</span>
+                    <h4>The $1,500 Rate Card & Retainer Contract Template</h4>
+                    <p>Clean, commercial-ready agreement laying out asset deliverables, turnaround timelines, and monthly retainer terms.</p>
+                </div>
+                <div class="bonus-value">Value: $247</div>
+            </div>
+
+            <div class="bonus-box">
+                <div class="bonus-content">
+                    <span class="bonus-tag">Bonus #9</span>
+                    <h4>The 30-Day Studio Launch Roadmap</h4>
+                    <p>Day 1 to 30 structured sprint: Craft mastery in week 1, portfolio in week 2, outreach in week 3, retainers in week 4.</p>
+                </div>
+                <div class="bonus-value">Value: $197</div>
+            </div>
+        </section>
+
+        <!-- ── VALUE STACK / FINAL OFFER ── -->
+        <section style="padding: 2rem 0 5rem;">
+            <div class="deal-card" style="max-width: 44rem;">
+                <div class="sec-eyebrow">Instant Digital Access</div>
+                <h2 style="font-size: 2.2rem; color: #fff; margin-bottom: 0.5rem;">Get The Complete AI Video Studio System</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Everything you need to launch a high-margin, one-person creative studio today.</p>
+                
+                <div style="text-align: left; background: var(--s-lowest); padding: 1.5rem 1.8rem; border-radius: 1rem; margin-bottom: 1.5rem; font-size: 0.92rem;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📘 The AI Video Studio Field Manual (7,500 words)</span> <b>$147 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>🎬 Full CR8OR Multi-Model Studio Access</span> <b>$497 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📋 8-Module Technique Library & Shotlist Framework</span> <b>$297 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>🤖 Claude MCP Server Setup & Workflows</span> <b>$397 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📧 Cold Outreach Scripts & Retainer Agreements</span> <b>$444 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 10px; color: var(--secondary); font-weight: 700;">
+                        <span>Total Real World Value:</span> <span>$1,782.00</span>
+                    </div>
+                </div>
+
+                <div class="price-row">
+                    <span class="was">$147.00</span>
+                    <span class="now"><sup>$</sup>27</span>
+                </div>
+                <div class="savings-pill">Save $120 Today · Price Bumps at Midnight</div>
+                
+                <a href="https://cr8or.ai" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($27) →</a>
+                
+                <div class="cta-guarantee">
+                    <span>⚡ Instant PDF Download + Studio Login Credentials</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── FAQ SECTION ── -->
+        <section style="padding: 1rem 0 4rem;">
+            <div class="wrap-narrow">
+                <div style="text-align: center; margin-bottom: 2.5rem;">
+                    <span class="sec-eyebrow">Got Questions?</span>
+                    <h2 class="sec-title">Frequently Asked Questions</h2>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Do I need film editing skills or high-end computer hardware?</h4>
+                    <p>No. Every generation and render runs in the cloud via CR8OR AI Studio. You don't need a powerful GPU, and you don't need to be a Premiere or After Effects expert. The manual teaches you how to direct the output compositionally.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How is this different from buying Midjourney or Runway separately?</h4>
+                    <p>Buying individual subscriptions costs over $160/month, and none of those tools share client memory. CR8OR gives you 12 video engines and 11 image engines in one dashboard with zero monthly subscriptions—you only pay for what you render via usage billing.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>Do I ever have to show my face or record my voice?</h4>
+                    <p>Never. You are building commercial, product, and review video assets for brands using AI avatars, licensed voices, and cinematic 3D/video engines. You operate completely behind the scenes.</p>
+                </div>
+
+                <div class="faq-card">
+                    <h4>How quickly can I land my first $500–$1,000 client?</h4>
+                    <p>The 30-Day sprint in Chapter 13 shows you how to build a 3-brand portfolio in week 2 and deploy 10 spec outreach emails a day in week 3. Most disciplined students secure their initial paid project within their first 21–30 days.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ── NO-BS GUARANTEE ── -->
+        <div class="guarantee-box">
+            <h3>Straightforward Honesty Policy</h3>
+            <p style="font-size: 0.92rem; color: var(--body);">
+                This is not a get-rich-quick button. A studio is a real trade. You will do roughly ninety minutes of focused execution per client per month. If you follow the manual, build the brand nodes, send the spec creative outreach, and run the system as laid out, you have a repeatable B2B service that brands actively pay for every single month.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer class="footer">
+        <div class="wrap">
+            <p>
+                <b>The AI Video Studio</b> by CR8OR AI. All rights reserved.<br>
+                This site is not part of the Facebook™ website or Meta Platforms Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META Platforms, Inc.
+            </p>
+            <p>
+                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($27)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio.html">Read Course</a>
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
