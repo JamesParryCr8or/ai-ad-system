@@ -892,6 +892,73 @@
             color: var(--muted);
             line-height: 1.5;
         }
+
+        .showcase {
+            background: var(--s-lowest);
+            border: 1px solid rgba(255, 255, 255, .06);
+            border-radius: 1.5rem;
+            padding: 2rem 1.5rem;
+            margin: 2.5rem 0;
+        }
+
+        .showcase .sh-label {
+            font-family: 'Space Grotesk', monospace;
+            font-size: .65rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--secondary);
+            margin-bottom: 1.4rem;
+            display: block;
+        }
+
+        .showcase .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.4rem;
+        }
+
+        @media (min-width: 52rem) {
+            .showcase .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .showcase .item {
+            background: var(--s-low);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, .25);
+        }
+
+        .showcase .item video,
+        .showcase .item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .showcase .item .cap {
+            padding: .9rem 1rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: .72rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        .showcase .item .cap strong {
+            color: #fff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: .15rem;
+            font-size: .78rem;
+        }
+
+        .showcase .note {
+            margin-top: 1.2rem;
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
     </style>
 </head>
 
@@ -1087,6 +1154,13 @@
                 <p>Then build one brand profile — even a fake one, for practice. Brand, product, tone, customer.
                     Everything
                     downstream gets easier once the system knows who it is making things for.</p>
+                <p>The actual skill is <strong>composition</strong> — chaining tools so the output of one becomes the input
+                    of the
+                    next. A brand profile in, a script out. A script in, a voice out. A voice and an image in, a video out.
+                    Every bad
+                    result comes from asking one model to do another model's job while you watch. The best results come from
+                    building
+                    the corridor first, then letting the model fill it.</p>
                 <div class="ready"><b>You're ready when</b>You can name which model you'd reach for in five different
                     situations
                     without looking it up, and you can estimate what a piece of work will cost before you make it.</div>
@@ -1132,6 +1206,15 @@
                     orbit, handheld drift, rack focus, static locked-off. Name one movement per shot. Two movements in
                     one prompt
                     produce mush.</p>
+                <p>The most reliable way to control that movement is with keyframes, not prompts alone. Generate the
+                    still first
+                    — locked composition, locked product, locked light. Then generate the move from that still. If you need
+                    a
+                    specific action or landing point, generate an end-frame too and let the model fill the gap between
+                    them. Two
+                    frames give the model a corridor; one frame gives it a suggestion. The more precise the input, the less
+                    the
+                    model has to guess, and the less it drifts.</p>
                 <p>The hardest discipline in this phase is <em>brevity</em>. Five to eight seconds per shot. Longer
                     clips
                     accumulate error — hands wander, faces slide, physics gives up around second nine. Ads are built
@@ -1212,6 +1295,20 @@
                     founder-to-camera, offer. Every brand, every niche, forever. You are not looking for a new idea each
                     month;
                     you are looking for this month's version of five ideas that already work.</p>
+                <p>Once the angles are automatic, the work becomes an inner loop. Generate five rough cuts — one per
+                    angle — in
+                    the time it used to take to make one. Test them cheaply, read the signal, and put real production
+                    budget
+                    behind the direction that moves the needle. AI eliminates the cost of the experiment; it does not
+                    eliminate
+                    the need to judge the result.</p>
+                <p>The numbers that tell you whether to keep going are simple: <strong>thumb-stop rate</strong> (first
+                    three
+                    seconds), <strong>playthrough rate</strong> (full video), <strong>CTR</strong>, and
+                    <strong>add-to-cart</strong>.
+                    If an angle is not moving at least one of those within the first hundred views, cut it and spend the
+                    credits
+                    on the next one. Volume of testing is the strategy; the numbers are the filter.</p>
                 <div class="ready"><b>You're ready when</b>You can take any product and sketch five different ads for it
                     in
                     under ten minutes, before generating anything.</div>
@@ -1697,6 +1794,39 @@
             <p style="text-align:center;margin:2.5rem 0"><a class="btn" href="https://cr8or.ai">Open the studio</a></p>
         </div>
     </section>
+
+    <div class="showcase reveal">
+        <div class="wrap">
+            <span class="sh-label">Proof of concept — generated in CR8OR AI Studio</span>
+            <div class="grid">
+                <div class="item">
+                    <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/0e52fdbc-5bcd-46ad-8edf-c7374b61ea08.jpg">
+                        <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/0e52fdbc-5bcd-46ad-8edf-c7374b61ea08.mp4" type="video/mp4">
+                    </video>
+                    <div class="cap"><strong>Elecy — product hero</strong>Medium close-up, golden-hour sunset, rider dismounts. 16:9, 5 s, Gemini Omni + Seedance 2.0</div>
+                </div>
+                <div class="item">
+                    <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/84f47c8f-15e6-4748-a77e-7b1e9aa0c497.jpg">
+                        <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/84f47c8f-15e6-4748-a77e-7b1e9aa0c497.mp4" type="video/mp4">
+                    </video>
+                    <div class="cap"><strong>DreamSilk — day-in-the-life</strong>Night-time routine, morning routine, unboxing. 9:16, 10 s, Seedance 2.5</div>
+                </div>
+                <div class="item">
+                    <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/9a9d3328-d611-42e9-8dca-996a5005ec36.jpg">
+                        <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/9a9d3328-d611-42e9-8dca-996a5005ec36.jpg" type="video/mp4">
+                    </video>
+                    <div class="cap"><strong>CR8OR AI — meta ad</strong>30 s one-take, world-morph, brand reveal. 9:16, Seedance 2.5</div>
+                </div>
+                <div class="item">
+                    <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/295ab927-f757-4bf6-9c85-a716d98e6df9.jpg">
+                        <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/295ab927-f757-4bf6-9c85-a716d98e6df9.jpg" type="video/mp4">
+                    </video>
+                    <div class="cap"><strong>CR8OR AI — tech ad</strong>10 s orb morph, product → city → fashion → dreamscape. 9:16, Seedance 2.5</div>
+                </div>
+            </div>
+            <p class="note">All four clips were generated from prompts inside CR8OR AI Studio. No real shoot, no cast, no location. Total generation time: under two hours.</p>
+        </div>
+    </div>
 
     <!-- 8 -->
     <div class="chapter" id="c08">
