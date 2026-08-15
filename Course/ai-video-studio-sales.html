@@ -9,6 +9,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
+    <!-- Facebook Pixel Base Code -->
+    <script>
+        // TODO: Replace YOUR_PIXEL_ID with your actual Facebook Pixel ID
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', 'YOUR_PIXEL_ID');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Base Code -->
+    
     <style>
         :root {
             --void: #07060E;
@@ -895,6 +914,7 @@
             display: flex;
             transition: transform .5s ease;
             will-change: transform;
+            align-items: center;
         }
         .video-slide {
             flex: 0 0 100%;
@@ -903,6 +923,20 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+        .video-slide.landscape video {
+            max-width: 70%;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            border-radius: .5rem;
+        }
+        .video-slide.portrait video {
+            max-width: 55%;
+            margin: 0 auto;
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            border-radius: .5rem;
         }
         .carousel-btn {
             position: absolute;
@@ -1001,7 +1035,7 @@
                 <p style="font-size: 0.95rem; color: var(--body); margin-bottom: 1.5rem;">
                     Instant access to the complete 7,500-word Field Manual, 8-module Technique Library, 90-minute delivery system, and pay-as-you-go CR8OR AI Studio access.
                 </p>
-                <a href="https://cr8or.ai/checkout" class="btn">Get Instant Access For $9 →</a>
+                <a href="https://cr8or.ai/checkout?success_url=https://scale.cr8or.ai/Course/ai-video-studio" class="btn">Get Instant Access For $9 →</a>
                 <div class="cta-guarantee">
                     <span>🔒 256-Bit Secure Checkout</span> · <span>⚡ Instant Digital Access</span>
                 </div>
@@ -1053,38 +1087,38 @@
                 <button class="carousel-btn carousel-prev" aria-label="Previous video">&#10094;</button>
                 <div class="video-carousel">
                     <div class="video-carousel-track">
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.jpg">
+                        <div class="video-slide landscape">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>Animated Avatar</strong> — Timexifier character delivers a script with lip-sync and expression</p>
                         </div>
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.jpg">
+                        <div class="video-slide portrait">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>UGC Review</strong> — Photorealistic British presenter, natural delivery, product integration</p>
                         </div>
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/a93cbace-4241-4486-9dc8-1dc4405fe8c4.jpg">
+                        <div class="video-slide portrait">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/a93cbace-4241-4486-9dc8-1dc4405fe8c4.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/a93cbace-4241-4486-9dc8-1dc4405fe8c4.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>Dermatologist Q&A</strong> — 9:16 vertical, multi-scene educational ad with on-screen text</p>
                         </div>
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3da07aca-7b45-4aa6-a458-4f117b58172f.jpg">
+                        <div class="video-slide portrait">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3da07aca-7b45-4aa6-a458-4f117b58172f.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3da07aca-7b45-4aa6-a458-4f117b58172f.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>Brand Ad</strong> — Multi-shot commercial with cinematic grade, studio environments, product integration</p>
                         </div>
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/302c7eb6-b438-4abe-8efc-a04901cdca39.jpg">
+                        <div class="video-slide portrait">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/302c7eb6-b438-4abe-8efc-a04901cdca39.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/302c7eb6-b438-4abe-8efc-a04901cdca39.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>Cinematic Reveal</strong> — Hollywood-style studio build, director's chair, camera rigs, lighting sequences</p>
                         </div>
-                        <div class="video-slide">
-                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c690fbb2-3919-49de-a8ea-06cf55e95a14.jpg">
+                        <div class="video-slide portrait">
+                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c690fbb2-3919-49de-a8ea-06cf55e95a14.jpg">
                                 <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/c690fbb2-3919-49de-a8ea-06cf55e95a14.mp4" type="video/mp4">
                             </video>
                             <p class="video-caption"><strong>Product Demo</strong> — Wellness scanner device integration, macro detail, consultative tone</p>
@@ -1555,7 +1589,7 @@
                 </div>
                 <div class="savings-pill">Save $138 Today · Price Bumps at Midnight</div>
                 
-                <a href="https://cr8or.ai/checkout" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</a>
+                <a href="https://cr8or.ai/checkout?success_url=https://scale.cr8or.ai/Course/ai-video-studio" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</a>
                 
                 <div class="cta-guarantee">
                     <span>⚡ Instant PDF Download + Studio Login Credentials</span>
@@ -1611,7 +1645,7 @@
                 This site is not part of the Facebook™ website or Meta Platforms Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META Platforms, Inc.
             </p>
             <p>
-                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($9)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio.html">Read Course</a>
+                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($9)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio">Read Course</a>
             </p>
         </div>
     </footer>
@@ -1684,6 +1718,20 @@
             updateCarousel();
             startAutoPlay();
         })();
+
+        // Facebook Pixel - InitiateCheckout on CTA clicks
+        document.querySelectorAll('a[href*="cr8or.ai/checkout"]').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (typeof fbq === 'function') {
+                    fbq('track', 'InitiateCheckout', {
+                        content_name: 'AI Video Studio Field Manual',
+                        content_category: 'Ebook + Studio Access',
+                        value: 9.00,
+                        currency: 'USD'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 
