@@ -239,7 +239,7 @@
         }
 
         .deal-card::before {
-            content: "SPECIAL 82% OFF EARLY ACCESS";
+            content: "SPECIAL 94% OFF EARLY ACCESS";
             position: absolute;
             top: 0;
             left: 0;
@@ -872,6 +872,100 @@
             color: var(--text-secondary);
             text-decoration: underline;
         }
+
+        /* ── video carousel ── */
+        .video-showcase {
+            background: var(--s-lowest);
+            padding: 3rem 0 4rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .video-carousel-wrapper {
+            position: relative;
+            max-width: 56rem;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+        .video-carousel {
+            overflow: hidden;
+            border-radius: 1.25rem;
+            background: #000;
+            box-shadow: 0 30px 80px rgba(0,0,0,.45);
+        }
+        .video-carousel-track {
+            display: flex;
+            transition: transform .5s ease;
+            will-change: transform;
+        }
+        .video-slide {
+            flex: 0 0 100%;
+        }
+        .video-slide video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(20,18,27,.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.08);
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: grid;
+            place-items: center;
+            transition: background .2s ease, transform .2s ease;
+            z-index: 5;
+        }
+        .carousel-btn:hover {
+            background: rgba(20,18,27,.75);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .carousel-prev {
+            left: .2rem;
+        }
+        .carousel-next {
+            right: .2rem;
+        }
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: .55rem;
+            margin-top: 1.2rem;
+        }
+        .carousel-dot {
+            width: .6rem;
+            height: .6rem;
+            border-radius: 999px;
+            border: none;
+            background: rgba(255,255,255,.18);
+            cursor: pointer;
+            transition: transform .2s ease, background .2s ease;
+        }
+        .carousel-dot.active {
+            background: #fff;
+            transform: scale(1.15);
+        }
+        .video-caption {
+            padding: .9rem 1rem;
+            font-family: 'Space Grotesk', monospace;
+            font-size: .78rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+        .video-caption strong {
+            color: #fff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: .15rem;
+            font-size: .82rem;
+        }
     </style>
 </head>
 
@@ -880,8 +974,8 @@
 
     <!-- ── TOP URGENCY TICKER ── -->
     <div class="top-banner">
-        <span>🔥 <b>LIMITED V2.0 LAUNCH:</b> Instant $120 Discount Applied Automatically</span>
-        <span class="pill">Today Only $27</span>
+        <span>🔥 <b>LIMITED V2.0 LAUNCH:</b> Instant $138 Discount Applied Automatically</span>
+        <span class="pill">Today Only $9</span>
     </div>
 
     <div class="wrap">
@@ -901,13 +995,13 @@
             <div class="deal-card" id="offer">
                 <div class="price-row">
                     <span class="was">$147.00</span>
-                    <span class="now"><sup>$</sup>27</span>
+                    <span class="now"><sup>$</sup>9</span>
                 </div>
-                <div class="savings-pill">You Save $120.00 Today (82% Off)</div>
+                <div class="savings-pill">You Save $138.00 Today (94% Off)</div>
                 <p style="font-size: 0.95rem; color: var(--body); margin-bottom: 1.5rem;">
                     Instant access to the complete 7,500-word Field Manual, 8-module Technique Library, 90-minute delivery system, and pay-as-you-go CR8OR AI Studio access.
                 </p>
-                <a href="https://cr8or.ai" class="btn">Get Instant Access For $27 →</a>
+                <a href="https://cr8or.ai/checkout" class="btn">Get Instant Access For $9 →</a>
                 <div class="cta-guarantee">
                     <span>🔒 256-Bit Secure Checkout</span> · <span>⚡ Instant Digital Access</span>
                 </div>
@@ -946,6 +1040,68 @@
                 <span class="engine-badge">ElevenLabs Turbo Voice</span>
             </div>
         </div>
+
+        <!-- ── VIDEO SHOWCASE ── -->
+        <section class="video-showcase">
+            <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="sec-eyebrow">Live Platform Output</span>
+                <h2 class="sec-title">See What The Studio Actually Generates</h2>
+                <p style="color: var(--text-secondary)">Real outputs from the CR8OR AI Studio — no curation, no cherry-picking. This is what lands in your dashboard.</p>
+            </div>
+
+            <div class="video-carousel-wrapper">
+                <button class="carousel-btn carousel-prev" aria-label="Previous video">&#10094;</button>
+                <div class="video-carousel">
+                    <div class="video-carousel-track">
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>Animated Avatar</strong> — Timexifier character delivers a script with lip-sync and expression</p>
+                        </div>
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>UGC Review</strong> — Photorealistic British presenter, natural delivery, product integration</p>
+                        </div>
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/a93cbace-4241-4486-9dc8-1dc4405fe8c4.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/a93cbace-4241-4486-9dc8-1dc4405fe8c4.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>Dermatologist Q&A</strong> — 9:16 vertical, multi-scene educational ad with on-screen text</p>
+                        </div>
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3da07aca-7b45-4aa6-a458-4f117b58172f.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3da07aca-7b45-4aa6-a458-4f117b58172f.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>Brand Ad</strong> — Multi-shot commercial with cinematic grade, studio environments, product integration</p>
+                        </div>
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/302c7eb6-b438-4abe-8efc-a04901cdca39.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/302c7eb6-b438-4abe-8efc-a04901cdca39.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>Cinematic Reveal</strong> — Hollywood-style studio build, director's chair, camera rigs, lighting sequences</p>
+                        </div>
+                        <div class="video-slide">
+                            <video controls poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c690fbb2-3919-49de-a8ea-06cf55e95a14.jpg">
+                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/c690fbb2-3919-49de-a8ea-06cf55e95a14.mp4" type="video/mp4">
+                            </video>
+                            <p class="video-caption"><strong>Product Demo</strong> — Wellness scanner device integration, macro detail, consultative tone</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn carousel-next" aria-label="Next video">&#10095;</button>
+            </div>
+            <div class="carousel-dots">
+                <button class="carousel-dot active" data-index="0" aria-label="Video 1"></button>
+                <button class="carousel-dot" data-index="1" aria-label="Video 2"></button>
+                <button class="carousel-dot" data-index="2" aria-label="Video 3"></button>
+                <button class="carousel-dot" data-index="3" aria-label="Video 4"></button>
+                <button class="carousel-dot" data-index="4" aria-label="Video 5"></button>
+                <button class="carousel-dot" data-index="5" aria-label="Video 6"></button>
+            </div>
+        </section>
 
         <!-- ── PROBLEM / WRONG BUYER ── -->
         <section style="padding: 3rem 0;">
@@ -1395,11 +1551,11 @@
 
                 <div class="price-row">
                     <span class="was">$147.00</span>
-                    <span class="now"><sup>$</sup>27</span>
+                    <span class="now"><sup>$</sup>9</span>
                 </div>
-                <div class="savings-pill">Save $120 Today · Price Bumps at Midnight</div>
+                <div class="savings-pill">Save $138 Today · Price Bumps at Midnight</div>
                 
-                <a href="https://cr8or.ai" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($27) →</a>
+                <a href="https://cr8or.ai/checkout" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</a>
                 
                 <div class="cta-guarantee">
                     <span>⚡ Instant PDF Download + Studio Login Credentials</span>
@@ -1455,11 +1611,80 @@
                 This site is not part of the Facebook™ website or Meta Platforms Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META Platforms, Inc.
             </p>
             <p>
-                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($27)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio.html">Read Course</a>
+                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($9)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio.html">Read Course</a>
             </p>
         </div>
     </footer>
 
+    <script>
+        (function() {
+            const track = document.querySelector('.video-carousel-track');
+            const slides = document.querySelectorAll('.video-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+            let autoPlayInterval;
+
+            function updateCarousel() {
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = (index + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            function startAutoPlay() {
+                stopAutoPlay();
+                autoPlayInterval = setInterval(nextSlide, 6000);
+            }
+
+            function stopAutoPlay() {
+                if (autoPlayInterval) clearInterval(autoPlayInterval);
+            }
+
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', () => {
+                    prevSlide();
+                    startAutoPlay();
+                });
+                nextBtn.addEventListener('click', () => {
+                    nextSlide();
+                    startAutoPlay();
+                });
+            }
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const index = parseInt(dot.getAttribute('data-index'), 10);
+                    goToSlide(index);
+                    startAutoPlay();
+                });
+            });
+
+            const wrapper = document.querySelector('.video-carousel-wrapper');
+            if (wrapper) {
+                wrapper.addEventListener('mouseenter', stopAutoPlay);
+                wrapper.addEventListener('mouseleave', startAutoPlay);
+            }
+
+            updateCarousel();
+            startAutoPlay();
+        })();
+    </script>
 </body>
 
 </html>
