@@ -2143,13 +2143,23 @@
         document.getElementById('email-modal-close').addEventListener('click', hideEmailModal);
         document.getElementById('modal-close-link').addEventListener('click', hideEmailModal);
 
-        // Mobile: hide top banner until 15% page scroll
+        // Mobile: hide top banner until the stats section (incl. "$0 / Month") is scrolled past
         (function() {
             const banner = document.querySelector('.top-banner');
             if (!banner) return;
+            function isMobile() {
+                return window.matchMedia('(max-width: 640px)').matches;
+            }
             function checkScroll() {
-                const threshold = window.innerHeight * 0.15;
-                if (window.scrollY > threshold) {
+                if (!isMobile()) {
+                    banner.classList.add('visible');
+                    return;
+                }
+                const stats = document.querySelector('.stats-grid');
+                const threshold = stats
+                    ? stats.getBoundingClientRect().bottom
+                    : window.innerHeight * 0.15;
+                if (threshold <= 0) {
                     banner.classList.add('visible');
                 } else {
                     banner.classList.remove('visible');
