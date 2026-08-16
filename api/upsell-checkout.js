@@ -55,10 +55,10 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const { session_id } = req.body || {};
+  const { subscription_id, session_id } = req.body || {};
 
-  if (!session_id) {
-    return res.status(400).json({ error: 'Missing session_id' });
+  if (!subscription_id && !session_id) {
+    return res.status(400).json({ error: 'Missing subscription_id or session_id' });
   }
 
   const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY;
@@ -73,37 +73,62 @@ export default async function handler(req, res) {
   };
 
   try {
-    // 1. Retrieve the original checkout session
-    const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}`, {
-      headers: stripeHeaders,
-    });
-    const session = await sessionRes.json();
-
-    if (!sessionRes.ok) {
-      return res.status(400).json({ error: session.error?.message || 'Failed to retrieve session' });
-    }
-
-    if (session.payment_status !== 'paid') {
-      return res.status(400).json({ error: 'Original payment not completed' });
-    }
-
-    const customerId = session.customer;
-    const customerEmail = session.customer_details?.email || '';
-
-    // 2. Find the saved payment method on the subscription
+    let customerId = null;
+    let customerEmail = '';
     let paymentMethodId = null;
-    if (session.subscription) {
+
+    // 1. Resolve customer + saved payment method
+    if (subscription_id) {
+      // New flow: subscription created via Payment Intents/Setup Intents
       const subRes = await fetch(
-        `https://api.stripe.com/v1/subscriptions/${session.subscription}?expand[0]=latest_invoice.payment_intent`,
+        `https://api.stripe.com/v1/subscriptions/${subscription_id}?expand[0]=latest_invoice.payment_intent`,
         { headers: stripeHeaders }
       );
       const sub = await subRes.json();
-      if (subRes.ok) {
-        paymentMethodId = sub.default_payment_method || sub.latest_invoice?.payment_intent?.payment_method || null;
+      if (!subRes.ok) {
+        return res.status(400).json({ error: sub.error?.message || 'Failed to retrieve subscription' });
+      }
+      if (sub.status === 'incomplete' || sub.status === 'incomplete_expired' || sub.status === 'unpaid' || sub.status === 'canceled') {
+        return res.status(400).json({ error: 'Subscription is not active' });
+      }
+
+      customerId = sub.customer;
+      paymentMethodId = sub.default_payment_method || sub.latest_invoice?.payment_intent?.payment_method || null;
+
+      if (customerId) {
+        const custRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}`, { headers: stripeHeaders });
+        const cust = await custRes.json();
+        if (custRes.ok && cust.email) customerEmail = cust.email;
+      }
+    } else if (session_id) {
+      // Legacy flow: hosted Checkout session (fallback)
+      const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}`, {
+        headers: stripeHeaders,
+      });
+      const session = await sessionRes.json();
+      if (!sessionRes.ok) {
+        return res.status(400).json({ error: session.error?.message || 'Failed to retrieve session' });
+      }
+      if (session.payment_status !== 'paid') {
+        return res.status(400).json({ error: 'Original payment not completed' });
+      }
+
+      customerId = session.customer;
+      customerEmail = session.customer_details?.email || '';
+
+      if (session.subscription) {
+        const subRes = await fetch(
+          `https://api.stripe.com/v1/subscriptions/${session.subscription}?expand[0]=latest_invoice.payment_intent`,
+          { headers: stripeHeaders }
+        );
+        const sub = await subRes.json();
+        if (subRes.ok) {
+          paymentMethodId = sub.default_payment_method || sub.latest_invoice?.payment_intent?.payment_method || null;
+        }
       }
     }
 
-    // 3a. One-click: charge the saved payment method off-session
+    // 2. One-click: charge the saved payment method off-session
     if (paymentMethodId && customerId) {
       const piParams = new URLSearchParams({
         amount: String(CREDITS_UNIT_AMOUNT),
@@ -135,7 +160,7 @@ export default async function handler(req, res) {
       // One-click failed (card declined / requires authentication) — fall through to hosted checkout
     }
 
-    // 3b. Fallback: hosted Stripe checkout for the same offer
+    // 3. Fallback: hosted Stripe checkout for the same offer
     const priceId = await ensureCreditsPrice(stripeHeaders);
 
     const fallbackParams = new URLSearchParams({
@@ -143,7 +168,7 @@ export default async function handler(req, res) {
       'line_items[0][price]': priceId,
       'line_items[0][quantity]': '1',
       'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}',
-      'cancel_url': `https://scale.cr8or.ai/Course/ai-video-studio-success?session_id=${session_id}`,
+      'cancel_url': `https://scale.cr8or.ai/Course/ai-video-studio-success?${subscription_id ? 'sub_id=' + subscription_id : 'session_id=' + session_id}`,
     });
 
     if (customerEmail) {

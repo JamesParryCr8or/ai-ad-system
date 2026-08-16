@@ -3339,25 +3339,8 @@
             btn.disabled = true;
             btn.textContent = 'Sending...';
 
-            try {
-                const response = await fetch('/api/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email })
-                });
-
-                const data = await response.json();
-                if (data.url) {
-                    window.location.href = data.url;
-                } else {
-                    throw new Error(data.error || 'Failed to create checkout session');
-                }
-            } catch (error) {
-                console.error('Checkout error:', error);
-                btn.disabled = false;
-                btn.textContent = 'Continue to Checkout →';
-                alert('Something went wrong. Please try again or contact support.');
-            }
+            // Redirect to the embedded Payment Element checkout with the captured email
+            window.location.href = 'https://scale.cr8or.ai/Course/ai-video-studio-checkout?email=' + encodeURIComponent(email);
         });
 
         document.getElementById('email-modal-close').addEventListener('click', hideEmailModal);

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Secure Checkout — CR8OR AI Video Studio</title>
+    <meta name="description" content="Secure $9/month checkout for the AI Video Studio Community.">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237C3AED'/%3E%3Ctext x='50' y='70' font-family='Arial' font-size='55' font-weight='bold' text-anchor='middle' fill='white'%3EC%3C/text%3E%3C/svg%3E">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --void: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --s-lowest: #05040A;
+            --s-low: #0F0D1F;
+            --s-high: #191635;
+            --purple-400: #A78BFA;
+            --purple-500: #8B5CF6;
+            --purple-600: #7C3AED;
+            --fuchsia-500: #D946EF;
+            --secondary: #45dfa4;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --body: #cbc3d7;
+            --border: rgba(139, 92, 246, 0.18);
+            --grad: linear-gradient(120deg, #8B5CF6, #D946EF);
+            --glow: 0 10px 40px rgba(139, 92, 246, 0.35);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background: var(--void);
+            color: var(--body);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 1.0625rem;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background:
+                radial-gradient(ellipse 70% 50% at 20% 10%, rgba(139, 92, 246, 0.14) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.10) 0%, transparent 60%),
+                var(--void);
+        }
+
+        .checkout-card {
+            width: 100%;
+            max-width: 30rem;
+            background: linear-gradient(180deg, var(--s-high) 0%, var(--bg-surface) 100%);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2rem 1.8rem;
+            box-shadow: var(--glow);
+        }
+
+        .checkout-card .brand {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .checkout-card .brand .logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .checkout-card .brand .sub {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'Space Grotesk', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-top: 4px;
+        }
+
+        .offer-summary {
+            background: var(--s-lowest);
+            border: 1px solid var(--border-subtle, rgba(255,255,255,0.08));
+            border-radius: 1rem;
+            padding: 1.2rem 1.3rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.92rem;
+        }
+        .offer-summary .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+        .offer-summary .row:last-child {
+            margin-bottom: 0;
+        }
+        .offer-summary .total {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 10px;
+            margin-top: 10px;
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        .email-box {
+            margin-bottom: 1.2rem;
+        }
+        .email-box label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+        .email-box .email-display {
+            background: var(--s-low);
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            padding: 0.8rem 1rem;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        #payment-element {
+            margin-bottom: 1.2rem;
+        }
+
+        .pay-btn {
+            width: 100%;
+            padding: 1.1rem 2rem;
+            background: var(--grad);
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            letter-spacing: 0.02em;
+            box-shadow: 0 12px 40px rgba(139, 92, 246, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+        }
+        .pay-btn:hover { transform: translateY(-2px); box-shadow: 0 18px 50px rgba(217, 70, 239, 0.5); }
+        .pay-btn:disabled { opacity: 0.7; cursor: wait; transform: none; }
+
+        .error-msg {
+            display: none;
+            background: rgba(251, 113, 133, 0.12);
+            border: 1px solid rgba(251, 113, 133, 0.4);
+            color: var(--text-primary);
+            border-radius: 0.75rem;
+            padding: 0.8rem 1rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        .error-msg.visible { display: block; }
+
+        .trust {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        .spinner {
+            display: inline-block;
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid rgba(139, 92, 246, 0.25);
+            border-top-color: var(--purple-500);
+            border-radius: 999px;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 0.8rem;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="checkout-card">
+        <div class="brand">
+            <div class="logo">CR8OR AI Video Studio</div>
+            <div class="sub">Secure Checkout</div>
+        </div>
+
+        <div id="loading-state" class="loading">
+            <div class="spinner"></div>
+            <div>Preparing secure checkout...</div>
+        </div>
+
+        <div id="checkout-state" style="display:none;">
+            <div class="offer-summary">
+                <div class="row"><span>AI Video Studio Community</span><b>$9/month</b></div>
+                <div class="row"><span>Full Model Arsenal Access</span><b>Included</b></div>
+                <div class="row"><span>Field Manual + Technique Library</span><b>Included</b></div>
+                <div class="row total"><span>Total Today</span><span>$9.00</span></div>
+            </div>
+
+            <div class="email-box">
+                <label for="email-display">Billing Email</label>
+                <div id="email-display" class="email-display"></div>
+            </div>
+
+            <div id="payment-element"></div>
+
+            <div id="error-msg" class="error-msg"></div>
+
+            <button id="pay-btn" class="pay-btn" disabled>Subscribe Now — $9/Month</button>
+
+            <div class="trust">256-bit encrypted · Cancel anytime · 14-day money-back guarantee</div>
+        </div>
+    </div>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        (async function() {
+            const params = new URLSearchParams(window.location.search);
+            const email = (params.get('email') || '').trim();
+
+            if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                showError('Missing or invalid email. Please go back and try again.');
+                document.getElementById('loading-state').style.display = 'none';
+                return;
+            }
+
+            document.getElementById('email-display').textContent = email;
+
+            try {
+                // 1. Create the SetupIntent server-side (also returns the publishable key)
+                const intentRes = await fetch('/api/create-setup-intent', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email })
+                });
+                const intentData = await intentRes.json();
+
+                if (!intentRes.ok || !intentData.client_secret) {
+                    throw new Error(intentData.error || 'Failed to start checkout');
+                }
+
+                if (!intentData.publishable_key) {
+                    throw new Error('Stripe publishable key not configured on server');
+                }
+
+                // 2. Initialize Stripe + Payment Element
+                const stripe = Stripe(intentData.publishable_key);
+                const appearance = {
+                    theme: 'night',
+                    variables: {
+                        colorPrimary: '#8B5CF6',
+                        colorBackground: '#0F0D1F',
+                        colorText: '#F1EEFF',
+                        colorTextSecondary: '#A5A0C0',
+                        colorDanger: '#FB7185',
+                        fontFamily: 'Inter, system-ui, sans-serif',
+                        borderRadius: '12px',
+                        spacingUnit: '5px',
+                    },
+                };
+                const elements = stripe.elements({ clientSecret: intentData.client_secret, appearance });
+                const paymentElement = elements.create('payment', { layout: 'tabs' });
+                paymentElement.mount('#payment-element');
+
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('checkout-state').style.display = 'block';
+                document.getElementById('pay-btn').disabled = false;
+
+                // 3. Pay button → confirm setup → create subscription
+                document.getElementById('pay-btn').addEventListener('click', async function() {
+                    const btn = this;
+                    const errorBox = document.getElementById('error-msg');
+                    errorBox.classList.remove('visible');
+                    btn.disabled = true;
+                    btn.textContent = 'Processing...';
+
+                    const { error, setupIntent } = await stripe.confirmSetup({
+                        elements,
+                        confirmParams: {
+                            return_url: window.location.href,
+                        },
+                        redirect: 'if_required',
+                    });
+
+                    if (error) {
+                        showError(error.message || 'Payment failed. Please try again.');
+                        btn.disabled = false;
+                        btn.textContent = 'Subscribe Now — $9/Month';
+                        return;
+                    }
+
+                    // 4. Create the subscription with the saved payment method
+                    try {
+                        const subRes = await fetch('/api/create-subscription', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ setup_intent_id: setupIntent.id })
+                        });
+                        const subData = await subRes.json();
+
+                        if (!subRes.ok) {
+                            throw new Error(subData.error || 'Failed to create subscription');
+                        }
+
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Purchase', {
+                                content_name: 'CR8OR Studio Subscription',
+                                value: 9.00,
+                                currency: 'USD'
+                            });
+                        }
+
+                        // 5. Redirect to the upsell page with the subscription id
+                        window.location.href = 'https://scale.cr8or.ai/Course/ai-video-studio-success?sub_id=' + encodeURIComponent(subData.subscription_id);
+                    } catch (err) {
+                        console.error('Subscription error:', err);
+                        showError(err.message || 'Something went wrong creating your subscription.');
+                        btn.disabled = false;
+                        btn.textContent = 'Subscribe Now — $9/Month';
+                    }
+                });
+            } catch (err) {
+                console.error('Checkout init error:', err);
+                document.getElementById('loading-state').style.display = 'none';
+                showError(err.message || 'Something went wrong loading checkout.');
+            }
+
+            function showError(msg) {
+                const errorBox = document.getElementById('error-msg');
+                errorBox.textContent = msg;
+                errorBox.classList.add('visible');
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1084,7 +1084,8 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const sessionId = params.get('session_id');
-        const courseUrl = 'https://scale.cr8or.ai/Course/ai-video-studio' + (sessionId ? '?session_id=' + encodeURIComponent(sessionId) : '');
+        const subId = params.get('sub_id');
+        const courseUrl = 'https://scale.cr8or.ai/Course/ai-video-studio' + (subId ? '?sub_id=' + encodeURIComponent(subId) : sessionId ? '?session_id=' + encodeURIComponent(sessionId) : '');
 
         document.querySelectorAll('#decline-btn, #decline-btn-2').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -1094,7 +1095,7 @@
 
         const upsellHandler = async function() {
             const btn = this;
-            if (!sessionId) {
+            if (!subId && !sessionId) {
                 window.location.href = courseUrl;
                 return;
             }
@@ -1106,7 +1107,7 @@
                 const response = await fetch('/api/upsell-checkout', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ session_id: sessionId })
+                    body: JSON.stringify(subId ? { subscription_id: subId } : { session_id: sessionId })
                 });
 
                 const data = await response.json();
