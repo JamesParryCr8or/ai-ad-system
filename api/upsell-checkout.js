@@ -164,8 +164,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // 2. One-click: create an off-session PaymentIntent and let the frontend confirm it.
-    //    This handles 3DS/SCA inline without sending the user to a hosted checkout.
+    // 2. One-click: attempt an off-session charge server-side.
+    //    If the card needs 3DS, return the client_secret for inline authentication.
     if (paymentMethodId && customerId) {
       const piParams = new URLSearchParams({
         amount: String(CREDITS_UNIT_AMOUNT),
@@ -173,7 +173,7 @@ export default async function handler(req, res) {
         customer: customerId,
         payment_method: paymentMethodId,
         off_session: 'true',
-        confirm: 'false',
+        confirm: 'true',
         description: 'Bulk Discount | 50% Off Credits | CR8OR AI — 5,000 credits',
         'metadata[product]': 'cr8or-credits-5000',
         'metadata[offer]': 'bulk-discount-50pct',
@@ -186,15 +186,33 @@ export default async function handler(req, res) {
       });
       const pi = await piRes.json();
 
-      if (piRes.ok && pi.client_secret) {
+      console.log('[upsell] PI attempt:', JSON.stringify({
+        ok: piRes.ok,
+        status: pi.status,
+        has_client_secret: !!pi.client_secret,
+        error: pi.error?.message || null,
+        paymentMethodId,
+        customerId,
+      }));
+
+      if (piRes.ok && pi.status === 'succeeded') {
+        return res.status(200).json({
+          success: true,
+          payment_intent: pi.id,
+          customer_email: customerEmail,
+        });
+      }
+
+      if (piRes.ok && pi.status === 'requires_action' && pi.client_secret) {
         return res.status(200).json({
           success: false,
           requires_action: true,
           client_secret: pi.client_secret,
-          payment_method_id: paymentMethodId,
           publishable_key: stripePublishableKey,
         });
       }
+
+      // Declined or other error — fall through to hosted checkout
     }
 
     // 3. Fallback: hosted Stripe checkout for the same offer

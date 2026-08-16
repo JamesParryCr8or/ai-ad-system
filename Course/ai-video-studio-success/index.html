@@ -1127,12 +1127,11 @@
                     return;
                 }
 
-                // One-click: confirm the off-session PaymentIntent inline with the saved card.
-                if (data.client_secret && data.payment_method_id && data.publishable_key) {
+                // One-click: handle 3DS inline for cards that require authentication.
+                if (data.requires_action && data.client_secret && data.publishable_key) {
                     const stripe = Stripe(data.publishable_key);
-                    const { error, paymentIntent } = await stripe.confirmCardPayment(data.client_secret, {
-                        payment_method: data.payment_method_id,
-                        return_url: window.location.href,
+                    const { error, paymentIntent } = await stripe.handleNextAction({
+                        clientSecret: data.client_secret,
                     });
 
                     if (error) {
