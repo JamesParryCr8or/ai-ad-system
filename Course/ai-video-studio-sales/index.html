@@ -1126,6 +1126,22 @@
             max-width: 28rem;
             width: 100%;
             text-align: center;
+            position: relative;
+        }
+        #email-modal-close {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.85rem;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.4rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.25rem;
+        }
+        #email-modal-close:hover {
+            color: #fff;
         }
         #email-modal h3 {
             color: #fff;
@@ -1204,6 +1220,10 @@
                 </div>
             </div>
         </header>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <button type="button" class="btn checkout-btn" style="max-width: 22rem;">Join 1,200 Other Students Making Money With AI Video →</button>
+        </div>
 
         <!-- ── STATS / PROOF ── -->
         <div class="stats-grid">
@@ -1320,6 +1340,10 @@
                 </div>
             </div>
         </section>
+
+        <div style="text-align: center; margin: 2rem 0;">
+            <button type="button" class="btn checkout-btn" style="max-width: 22rem;">Join 1,200 Other Students Making Money With AI Video →</button>
+        </div>
 
         <!-- ── PROBLEM / WRONG BUYER ── -->
         <section style="padding: 3rem 0;">
@@ -2072,7 +2096,8 @@
             }
         });
 
-        // Close modal on overlay click or Escape
+        document.getElementById('email-modal-close').addEventListener('click', hideEmailModal);
+
         document.getElementById('email-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) hideEmailModal();
         });
@@ -2084,6 +2109,7 @@
     <!-- ── Email Capture Modal ── -->
     <div id="email-modal-overlay">
         <div id="email-modal">
+            <button id="email-modal-close" type="button" aria-label="Close modal">×</button>
             <h3>Join The Community</h3>
             <p>Enter your email to get instant access and lock in the $9/month founders price.</p>
             <input id="modal-email" type="email" placeholder="you@example.com" autocomplete="email">
