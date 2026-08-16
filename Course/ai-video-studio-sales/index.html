@@ -154,6 +154,20 @@
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
         }
 
+        @media (max-width: 640px) {
+            .top-banner {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+            .top-banner.visible {
+                transform: translateY(0);
+            }
+        }
+
         /* ── Hero Section ── */
         .hero {
             padding: 4.5rem 0 3.5rem;
@@ -968,9 +982,14 @@
         }
         .video-carousel-wrapper {
             position: relative;
-            max-width: 56rem;
+            max-width: 68rem;
             margin: 0 auto;
             padding: 0 3rem;
+        }
+        @media (max-width: 640px) {
+            .video-carousel-wrapper {
+                padding: 0 1rem;
+            }
         }
         .video-carousel {
             overflow: hidden;
@@ -1131,17 +1150,34 @@
         }
         #email-modal-close {
             position: absolute;
-            top: 0.75rem;
-            right: 0.85rem;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0.4rem 0.85rem;
+            margin: 0;
+            border-radius: 0.5rem;
+            z-index: 10;
+        }
+        #email-modal-close:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+        }
+        .modal-close-link {
             background: none;
             border: none;
             color: var(--text-muted);
-            font-size: 1.4rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            line-height: 1;
-            padding: 0.25rem;
+            text-decoration: underline;
+            margin-top: 0.75rem;
+            font-family: inherit;
         }
-        #email-modal-close:hover {
+        .modal-close-link:hover {
             color: #fff;
         }
         #email-modal h3 {
@@ -2092,6 +2128,23 @@
         });
 
         document.getElementById('email-modal-close').addEventListener('click', hideEmailModal);
+        document.getElementById('modal-close-link').addEventListener('click', hideEmailModal);
+
+        // Mobile: hide top banner until 15% page scroll
+        (function() {
+            const banner = document.querySelector('.top-banner');
+            if (!banner) return;
+            function checkScroll() {
+                const threshold = window.innerHeight * 0.15;
+                if (window.scrollY > threshold) {
+                    banner.classList.add('visible');
+                } else {
+                    banner.classList.remove('visible');
+                }
+            }
+            window.addEventListener('scroll', checkScroll, { passive: true });
+            checkScroll();
+        })();
 
         document.getElementById('email-modal-overlay').addEventListener('click', function(e) {
             if (e.target === this) hideEmailModal();
@@ -2110,6 +2163,7 @@
             <input id="modal-email" type="email" placeholder="you@example.com" autocomplete="email">
             <button id="modal-submit" type="button" class="btn modal-btn">Continue to Checkout →</button>
             <p class="modal-footer">256-bit secure · Cancel anytime · No spam</p>
+            <button id="modal-close-link" type="button" class="modal-close-link">Close and continue reading</button>
         </div>
     </div>
 
