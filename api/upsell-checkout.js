@@ -93,12 +93,13 @@ export default async function handler(req, res) {
     // 2. Find the saved payment method on the subscription
     let paymentMethodId = null;
     if (session.subscription) {
-      const subRes = await fetch(`https://api.stripe.com/v1/subscriptions/${session.subscription}`, {
-        headers: stripeHeaders,
-      });
+      const subRes = await fetch(
+        `https://api.stripe.com/v1/subscriptions/${session.subscription}?expand[0]=latest_invoice.payment_intent`,
+        { headers: stripeHeaders }
+      );
       const sub = await subRes.json();
-      if (subRes.ok && sub.default_payment_method) {
-        paymentMethodId = sub.default_payment_method;
+      if (subRes.ok) {
+        paymentMethodId = sub.default_payment_method || sub.latest_invoice?.payment_intent?.payment_method || null;
       }
     }
 
