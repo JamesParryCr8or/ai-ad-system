@@ -29,52 +29,68 @@ export default async function handler(req, res) {
     'Content-Type': 'application/x-www-form-urlencoded',
   };
 
-  try {
-    // Retrieve the confirmed SetupIntent to get the saved payment method + customer
-    const setupRes = await fetch(`https://api.stripe.com/v1/setup_intents/${setup_intent_id}`, {
-      headers: stripeHeaders,
-    });
-    const setup = await setupRes.json();
-    if (!setupRes.ok) {
-      return res.status(400).json({ error: setup.error?.message || 'Failed to retrieve setup intent' });
-    }
+    try {
+        // Retrieve the confirmed SetupIntent to get the saved payment method + customer
+        const setupRes = await fetch(`https://api.stripe.com/v1/setup_intents/${setup_intent_id}`, {
+            headers: stripeHeaders,
+        });
+        const setup = await setupRes.json();
+        if (!setupRes.ok) {
+            return res.status(400).json({ error: setup.error?.message || 'Failed to retrieve setup intent' });
+        }
 
-    if (setup.status !== 'succeeded') {
-      return res.status(400).json({ error: 'Payment method was not confirmed' });
-    }
+        if (setup.status !== 'succeeded') {
+            return res.status(400).json({ error: 'Payment method was not confirmed' });
+        }
 
-    const paymentMethodId = setup.payment_method;
-    const customerId = setup.customer;
+        const paymentMethodId = setup.payment_method;
+        const customerId = setup.customer;
 
-    // Get the customer email for the webhook + tracking
-    let customerEmail = setup.customer_details?.email || '';
-    if (!customerEmail && customerId) {
-      const custRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}`, {
-        headers: stripeHeaders,
-      });
-      const cust = await custRes.json();
-      if (custRes.ok && cust.email) customerEmail = cust.email;
-    }
+        // Get the customer email for the webhook + tracking
+        let customerEmail = setup.customer_details?.email || '';
+        if (!customerEmail && customerId) {
+            const custRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}`, {
+                headers: stripeHeaders,
+            });
+            const cust = await custRes.json();
+            if (custRes.ok && cust.email) customerEmail = cust.email;
+        }
 
-    // Create the $9/month subscription with the saved payment method
-    const subParams = new URLSearchParams({
-      customer: customerId,
-      default_payment_method: paymentMethodId,
-      off_session: 'true',
-      'items[0][price_data][currency]': 'usd',
-      'items[0][price_data][unit_amount]': '900',
-      'items[0][price_data][recurring][interval]': 'month',
-      'items[0][price_data][product_data][name]': 'CR8OR Studio Subscription',
-      'items[0][quantity]': '1',
-      'expand[0]': 'latest_invoice.payment_intent',
-    });
+        // Create the price first with product_data (allowed for /v1/prices, not inside /v1/subscriptions)
+        const priceParams = new URLSearchParams({
+            currency: 'usd',
+            unit_amount: '900',
+            'recurring[interval]': 'month',
+            'product_data[name]': 'CR8OR AI Video Studio Subscription',
+            'product_data[metadata][source]': 'ai-video-studio-checkout',
+        });
 
-    const subRes = await fetch('https://api.stripe.com/v1/subscriptions', {
-      method: 'POST',
-      headers: stripeHeaders,
-      body: subParams,
-    });
-    const sub = await subRes.json();
+        const priceRes = await fetch('https://api.stripe.com/v1/prices', {
+            method: 'POST',
+            headers: stripeHeaders,
+            body: priceParams,
+        });
+        const price = await priceRes.json();
+        if (!priceRes.ok) {
+            return res.status(400).json({ error: price.error?.message || 'Failed to create price' });
+        }
+
+        // Create the $9/month subscription with the saved payment method
+        const subParams = new URLSearchParams({
+            customer: customerId,
+            default_payment_method: paymentMethodId,
+            off_session: 'true',
+            'items[0][price]': price.id,
+            'items[0][quantity]': '1',
+            'expand[0]': 'latest_invoice.payment_intent',
+        });
+
+        const subRes = await fetch('https://api.stripe.com/v1/subscriptions', {
+            method: 'POST',
+            headers: stripeHeaders,
+            body: subParams,
+        });
+        const sub = await subRes.json();
 
     if (!subRes.ok) {
       return res.status(400).json({ error: sub.error?.message || 'Failed to create subscription' });
