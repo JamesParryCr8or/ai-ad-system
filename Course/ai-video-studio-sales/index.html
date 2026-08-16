@@ -1103,6 +1103,64 @@
         .studio-shot--wide {
             grid-column: 1 / -1;
         }
+
+        /* ── Email Capture Modal ── */
+        #email-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(7, 6, 14, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+        #email-modal-overlay.active {
+            display: flex;
+        }
+        #email-modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            max-width: 28rem;
+            width: 100%;
+            text-align: center;
+        }
+        #email-modal h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.5rem;
+        }
+        #email-modal p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        #email-modal input {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border);
+            background: var(--s-low);
+            color: #fff;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            outline: none;
+        }
+        #email-modal input:focus {
+            border-color: var(--purple-500);
+        }
+        #email-modal .modal-btn {
+            width: 100%;
+        }
+        #email-modal .modal-footer {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
     </style>
 </head>
 
@@ -1939,9 +1997,27 @@
             updateCarousel();
         })();
 
-        // Facebook Pixel - InitiateCheckout on CTA clicks
+        // Email capture modal + Stripe checkout
+        const WEBHOOK_URL = 'https://services.leadconnectorhq.com/hooks/u3QaT76YAw3PJvfiuGkZ/webhook-trigger/7b8a9c64-30a8-4408-807b-ee6942370481';
+
+        function showEmailModal() {
+            const overlay = document.getElementById('email-modal-overlay');
+            const input = document.getElementById('modal-email');
+            input.value = '';
+            input.style.borderColor = '';
+            const submitBtn = document.getElementById('modal-submit');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Continue to Checkout →';
+            overlay.classList.add('active');
+            setTimeout(function() { input.focus(); }, 100);
+        }
+
+        function hideEmailModal() {
+            document.getElementById('email-modal-overlay').classList.remove('active');
+        }
+
         document.querySelectorAll('.checkout-btn').forEach(btn => {
-            btn.addEventListener('click', async function() {
+            btn.addEventListener('click', function() {
                 if (typeof fbq === 'function') {
                     fbq('track', 'InitiateCheckout', {
                         content_name: 'AI Video Studio Field Manual',
@@ -1950,35 +2026,72 @@
                         currency: 'USD'
                     });
                 }
-
-                const originalText = btn.textContent;
-                btn.disabled = true;
-                btn.textContent = 'Redirecting...';
-
-                try {
-                    const response = await fetch('/api/create-checkout-session', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    });
-
-                    const data = await response.json();
-
-                    if (data.url) {
-                        window.location.href = data.url;
-                    } else {
-                        throw new Error(data.error || 'Failed to create checkout session');
-                    }
-                } catch (error) {
-                    console.error('Checkout error:', error);
-                    btn.disabled = false;
-                    btn.textContent = originalText;
-                    alert('Something went wrong. Please try again or contact support.');
-                }
+                showEmailModal();
             });
         });
+
+        document.getElementById('modal-submit').addEventListener('click', async function() {
+            const emailInput = document.getElementById('modal-email');
+            const email = emailInput.value.trim();
+            if (!email || !email.includes('@')) {
+                emailInput.style.borderColor = '#FB7185';
+                emailInput.focus();
+                return;
+            }
+
+            const btn = document.getElementById('modal-submit');
+            btn.disabled = true;
+            btn.textContent = 'Sending...';
+
+            try {
+                // Fire lead to webhook (non-blocking)
+                fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email, source: 'ai-video-studio-sales', timestamp: new Date().toISOString() })
+                }).catch(function() {});
+
+                // Create Stripe checkout session with pre-filled email
+                const response = await fetch('/api/create-checkout-session', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ customer_email: email })
+                });
+
+                const data = await response.json();
+                if (data.url) {
+                    window.location.href = data.url;
+                } else {
+                    throw new Error(data.error || 'Failed to create checkout session');
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                btn.disabled = false;
+                btn.textContent = 'Continue to Checkout →';
+                alert('Something went wrong. Please try again or contact support.');
+            }
+        });
+
+        // Close modal on overlay click or Escape
+        document.getElementById('email-modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) hideEmailModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') hideEmailModal();
+        });
     </script>
+
+    <!-- ── Email Capture Modal ── -->
+    <div id="email-modal-overlay">
+        <div id="email-modal">
+            <h3>Join The Community</h3>
+            <p>Enter your email to get instant access and lock in the $9/month founders price.</p>
+            <input id="modal-email" type="email" placeholder="you@example.com" autocomplete="email">
+            <button id="modal-submit" type="button" class="btn checkout-btn modal-btn">Continue to Checkout →</button>
+            <p class="modal-footer">256-bit secure · Cancel anytime · No spam</p>
+        </div>
+    </div>
+
 </body>
 
 </html>
