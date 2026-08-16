@@ -1895,6 +1895,19 @@
         </div>
     </footer>
 
+    <!-- ── Email Capture Modal ── -->
+    <div id="email-modal-overlay">
+        <div id="email-modal">
+            <button id="email-modal-close" type="button" aria-label="Close modal">×</button>
+            <h3>Join The Community</h3>
+            <p>Enter your email to get instant access and lock in the $9/month founders price.</p>
+            <input id="modal-email" type="email" placeholder="you@example.com" autocomplete="email">
+            <button id="modal-submit" type="button" class="btn modal-btn">Continue to Checkout →</button>
+            <p class="modal-footer">256-bit secure · Cancel anytime · No spam</p>
+            <button id="modal-close-link" type="button" class="modal-close-link">Close and continue reading</button>
+        </div>
+    </div>
+
     <script>
         const videos = [
           {"id": "c3320c6f-8ab0-4f80-8e33-f635e7f98354",
@@ -2153,19 +2166,6 @@
             if (e.key === 'Escape') hideEmailModal();
         });
     </script>
-
-    <!-- ── Email Capture Modal ── -->
-    <div id="email-modal-overlay">
-        <div id="email-modal">
-            <button id="email-modal-close" type="button" aria-label="Close modal">×</button>
-            <h3>Join The Community</h3>
-            <p>Enter your email to get instant access and lock in the $9/month founders price.</p>
-            <input id="modal-email" type="email" placeholder="you@example.com" autocomplete="email">
-            <button id="modal-submit" type="button" class="btn modal-btn">Continue to Checkout →</button>
-            <p class="modal-footer">256-bit secure · Cancel anytime · No spam</p>
-            <button id="modal-close-link" type="button" class="modal-close-link">Close and continue reading</button>
-        </div>
-    </div>
 
 </body>
 
