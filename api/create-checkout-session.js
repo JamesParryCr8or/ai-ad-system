@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       'line_items[0][price_data][product_data][name]': 'CR8OR Studio Subscription',
       'line_items[0][quantity]': '1',
       'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}',
-      'cancel_url': 'https://scale.cr8or.ai/Course/ai-video-studio-sales.html',
+      'cancel_url': 'https://scale.cr8or.ai/Course/ai-video-studio-sales',
     });
 
     if (customerEmail) {

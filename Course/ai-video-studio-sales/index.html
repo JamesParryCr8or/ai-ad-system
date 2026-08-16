@@ -1,15 +1,15 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en-GB">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>The AI Video Studio — Field Manual 01 & Full Model Access</title>
+    <title>The AI Video Studio â€” Field Manual 01 & Full Model Access</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- TODO: Replace YOUR_PIXEL_ID with your actual Facebook Pixel ID -->
+    <script>
         !function(f,b,e,v,n,t,s)
         {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
         n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -78,7 +78,7 @@
             overflow-x: hidden;
         }
 
-        /* ── Ambient Backdrop Glows ── */
+        /* â”€â”€ Ambient Backdrop Glows â”€â”€ */
         .ambient {
             position: fixed;
             inset: 0;
@@ -106,7 +106,7 @@
             z-index: 2;
         }
 
-        /* ── Top Bar / Urgency Ticker ── */
+        /* â”€â”€ Top Bar / Urgency Ticker â”€â”€ */
         .top-banner {
             background: linear-gradient(90deg, #7C3AED, #D946EF);
             color: #fff;
@@ -136,7 +136,7 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        /* ── Hero Section ── */
+        /* â”€â”€ Hero Section â”€â”€ */
         .hero {
             padding: 4.5rem 0 3.5rem;
             text-align: center;
@@ -204,7 +204,7 @@
             font-weight: 700;
         }
 
-        /* ── As Seen / Engine Bar ── */
+        /* â”€â”€ As Seen / Engine Bar â”€â”€ */
         .engine-bar {
             padding: 1.5rem 0 3rem;
             text-align: center;
@@ -241,7 +241,7 @@
             gap: 6px;
         }
 
-        /* ── Pricing Box Callout ── */
+        /* â”€â”€ Pricing Box Callout â”€â”€ */
         .deal-card {
             background: linear-gradient(180deg, var(--s-high) 0%, var(--bg-card) 100%);
             border: 2px solid var(--primary-c);
@@ -315,7 +315,7 @@
             text-transform: uppercase;
         }
 
-        /* ── Call To Action Buttons ── */
+        /* â”€â”€ Call To Action Buttons â”€â”€ */
         .btn {
             display: inline-block;
             font-family: 'Space Grotesk', monospace;
@@ -351,7 +351,7 @@
             gap: 8px;
         }
 
-        /* ── Stats Rail ── */
+        /* â”€â”€ Stats Rail â”€â”€ */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -384,7 +384,7 @@
             color: var(--text-muted);
         }
 
-        /* ── Headings & Prose ── */
+        /* â”€â”€ Headings & Prose â”€â”€ */
         h2.sec-title {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-weight: 800;
@@ -405,7 +405,7 @@
             display: block;
         }
 
-        /* ── Contrast Sections (Wrong Buyer vs Brand Studio) ── */
+        /* â”€â”€ Contrast Sections (Wrong Buyer vs Brand Studio) â”€â”€ */
         .contrast-box {
             display: grid;
             grid-template-columns: 1fr;
@@ -465,7 +465,7 @@
         }
 
         ul.clean-list.no li::before {
-            content: "✕";
+            content: "âœ•";
             position: absolute;
             left: 0;
             color: #ff8fa3;
@@ -473,14 +473,14 @@
         }
 
         ul.clean-list.yes li::before {
-            content: "✓";
+            content: "âœ“";
             position: absolute;
             left: 0;
             color: var(--secondary);
             font-weight: 700;
         }
 
-        /* ── Phase & Card Modules (Borrowed from Landing Page) ── */
+        /* â”€â”€ Phase & Card Modules (Borrowed from Landing Page) â”€â”€ */
         .phase {
             margin-bottom: 28px;
         }
@@ -591,7 +591,7 @@
             text-transform: uppercase;
         }
 
-        /* ── ⚔️ THE GROWTH ARSENAL COMPONENT ── */
+        /* â”€â”€ âš”ï¸ THE GROWTH ARSENAL COMPONENT â”€â”€ */
         .ai-arsenal-wrapper {
             background: var(--s-lowest);
             border: 1px solid var(--border);
@@ -732,7 +732,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* ── Modules / What's Inside Grid ── */
+        /* â”€â”€ Modules / What's Inside Grid â”€â”€ */
         .curriculum-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -772,7 +772,7 @@
             line-height: 1.55;
         }
 
-        /* ── 9 Fast-Action Bonuses ── */
+        /* â”€â”€ 9 Fast-Action Bonuses â”€â”€ */
         .bonuses-wrapper {
             margin: 4rem 0;
         }
@@ -831,7 +831,7 @@
             white-space: nowrap;
         }
 
-        /* ── FAQ Accordion Style ── */
+        /* â”€â”€ FAQ Accordion Style â”€â”€ */
         .faq-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -853,7 +853,7 @@
             line-height: 1.6;
         }
 
-        /* ── Guarantee & Disclaimers ── */
+        /* â”€â”€ Guarantee & Disclaimers â”€â”€ */
         .guarantee-box {
             background: rgba(13, 11, 26, 0.8);
             border: 1px dashed var(--border);
@@ -890,7 +890,7 @@
             text-decoration: underline;
         }
 
-        /* ── video carousel ── */
+        /* â”€â”€ video carousel â”€â”€ */
         .video-showcase {
             background: var(--s-lowest);
             padding: 3rem 0 4rem;
@@ -1004,15 +1004,15 @@
 <body>
     <div class="ambient"></div>
 
-    <!-- ── TOP URGENCY TICKER ── -->
+    <!-- â”€â”€ TOP URGENCY TICKER â”€â”€ -->
     <div class="top-banner">
-        <span>🔥 <b>LIMITED V2.0 LAUNCH:</b> Instant $138 Discount Applied Automatically</span>
+        <span>ðŸ”¥ <b>LIMITED V2.0 LAUNCH:</b> Instant $138 Discount Applied Automatically</span>
         <span class="pill">Today Only $9</span>
     </div>
 
     <div class="wrap">
 
-        <!-- ── HERO ── -->
+        <!-- â”€â”€ HERO â”€â”€ -->
         <header class="hero">
             <div class="eyebrow-badge">
                 <span class="dot"></span> BREAKING: The One-Person AI Video Agency
@@ -1033,17 +1033,17 @@
                 <p style="font-size: 0.95rem; color: var(--body); margin-bottom: 1.5rem;">
                     Instant access to the complete 7,500-word Field Manual, 8-module Technique Library, 90-minute delivery system, and pay-as-you-go CR8OR AI Studio access.
                 </p>
-                <button type="button" class="btn checkout-btn">Get Instant Access For $9 →</button>
+                <button type="button" class="btn checkout-btn">Get Instant Access For $9 â†’</button>
                 <div class="cta-guarantee">
-                    <span>🔒 256-Bit Secure Checkout</span> · <span>⚡ Instant Digital Access</span>
+                    <span>ðŸ”’ 256-Bit Secure Checkout</span> Â· <span>âš¡ Instant Digital Access</span>
                 </div>
             </div>
         </header>
 
-        <!-- ── STATS / PROOF ── -->
+        <!-- â”€â”€ STATS / PROOF â”€â”€ -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div class="num">$1,500–$3k</div>
+                <div class="num">$1,500â€“$3k</div>
                 <div class="lbl">Active Industry Rate Card</div>
             </div>
             <div class="stat-card">
@@ -1060,7 +1060,7 @@
             </div>
         </div>
 
-        <!-- ── ENGINE LOGOS ── -->
+        <!-- â”€â”€ ENGINE LOGOS â”€â”€ -->
         <div class="engine-bar">
             <span class="engine-bar-label">Powered By The World's Leading Video & Image Foundation Models</span>
             <div class="engine-badges">
@@ -1073,69 +1073,25 @@
             </div>
         </div>
 
-        <!-- ── VIDEO SHOWCASE ── -->
+        <!-- â”€â”€ VIDEO SHOWCASE â”€â”€ -->
         <section class="video-showcase">
             <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
                 <span class="sec-eyebrow">Live Platform Output</span>
                 <h2 class="sec-title">See What The Studio Actually Generates</h2>
-                <p style="color: var(--text-secondary)">Real outputs from the CR8OR AI Studio — no curation, no cherry-picking. This is what lands in your dashboard.</p>
+                <p style="color: var(--text-secondary)">Real outputs from the CR8OR AI Studio â€” no curation, no cherry-picking. This is what lands in your dashboard.</p>
             </div>
 
             <div class="video-carousel-wrapper">
                 <button class="carousel-btn carousel-prev" aria-label="Previous video">&#10094;</button>
                 <div class="video-carousel">
-                    <div class="video-carousel-track">
-                        <div class="video-slide landscape">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>Animated Avatar</strong> — Timexifier character delivers a script with lip-sync and expression</p>
-                        </div>
-                        <div class="video-slide portrait">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/97df2843-bedb-4ef7-8ad3-45c8b8a2644c.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>UGC Review</strong> — Photorealistic British presenter, natural delivery, product integration</p>
-                        </div>
-                        <div class="video-slide portrait">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/a93cbace-4241-4486-9dc8-1dc4405fe8c4.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/a93cbace-4241-4486-9dc8-1dc4405fe8c4.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>Dermatologist Q&A</strong> — 9:16 vertical, multi-scene educational ad with on-screen text</p>
-                        </div>
-                        <div class="video-slide portrait">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/3da07aca-7b45-4aa6-a458-4f117b58172f.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3da07aca-7b45-4aa6-a458-4f117b58172f.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>Brand Ad</strong> — Multi-shot commercial with cinematic grade, studio environments, product integration</p>
-                        </div>
-                        <div class="video-slide portrait">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/302c7eb6-b438-4abe-8efc-a04901cdca39.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/302c7eb6-b438-4abe-8efc-a04901cdca39.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>Cinematic Reveal</strong> — Hollywood-style studio build, director's chair, camera rigs, lighting sequences</p>
-                        </div>
-                        <div class="video-slide portrait">
-                            <video controls preload="metadata" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c690fbb2-3919-49de-a8ea-06cf55e95a14.jpg">
-                                <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/c690fbb2-3919-49de-a8ea-06cf55e95a14.mp4" type="video/mp4">
-                            </video>
-                            <p class="video-caption"><strong>Product Demo</strong> — Wellness scanner device integration, macro detail, consultative tone</p>
-                        </div>
-                    </div>
+                    <div class="video-carousel-track"></div>
                 </div>
                 <button class="carousel-btn carousel-next" aria-label="Next video">&#10095;</button>
             </div>
-            <div class="carousel-dots">
-                <button class="carousel-dot active" data-index="0" aria-label="Video 1"></button>
-                <button class="carousel-dot" data-index="1" aria-label="Video 2"></button>
-                <button class="carousel-dot" data-index="2" aria-label="Video 3"></button>
-                <button class="carousel-dot" data-index="3" aria-label="Video 4"></button>
-                <button class="carousel-dot" data-index="4" aria-label="Video 5"></button>
-                <button class="carousel-dot" data-index="5" aria-label="Video 6"></button>
-            </div>
+                <div class="carousel-dots"></div>
         </section>
 
-        <!-- ── PROBLEM / WRONG BUYER ── -->
+        <!-- â”€â”€ PROBLEM / WRONG BUYER â”€â”€ -->
         <section style="padding: 3rem 0;">
             <span class="sec-eyebrow">The Trap</span>
             <h2 class="sec-title">Everyone is selling to the wrong buyer.</h2>
@@ -1148,7 +1104,7 @@
 
             <div class="contrast-box">
                 <div class="box-pain">
-                    <h3><span>❌</span> The "Faceless Influencer" Raffle</h3>
+                    <h3><span>âŒ</span> The "Faceless Influencer" Raffle</h3>
                     <ul class="clean-list no">
                         <li>You spend 6 hours/day chasing elusive algorithm views</li>
                         <li>Social platforms pay fractions of a penny per 1,000 views</li>
@@ -1159,7 +1115,7 @@
                 </div>
 
                 <div class="box-win">
-                    <h3><span>✓</span> The B2B AI Video Studio Model</h3>
+                    <h3><span>âœ“</span> The B2B AI Video Studio Model</h3>
                     <ul class="clean-list yes">
                         <li>You sell directly to brands with existing ad spend</li>
                         <li>Brands pay <b>$1,000/project</b> or <b>$500/month</b> retainers</li>
@@ -1171,7 +1127,7 @@
             </div>
         </section>
 
-        <!-- ── PHASE 2 & 3 SECTIONS (BORROWED FROM MAIN AD SYSTEM) ── -->
+        <!-- â”€â”€ PHASE 2 & 3 SECTIONS (BORROWED FROM MAIN AD SYSTEM) â”€â”€ -->
         <section style="padding: 2rem 0 4rem;">
             <span class="sec-eyebrow">The Technical System</span>
             <h2 class="sec-title">How the Studio Engine Actually Works</h2>
@@ -1190,24 +1146,24 @@
                 </div>
                 <div class="cards">
                     <div class="card-node">
-                        <span class="card-icon">🔬</span>
+                        <span class="card-icon">ðŸ”¬</span>
                         <div class="card-name">ICP Pain Mining</div>
                         <div class="card-detail">Extract genuine customer frustrations and buying triggers from reviews.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🧠</span>
+                        <span class="card-icon">ðŸ§ </span>
                         <div class="card-name">Brand Node Memory</div>
                         <div class="card-detail">Lock brand colours, product silhouettes, and tone so the AI never forgets.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🕵️</span>
+                        <span class="card-icon">ðŸ•µï¸</span>
                         <div class="card-name">Competitor Swipes</div>
                         <div class="card-detail">Reverse-engineer top winning competitor ads into structural blueprints.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="flow-connector">↓ Research feeds creative generation ↓</div>
+            <div class="flow-connector">â†“ Research feeds creative generation â†“</div>
 
             <!-- Phase 2: AI CREATIVE GENERATION -->
             <div class="phase phase--creative">
@@ -1220,29 +1176,29 @@
                 </div>
                 <div class="cards">
                     <div class="card-node">
-                        <span class="card-icon">🎬</span>
+                        <span class="card-icon">ðŸŽ¬</span>
                         <div class="card-name">AI Video Ads</div>
-                        <div class="card-detail">Sora 2 · Veo 3.1 · Kling 2.5 · Seedance 2.5 — cinematic 9:16 and 16:9 moves.</div>
+                        <div class="card-detail">Sora 2 Â· Veo 3.1 Â· Kling 2.5 Â· Seedance 2.5 â€” cinematic 9:16 and 16:9 moves.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🗣️</span>
+                        <span class="card-icon">ðŸ—£ï¸</span>
                         <div class="card-name">AI UGC Avatars</div>
                         <div class="card-detail">Photorealistic presenters, talking heads, genuine reaction-style unboxings.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🖼️</span>
+                        <span class="card-icon">ðŸ–¼ï¸</span>
                         <div class="card-name">Photoreal Product Stills</div>
-                        <div class="card-detail">Flux 1.1 Pro Ultra · Imagen 4.0 — high-end studio lighting on demand.</div>
+                        <div class="card-detail">Flux 1.1 Pro Ultra Â· Imagen 4.0 â€” high-end studio lighting on demand.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🎙️</span>
+                        <span class="card-icon">ðŸŽ™ï¸</span>
                         <div class="card-name">Voice Cloning & SFX</div>
                         <div class="card-detail">ElevenLabs voice generation with ambient room tone and dynamic mix.</div>
                     </div>
                 </div>
             </div>
 
-            <div class="flow-connector">↓ Assets flow into storyboards & ad concepts ↓</div>
+            <div class="flow-connector">â†“ Assets flow into storyboards & ad concepts â†“</div>
 
             <!-- Phase 3: STORYBOARDS & AD CONCEPTS -->
             <div class="phase phase--concepts">
@@ -1255,22 +1211,22 @@
                 </div>
                 <div class="cards">
                     <div class="card-node">
-                        <span class="card-icon">📐</span>
+                        <span class="card-icon">ðŸ“</span>
                         <div class="card-name">5 Core Hook Frameworks</div>
                         <div class="card-detail">Pattern interrupt, before-and-after, problem/agitate, social proof, offer.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">✍️</span>
+                        <span class="card-icon">âœï¸</span>
                         <div class="card-name">Claude Directing Scripts</div>
                         <div class="card-detail">Scene-by-scene timing, voiceover sync, and on-screen caption copy.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🎞️</span>
+                        <span class="card-icon">ðŸŽžï¸</span>
                         <div class="card-name">Shotlist Director</div>
                         <div class="card-detail">8 numbered prompts assembled into cohesive 30s multi-shot commercials.</div>
                     </div>
                     <div class="card-node">
-                        <span class="card-icon">🧪</span>
+                        <span class="card-icon">ðŸ§ª</span>
                         <div class="card-name">Creative Testing Inner-Loop</div>
                         <div class="card-detail">Fast variations tested on thumb-stop rate, CTR, and conversion signal.</div>
                     </div>
@@ -1278,7 +1234,7 @@
             </div>
         </section>
 
-        <!-- ── ⚔️ THE GROWTH ARSENAL SECTION ── -->
+        <!-- â”€â”€ âš”ï¸ THE GROWTH ARSENAL SECTION â”€â”€ -->
         <section class="ai-arsenal-wrapper">
             <div class="arsenal-header">
                 <div class="arsenal-badge"><span class="dot"></span> Fully Automated Multi-Model Engine</div>
@@ -1289,7 +1245,7 @@
             <!-- Video Models -->
             <div class="model-category">
                 <div class="category-label">
-                    <div class="category-icon">🎬</div>
+                    <div class="category-icon">ðŸŽ¬</div>
                     <div class="category-info">
                         <h3>Video Generation</h3>
                         <span>12 Models Deployed</span>
@@ -1297,42 +1253,42 @@
                 </div>
                 <div class="model-grid">
                     <div class="model-chip pro">
-                        <span class="model-icon">⚡</span>
+                        <span class="model-icon">âš¡</span>
                         <div class="model-info">
                             <span class="model-name">Sora 2 Pro</span>
                             <span class="model-provider">OpenAI</span>
                         </div>
                     </div>
                     <div class="model-chip pro">
-                        <span class="model-icon">⚡</span>
+                        <span class="model-icon">âš¡</span>
                         <div class="model-info">
                             <span class="model-name">Veo 3.1</span>
                             <span class="model-provider">Google DeepMind</span>
                         </div>
                     </div>
                     <div class="model-chip pro">
-                        <span class="model-icon">⚡</span>
+                        <span class="model-icon">âš¡</span>
                         <div class="model-info">
                             <span class="model-name">Kling 2.5 Turbo Pro</span>
                             <span class="model-provider">Kling AI</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🎬</span>
+                        <span class="model-icon">ðŸŽ¬</span>
                         <div class="model-info">
                             <span class="model-name">Seedance 2.5</span>
                             <span class="model-provider">ByteDance</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🎬</span>
+                        <span class="model-icon">ðŸŽ¬</span>
                         <div class="model-info">
                             <span class="model-name">Wan 2.2 i2V Fast</span>
                             <span class="model-provider">Alibaba</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🎬</span>
+                        <span class="model-icon">ðŸŽ¬</span>
                         <div class="model-info">
                             <span class="model-name">Veo 3 Fast</span>
                             <span class="model-provider">Google DeepMind</span>
@@ -1344,7 +1300,7 @@
             <!-- Image Models -->
             <div class="model-category">
                 <div class="category-label">
-                    <div class="category-icon">🖼️</div>
+                    <div class="category-icon">ðŸ–¼ï¸</div>
                     <div class="category-info">
                         <h3>Image & Photorealism</h3>
                         <span>11 Models Deployed</span>
@@ -1352,42 +1308,42 @@
                 </div>
                 <div class="model-grid">
                     <div class="model-chip pro">
-                        <span class="model-icon">⚡</span>
+                        <span class="model-icon">âš¡</span>
                         <div class="model-info">
                             <span class="model-name">Flux 1.1 Pro Ultra</span>
                             <span class="model-provider">Black Forest Labs</span>
                         </div>
                     </div>
                     <div class="model-chip pro">
-                        <span class="model-icon">⚡</span>
+                        <span class="model-icon">âš¡</span>
                         <div class="model-info">
                             <span class="model-name">Imagen 4.0 Ultra</span>
                             <span class="model-provider">Google DeepMind</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🖼️</span>
+                        <span class="model-icon">ðŸ–¼ï¸</span>
                         <div class="model-info">
                             <span class="model-name">GPT Image 1</span>
                             <span class="model-provider">OpenAI</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🖼️</span>
+                        <span class="model-icon">ðŸ–¼ï¸</span>
                         <div class="model-info">
                             <span class="model-name">Flux Kontext Max</span>
                             <span class="model-provider">Black Forest Labs</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🖼️</span>
+                        <span class="model-icon">ðŸ–¼ï¸</span>
                         <div class="model-info">
                             <span class="model-name">Nano Banana</span>
                             <span class="model-provider">Experimental Flash</span>
                         </div>
                     </div>
                     <div class="model-chip">
-                        <span class="model-icon">🖼️</span>
+                        <span class="model-icon">ðŸ–¼ï¸</span>
                         <div class="model-info">
                             <span class="model-name">Flux Dev & Schnell</span>
                             <span class="model-provider">Black Forest Labs</span>
@@ -1400,7 +1356,7 @@
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
                 <div class="model-category" style="margin-bottom:0;">
                     <div class="category-label">
-                        <div class="category-icon">🎙️</div>
+                        <div class="category-icon">ðŸŽ™ï¸</div>
                         <div class="category-info">
                             <h3>Audio & Voice</h3>
                             <span>ElevenLabs Elite</span>
@@ -1410,17 +1366,17 @@
                 </div>
                 <div class="model-category" style="margin-bottom:0;">
                     <div class="category-label">
-                        <div class="category-icon">🗣️</div>
+                        <div class="category-icon">ðŸ—£ï¸</div>
                         <div class="category-info">
                             <h3>AI UGC Avatars</h3>
                             <span>CR8OR LipDub</span>
                         </div>
                     </div>
-                    <p style="font-size:0.88rem;color:var(--text-secondary)">Build 2–3 house presenters you own outright. No creator fees, no negotiation delays.</p>
+                    <p style="font-size:0.88rem;color:var(--text-secondary)">Build 2â€“3 house presenters you own outright. No creator fees, no negotiation delays.</p>
                 </div>
                 <div class="model-category" style="margin-bottom:0;">
                     <div class="category-label">
-                        <div class="category-icon">🤖</div>
+                        <div class="category-icon">ðŸ¤–</div>
                         <div class="category-info">
                             <h3>MCP Automation</h3>
                             <span>Claude Desktop Sync</span>
@@ -1431,7 +1387,7 @@
             </div>
         </section>
 
-        <!-- ── WHAT'S INSIDE THE FIELD MANUAL ── -->
+        <!-- â”€â”€ WHAT'S INSIDE THE FIELD MANUAL â”€â”€ -->
         <section>
             <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
                 <span class="sec-eyebrow">Curriculum Breakdown</span>
@@ -1441,39 +1397,39 @@
 
             <div class="curriculum-grid">
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 1 · The Craft</span>
-                    <h4>Phase 01–03: Frame & Motion</h4>
-                    <p>Fixed prompt structuring (subject → action → setting → light → lens → mood) and keyframe corridors that eliminate AI drift.</p>
+                    <span class="phase-badge">Part 1 Â· The Craft</span>
+                    <h4>Phase 01â€“03: Frame & Motion</h4>
+                    <p>Fixed prompt structuring (subject â†’ action â†’ setting â†’ light â†’ lens â†’ mood) and keyframe corridors that eliminate AI drift.</p>
                 </div>
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 1 · The Craft</span>
-                    <h4>Phase 04–05: Sound & Consistency</h4>
+                    <span class="phase-badge">Part 1 Â· The Craft</span>
+                    <h4>Phase 04â€“05: Sound & Consistency</h4>
                     <p>The 4 consistency locks (face, outfit, place, voice) and the 3-layer audio mix (voice, room tone, music) that makes renders look real.</p>
                 </div>
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 1 · The Craft</span>
-                    <h4>Phase 06–09: Ads & Multi-Shot</h4>
+                    <span class="phase-badge">Part 1 Â· The Craft</span>
+                    <h4>Phase 06â€“09: Ads & Multi-Shot</h4>
                     <p>The 5 universal ad angles, 8-scene shotlist directing, clone consent rules, and MCP automated studio workflows.</p>
                 </div>
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 2 · The Business</span>
+                    <span class="phase-badge">Part 2 Â· The Business</span>
                     <h4>The 90-Minute Delivery Run</h4>
                     <p>The exact timer breakdown: 15 min setup, 10 min angles, 40 min build, 15 min cull, 10 min deliver. Repeat for 20 clients.</p>
                 </div>
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 2 · The Business</span>
+                    <span class="phase-badge">Part 2 Â· The Business</span>
                     <h4>The 8-Module Technique Library</h4>
                     <p>Three-asset build, character sheets, reverse-engineering winners, anti-plastic prompting, location locks, and scene surgery.</p>
                 </div>
                 <div class="curriculum-card">
-                    <span class="phase-badge">Part 2 · The Business</span>
+                    <span class="phase-badge">Part 2 Â· The Business</span>
                     <h4>The $500/Mo Retainer Conversion</h4>
                     <p>How to pitch the initial $1,000 project, deliver excellence, and convert 1-in-3 into recurring monthly retainers without sales calls.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ── 9 FAST ACTION BONUSES ── -->
+        <!-- â”€â”€ 9 FAST ACTION BONUSES â”€â”€ -->
         <section class="bonuses-wrapper">
             <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
                 <span class="sec-eyebrow">Bonus Bundle</span>
@@ -1563,7 +1519,7 @@
             </div>
         </section>
 
-        <!-- ── VALUE STACK / FINAL OFFER ── -->
+        <!-- â”€â”€ VALUE STACK / FINAL OFFER â”€â”€ -->
         <section style="padding: 2rem 0 5rem;">
             <div class="deal-card" style="max-width: 44rem;">
                 <div class="sec-eyebrow">Instant Digital Access</div>
@@ -1571,11 +1527,11 @@
                 <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Everything you need to launch a high-margin, one-person creative studio today.</p>
                 
                 <div style="text-align: left; background: var(--s-lowest); padding: 1.5rem 1.8rem; border-radius: 1rem; margin-bottom: 1.5rem; font-size: 0.92rem;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📘 The AI Video Studio Field Manual (7,500 words)</span> <b>$147 Value</b></div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>🎬 Full CR8OR Multi-Model Studio Access</span> <b>$497 Value</b></div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📋 8-Module Technique Library & Shotlist Framework</span> <b>$297 Value</b></div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>🤖 Claude MCP Server Setup & Workflows</span> <b>$397 Value</b></div>
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>📧 Cold Outreach Scripts & Retainer Agreements</span> <b>$444 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>ðŸ“˜ The AI Video Studio Field Manual (7,500 words)</span> <b>$147 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>ðŸŽ¬ Full CR8OR Multi-Model Studio Access</span> <b>$497 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>ðŸ“‹ 8-Module Technique Library & Shotlist Framework</span> <b>$297 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>ðŸ¤– Claude MCP Server Setup & Workflows</span> <b>$397 Value</b></div>
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;"><span>ðŸ“§ Cold Outreach Scripts & Retainer Agreements</span> <b>$444 Value</b></div>
                     <div style="display:flex; justify-content:space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; margin-top: 10px; color: var(--secondary); font-weight: 700;">
                         <span>Total Real World Value:</span> <span>$1,782.00</span>
                     </div>
@@ -1585,17 +1541,17 @@
                     <span class="was">$147.00</span>
                     <span class="now"><sup>$</sup>9</span>
                 </div>
-                <div class="savings-pill">Save $138 Today · Price Bumps at Midnight</div>
+                <div class="savings-pill">Save $138 Today Â· Price Bumps at Midnight</div>
                 
-                <button type="button" class="btn checkout-btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</button>
+                <button type="button" class="btn checkout-btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) â†’</button>
                 
                 <div class="cta-guarantee">
-                    <span>⚡ Instant PDF Download + Studio Login Credentials</span>
+                    <span>âš¡ Instant PDF Download + Studio Login Credentials</span>
                 </div>
             </div>
         </section>
 
-        <!-- ── FAQ SECTION ── -->
+        <!-- â”€â”€ FAQ SECTION â”€â”€ -->
         <section style="padding: 1rem 0 4rem;">
             <div class="wrap-narrow">
                 <div style="text-align: center; margin-bottom: 2.5rem;">
@@ -1610,7 +1566,7 @@
 
                 <div class="faq-card">
                     <h4>How is this different from buying Midjourney or Runway separately?</h4>
-                    <p>Buying individual subscriptions costs over $160/month, and none of those tools share client memory. CR8OR gives you 12 video engines and 11 image engines in one dashboard with zero monthly subscriptions—you only pay for what you render via usage billing.</p>
+                    <p>Buying individual subscriptions costs over $160/month, and none of those tools share client memory. CR8OR gives you 12 video engines and 11 image engines in one dashboard with zero monthly subscriptionsâ€”you only pay for what you render via usage billing.</p>
                 </div>
 
                 <div class="faq-card">
@@ -1619,13 +1575,13 @@
                 </div>
 
                 <div class="faq-card">
-                    <h4>How quickly can I land my first $500–$1,000 client?</h4>
-                    <p>The 30-Day sprint in Chapter 13 shows you how to build a 3-brand portfolio in week 2 and deploy 10 spec outreach emails a day in week 3. Most disciplined students secure their initial paid project within their first 21–30 days.</p>
+                    <h4>How quickly can I land my first $500â€“$1,000 client?</h4>
+                    <p>The 30-Day sprint in Chapter 13 shows you how to build a 3-brand portfolio in week 2 and deploy 10 spec outreach emails a day in week 3. Most disciplined students secure their initial paid project within their first 21â€“30 days.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ── NO-BS GUARANTEE ── -->
+        <!-- â”€â”€ NO-BS GUARANTEE â”€â”€ -->
         <div class="guarantee-box">
             <h3>Straightforward Honesty Policy</h3>
             <p style="font-size: 0.92rem; color: var(--body);">
@@ -1635,22 +1591,139 @@
 
     </div>
 
-    <!-- ── FOOTER ── -->
+    <!-- â”€â”€ FOOTER â”€â”€ -->
     <footer class="footer">
         <div class="wrap">
             <p>
                 <b>The AI Video Studio</b> by CR8OR AI. All rights reserved.<br>
-                This site is not part of the Facebook™ website or Meta Platforms Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META Platforms, Inc.
+                This site is not part of the Facebookâ„¢ website or Meta Platforms Inc. Additionally, this site is NOT endorsed by Facebook in any way. FACEBOOK is a trademark of META Platforms, Inc.
             </p>
             <p>
-                <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="#offer">Get Field Manual ($9)</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio">Read Course</a>
+                <a href="https://cr8or.ai">CR8OR AI Studio</a> Â· <a href="#offer">Get Field Manual ($9)</a> Â· <a href="https://scale.cr8or.ai/Course/ai-video-studio">Read Course</a>
             </p>
         </div>
     </footer>
 
     <script>
+        const videos = [
+          {
+            "id": "e9342634-42f1-4048-9deb-48af98d14601",
+            "prompt": "elmo fighting cookie monster, 1999 cel animation classic anime style",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/e9342634-42f1-4048-9deb-48af98d14601.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvL3RodGI3LTcyMzAwMDAxODA2MjAyLXRnY181YWE4ZTE3MTk3OGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDkzMDgwNDE5MjY4NzEyMC9jZ3QtMjAyNjA4MTAwMDAzMjctN2J0aHQubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOSUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA5VDE2MDcxNFomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT1lNGRmNTQ2NmIyNjE2MWZkZWEzZGU2OWExYzI2Zjg1NGQwNzMxMTBjYzM1MTFmZTkzYTYwOGQzNTIxZjQ5NjYxJlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "c3320c6f-8ab0-4f80-8e33-f635e7f98354",
+            "prompt": "elmo fighting cookie monster, 1999 cel animation classic anime style",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c3320c6f-8ab0-4f80-8e33-f635e7f98354.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvL3c5cGp0LTUyMzAwMDAxODA2MjAyLXRnY19kNzY2MGVjM2M4OGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDYyMzUwNDE5MjY4NzEyMC9jZ3QtMjAyNjA4MTAwMDAzMjUtdGpwOXcubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOSUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA5VDE2MDcxNVomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT1mYzViMWU0YzdkY2ZjYTAyMmNmODk2ZmI3OWRhYWVjOGI0NTRhZThhOTg1ZDhmODdlZDg1NmM3MDJmMWJkZDZmJlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "0ceebb6b-bf28-4d3b-ac6b-84a272b7a261",
+            "prompt": "2016 movie trailer about people protesting saying openai needs to bring out sora 2 but openai doesnt want to bring it back because it costs to much to bring back, openai vs protestors, openai fires misiles to try stop them , and its a whole war, movie trailer",
+            "model": "black-forest-labs/flux-3",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/0ceebb6b-bf28-4d3b-ac6b-84a272b7a261.jpg",
+            "image_url": "https://replicate.delivery/xezq/nNRxHgfHkY1DfkvcP6nDlPh95QtdH8qIQguypEvTNF6svkBXA/tmp9qs37stg.mp4"
+          },
+          {
+            "id": "3ca6b224-9bbc-439c-86d3-75bf3c3a78c2",
+            "prompt": "animated TIMEXIFIER CHARACTER, he's very animated about 20 seconds sora 2.. animated style he talks about it.",
+            "model": "sora-2",
+            "thumbnail_url": null,
+            "image_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/3ca6b224-9bbc-439c-86d3-75bf3c3a78c2.mp4"
+          },
+          {
+            "id": "4151a5d0-4f00-4a6e-92e3-e9f50a12cf84",
+            "prompt": "news brodcast 2006, people protesting infront of the openai headquarters because they want sora 2 the video generation model to come back so they can generate slop videos, news report about it, 2006 brodcast footage",
+            "model": "black-forest-labs/flux-3",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/4151a5d0-4f00-4a6e-92e3-e9f50a12cf84.jpg",
+            "image_url": "https://replicate.delivery/xezq/nO43wzeRVm0gOyWD14lXWBN0alNvRPX1hjq7isCGAvegkkBXA/tmprpeqm95s.mp4"
+          },
+          {
+            "id": "9bbdf559-0ef3-4f90-998b-bfa04811b09e",
+            "prompt": "they are fighting , live action cinematic style",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/9bbdf559-0ef3-4f90-998b-bfa04811b09e.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvL3NkNzVjLTAzNDUxMjkwODA2MjAyLXRnY18xZWI1Yjg3NjNiOGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDQyMTE3NjM4MjY4NzEyMC9jZ3QtMjAyNjA4MDkyMTU0MzAtYzU3ZHMubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOSUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA5VDEzNTUyN1omWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT1hYzhmMjJiZDhkNTY0Yjc4NTU1OGZjZmE1MDcyOTg5M2Q4YjUwOGRmMmI3ZGE5MTk1ZGViYWEzZDE5YjI4YzIxJlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "9b73ec84-578d-4655-9a54-26e7495074e0",
+            "prompt": "they are fighting , live action cinematic style",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/9b73ec84-578d-4655-9a54-26e7495074e0.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvL3EyN3A4LTk0MzAwMjkwODA2MjAyLXRnY19lMTdjMjczZDRiOGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDQ0ODEzMDc3MjY4NzEyMC9jZ3QtMjAyNjA4MDkyMDAzNDktOHA3MnEubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOSUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA5VDEyMDU1NlomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT1jNGEyZWNmOTAyNGY0MjAzODcyNjhjMDRjZDg3OWExNDM2OWM2ZjM3NTkyYzg4NTYxNDM4MDliOTljY2E3YWE1JlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "c2a6f60c-dfb0-4feb-bf9e-4b35eb5fc75f",
+            "prompt": "Image 1 fighting Image 2 , and then they look left and see elmon with a ak 47 , elmo tries to shoot but they dodge in slow motion and they all start to fight ",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/c2a6f60c-dfb0-4feb-bf9e-4b35eb5fc75f.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvLzV3ZG1mLTgyNTEyMDkwODA2MjAyLXRnY18yMGIwNjRkNWM3OGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDk3ODAzOTIxMjY4NzEyMC9jZ3QtMjAyNjA4MDkwMjE1MjgtZm1kdzUubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOCUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA4VDE4MjE1OVomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT0xNWU2NDZhNWRkNjVlZTNkYzFiMzVjYmZiZjFmOTM3OThkMmViOGYzNzk0MWVkYzdhMTAyYzkwYWFjOGE1MmU1JlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "4499f660-3003-49c6-9d89-77e455cf2e9d",
+            "prompt": "Image 1  fighting Image 2 , Image 2 is beating Image 1 up badly , live action cinematic fight",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/4499f660-3003-49c6-9d89-77e455cf2e9d.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvL2N4NmxnLTIxMzE5MDgwODA2MjAyLXRnY19kOGFiY2MzMzlhOGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDc1MzQ5NTE1MTY4NzEyMC9jZ3QtMjAyNjA4MDgwOTEzMTItZ2w2eGMubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOCUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA4VDAxMTczNVomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT1jNDAyMGY3MzQ2MzI2NDc4Yzc3MGNlODkzNTRlOGZmNmVmOTc3MjdlNWU0NTdhOTE2NWQxMDAwZjQ4Y2E4MDc2JlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "210d3860-5321-4f17-8656-1f1e2a073c94",
+            "prompt": "Image 1 fighting Image 2 in a ruined city  , intense battle , Image 1 yells 'YOUR NOTHING' and charges at him Image 2 strikes him in the chest and hovers above him , and shoots a orange laser beam from his eye, Image 1 dodges it and yells 'you think your smart huh cryox? lets see how you handle this!' he then hovers aswell and uses his portal gun , to create a portal behind Image 2 , the portal which is Image 3 , Image 1 flies towards Image 2 and pushes him in the portal hurdling him into it, Image 1 flies into it aswell, they are now fighting in space, epic space fight Image 2 is using Orange tech, like orange forcefield, orange laser eye because he has a singular eye because he has eye patch on an other, and hes using hand beam which shoots orange beam out of his hand, Image 1 is using blue tech, creating blue holographic clones of himself to fight Image 2 , this sequence only happens after they go through the portal to go to space, intense fight, both of the characters are in there 20's , LIVE ACTION MOVIE CINEMATIC FIGHT SEQUENCE",
+            "model": "dreamina-seedance-2-5-260628",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/210d3860-5321-4f17-8656-1f1e2a073c94.jpg",
+            "image_url": "aHR0cHM6Ly9hcmstYWNnLWFwLXNvdXRoZWFzdC0xLnRvcy1hcC1zb3V0aGVhc3QtMS52b2xjZXMuY29tL2RyZWFtaW5hLXNlZWRhbmNlLTItNS8zMDAzODI2NDAyL1ZpZGVvLzVwZG00LTIyMjI4MDgwODA2MjAyLXRnY19kNzU3ZmU3ZDNiOGEwY2ZmZmYwMDAwMDAwMDAwMDAwMDAwMDAwMDk4OTQ0NTg0MTY4NzEyMC9jZ3QtMjAyNjA4MDgwODIyMjItNG1kcDUubXA0P1gtVG9zLUFsZ29yaXRobT1UT1M0LUhNQUMtU0hBMjU2JlgtVG9zLUNyZWRlbnRpYWw9QUtMVFlXSmtaVEV4TmpBMVpEVXlORGMzWXpoak5UTTVPR0l5TmpCaE5EY3lPVFElMkYyMDI2MDgwOCUyRmFwLXNvdXRoZWFzdC0xJTJGdG9zJTJGcmVxdWVzdCZYLVRvcy1EYXRlPTIwMjYwODA4VDAwMjY0NFomWC1Ub3MtRXhwaXJlcz04NjQwMCZYLVRvcy1NYXgtUmVxdWVzdHM9MTAwJlgtVG9zLVNpZ25hdHVyZT0wYTlmYjg1N2M0MzExZmJkOWY3MTQzNTM2NmFmMDM4NWQ3NmRhNWQxNDhjZDgxMjAxNWU3MDJhMTc0MDM0Mjk0JlgtVG9zLVNpZ25lZEhlYWRlcnM9aG9zdA=="
+          },
+          {
+            "id": "d567a5a0-75a4-4a5a-8a5c-29f04aa631c2",
+            "prompt": "A day in the life instagram reel of Julian talking about how easy it is to travel, saving money on fuel. Extra cardio. British man. Make it as long as poss",
+            "model": "gemini-omni-flash-preview",
+            "thumbnail_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/thumbnails/d567a5a0-75a4-4a5a-8a5c-29f04aa631c2.jpg",
+            "image_url": "https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/d567a5a0-75a4-4a5a-8a5c-29f04aa631c2.mp4"
+          }
+        ];
+
+        function decodeVideoUrl(value) {
+            try { return atob(value); } catch (e) { return value; }
+        }
+
+        const track = document.querySelector('.video-carousel-track');
+        const dotsContainer = document.querySelector('.carousel-dots');
+
+        videos.forEach((video, index) => {
+            const slide = document.createElement('div');
+            slide.className = 'video-slide landscape';
+
+            const videoEl = document.createElement('video');
+            videoEl.controls = true;
+            videoEl.preload = 'metadata';
+            if (video.thumbnail_url) {
+                videoEl.setAttribute('poster', video.thumbnail_url);
+            }
+
+            const source = document.createElement('source');
+            source.src = decodeVideoUrl(video.image_url);
+            source.type = 'video/mp4';
+            videoEl.appendChild(source);
+            slide.appendChild(videoEl);
+
+            const caption = document.createElement('p');
+            caption.className = 'video-caption';
+            caption.innerHTML = '<strong>' + video.model + '</strong> â€” ' + video.prompt.substring(0, 80) + (video.prompt.length > 80 ? '...' : '');
+            slide.appendChild(caption);
+
+            track.appendChild(slide);
+
+            const dot = document.createElement('button');
+            dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+            dot.setAttribute('data-index', index);
+            dot.setAttribute('aria-label', 'Video ' + (index + 1));
+            dotsContainer.appendChild(dot);
+        });
+
         (function() {
-            const track = document.querySelector('.video-carousel-track');
             const slides = document.querySelectorAll('.video-slide');
             const dots = document.querySelectorAll('.carousel-dot');
             const prevBtn = document.querySelector('.carousel-prev');
@@ -1660,7 +1733,7 @@
             let autoPlayInterval;
 
             function updateCarousel() {
-                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                track.style.transform = 'translateX(-' + currentIndex * 100 + '%)';
                 dots.forEach((dot, i) => {
                     dot.classList.toggle('active', i === currentIndex);
                 });
@@ -1750,7 +1823,7 @@
                 } catch (error) {
                     console.error('Checkout error:', error);
                     btn.disabled = false;
-                    btn.textContent = 'Get Instant Access For $9 →';
+                    btn.textContent = 'Get Instant Access For $9 â†’';
                     alert('Something went wrong. Please try again or contact support.');
                 }
             });
