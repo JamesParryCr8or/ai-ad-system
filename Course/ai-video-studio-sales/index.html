@@ -1003,6 +1003,54 @@
             margin-bottom: .15rem;
             font-size: .82rem;
         }
+        .studio-tour {
+            background: var(--s-lowest);
+            padding: 3rem 0 4rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .studio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.25rem;
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        .studio-shot {
+            margin: 0;
+            background: var(--s-low);
+            border: 1px solid var(--border-subtle);
+            border-radius: 1rem;
+            overflow: hidden;
+            transition: transform .25s ease, border-color .25s ease;
+        }
+        .studio-shot:hover {
+            transform: translateY(-4px);
+            border-color: var(--purple-500);
+        }
+        .studio-shot img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .studio-shot figcaption {
+            padding: .85rem 1rem;
+            font-family: 'Space Grotesk', monospace;
+        }
+        .studio-shot figcaption b {
+            display: block;
+            color: #fff;
+            font-size: .9rem;
+            letter-spacing: .03em;
+            margin-bottom: .15rem;
+        }
+        .studio-shot figcaption span {
+            font-size: .78rem;
+            color: var(--text-muted);
+        }
+        .studio-shot--wide {
+            grid-column: 1 / -1;
+        }
     </style>
 </head>
 
@@ -1096,6 +1144,38 @@
                 <button class="carousel-btn carousel-next" aria-label="Next video">&#10095;</button>
             </div>
                 <div class="carousel-dots"></div>
+        </section>
+
+        <!-- ── STUDIO TOUR / SCREENSHOTS ── -->
+        <section class="studio-tour">
+            <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="sec-eyebrow">Inside The Studio</span>
+                <h2 class="sec-title">Your Entire Studio, One Login</h2>
+                <p style="color: var(--text-secondary)">No 6-tool subscription stack. Every model, avatar, voice, persona, and brand asset lives in the CR8OR Studio dashboard.</p>
+            </div>
+
+            <div class="studio-grid">
+                <figure class="studio-shot studio-shot--wide">
+                    <img loading="lazy" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1786890277790_Macbook-Air-studio.cr8or.ai.png" alt="CR8OR Studio model arsenal">
+                    <figcaption><b>Model Arsenal</b><span>12 video engines + 11 image engines on demand, one login</span></figcaption>
+                </figure>
+                <figure class="studio-shot">
+                    <img loading="lazy" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1786890276435_Macbook-Air-studio.cr8or.ai__5_.png" alt="AI avatar image workflow">
+                    <figcaption><b>Avatar Workflow</b><span>AI UGC presenters, talking heads & unboxings at scale</span></figcaption>
+                </figure>
+                <figure class="studio-shot">
+                    <img loading="lazy" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1786890276050_Macbook-Air-studio.cr8or.ai__4_.png" alt="CR8OR speech studio">
+                    <figcaption><b>Speech Studio</b><span>Voice cloning, narration & dynamic sound design</span></figcaption>
+                </figure>
+                <figure class="studio-shot">
+                    <img loading="lazy" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1786890274874_Macbook-Air-cr8or.ai.png" alt="CR8OR persona library">
+                    <figcaption><b>Personas</b><span>Persistent audience memory for every client</span></figcaption>
+                </figure>
+                <figure class="studio-shot">
+                    <img loading="lazy" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1786890274543_Macbook-Air-cr8or.ai__4_.png" alt="CR8OR brands and products library">
+                    <figcaption><b>Brands + Products</b><span>Brand-accurate assets from locked colors, logos & silhouettes</span></figcaption>
+                </figure>
+            </div>
         </section>
 
         <!-- ── PROBLEM / WRONG BUYER ── -->
