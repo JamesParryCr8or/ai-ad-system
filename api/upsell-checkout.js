@@ -164,29 +164,33 @@ export default async function handler(req, res) {
       }
     }
 
-    // 1.5 The subscription/session payment method may be a "link" PM (Stripe Link),
-    //     which a plain card PaymentIntent will reject. Always resolve an actual
-    //     card-type payment method for off-session use.
-    if (customerId) {
-      let isCard = false;
-
-      if (paymentMethodId) {
-        const pmRes = await fetch(`https://api.stripe.com/v1/payment_methods/${paymentMethodId}`, {
-          headers: stripeHeaders,
-        });
-        const pm = await pmRes.json();
-        isCard = pmRes.ok && pm.type === 'card';
-      }
-
-      if (!isCard) {
-        const cardListRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}/payment_methods?type=card&limit=1`, {
-          headers: stripeHeaders,
-        });
-        const cardList = await cardListRes.json();
-        paymentMethodId = (cardListRes.ok && cardList.data && cardList.data.length > 0) ? cardList.data[0].id : null;
-      }
-      console.log('[upsell] resolved payment method:', JSON.stringify({ customerId, paymentMethodId, isCard }));
+    // 1.5 The subscription/session payment method may be a "link" PM (Stripe Link).
+    //     A plain card-only PaymentIntent rejects it, but Stripe allows confirming
+    //     a link-type PM directly if we permit "link" as an allowed type too.
+    let pmType = null;
+    if (customerId && paymentMethodId) {
+      const pmRes = await fetch(`https://api.stripe.com/v1/payment_methods/${paymentMethodId}`, {
+        headers: stripeHeaders,
+      });
+      const pm = await pmRes.json();
+      pmType = pmRes.ok ? pm.type : null;
     }
+
+    if (customerId && !pmType) {
+      // No usable PM resolved yet — fall back to any saved card on the customer.
+      const cardListRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}/payment_methods?type=card&limit=1`, {
+        headers: stripeHeaders,
+      });
+      const cardList = await cardListRes.json();
+      if (cardListRes.ok && cardList.data && cardList.data.length > 0) {
+        paymentMethodId = cardList.data[0].id;
+        pmType = 'card';
+      } else {
+        paymentMethodId = null;
+      }
+    }
+
+    console.log('[upsell] resolved payment method:', JSON.stringify({ customerId, paymentMethodId, pmType }));
 
     // 2. One-click: attempt an off-session charge server-side.
     //    If the card needs 3DS, return the client_secret for inline authentication.
@@ -202,6 +206,10 @@ export default async function handler(req, res) {
         'metadata[product]': 'cr8or-credits-5000',
         'metadata[offer]': 'bulk-discount-50pct',
       });
+      piParams.append('payment_method_types[]', 'card');
+      if (pmType === 'link') {
+        piParams.append('payment_method_types[]', 'link');
+      }
 
       const piRes = await fetch('https://api.stripe.com/v1/payment_intents', {
         method: 'POST',
