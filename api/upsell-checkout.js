@@ -164,6 +164,30 @@ export default async function handler(req, res) {
       }
     }
 
+    // 1.5 The subscription/session payment method may be a "link" PM (Stripe Link),
+    //     which a plain card PaymentIntent will reject. Always resolve an actual
+    //     card-type payment method for off-session use.
+    if (customerId) {
+      let isCard = false;
+
+      if (paymentMethodId) {
+        const pmRes = await fetch(`https://api.stripe.com/v1/payment_methods/${paymentMethodId}`, {
+          headers: stripeHeaders,
+        });
+        const pm = await pmRes.json();
+        isCard = pmRes.ok && pm.type === 'card';
+      }
+
+      if (!isCard) {
+        const cardListRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}/payment_methods?type=card&limit=1`, {
+          headers: stripeHeaders,
+        });
+        const cardList = await cardListRes.json();
+        paymentMethodId = (cardListRes.ok && cardList.data && cardList.data.length > 0) ? cardList.data[0].id : null;
+      }
+      console.log('[upsell] resolved payment method:', JSON.stringify({ customerId, paymentMethodId, isCard }));
+    }
+
     // 2. One-click: attempt an off-session charge server-side.
     //    If the card needs 3DS, return the client_secret for inline authentication.
     if (paymentMethodId && customerId) {
