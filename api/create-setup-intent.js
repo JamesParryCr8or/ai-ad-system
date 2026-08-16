@@ -60,6 +60,7 @@ export default async function handler(req, res) {
       client_secret: setup.client_secret,
       setup_intent_id: setup.id,
       customer_id: customer.id,
+      configured: true,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
