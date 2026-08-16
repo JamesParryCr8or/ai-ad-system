@@ -122,6 +122,16 @@ export default async function handler(req, res) {
       customerId = sub.customer;
       paymentMethodId = sub.default_payment_method || sub.latest_invoice?.payment_intent?.payment_method || null;
 
+      if (customerId && !paymentMethodId) {
+        const pmRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}/payment_methods?type=card&limit=1`, {
+          headers: stripeHeaders,
+        });
+        const pmList = await pmRes.json();
+        if (pmRes.ok && pmList.data && pmList.data.length > 0) {
+          paymentMethodId = pmList.data[0].id;
+        }
+      }
+
       if (customerId) {
         const custRes = await fetch(`https://api.stripe.com/v1/customers/${customerId}`, { headers: stripeHeaders });
         const cust = await custRes.json();
