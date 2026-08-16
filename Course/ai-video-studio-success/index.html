@@ -1065,6 +1065,14 @@
             </div>
         </section>
 
+        <!-- ── SECOND CTA ── -->
+        <div style="text-align: center; padding: 3rem 1.5rem 4rem;">
+            <button id="upsell-btn-2" type="button" class="btn animate">
+                Yes, I Want 5,000 Credits To Start Making Profit Right Now
+            </button>
+            <button id="decline-btn-2" type="button" class="decline-link">Nah, I just want to read around now</button>
+        </div>
+
         <div class="footer">
             <p>
                 <a href="https://cr8or.ai">CR8OR AI Studio</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio">Read Course</a> · <a href="https://scale.cr8or.ai/Course/ai-video-studio-sales">Sales Page</a>
@@ -1078,11 +1086,13 @@
         const sessionId = params.get('session_id');
         const courseUrl = 'https://scale.cr8or.ai/Course/ai-video-studio' + (sessionId ? '?session_id=' + encodeURIComponent(sessionId) : '');
 
-        document.getElementById('decline-btn').addEventListener('click', function() {
-            window.location.href = courseUrl;
+        document.querySelectorAll('#decline-btn, #decline-btn-2').forEach(btn => {
+            btn.addEventListener('click', function() {
+                window.location.href = courseUrl;
+            });
         });
 
-        document.getElementById('upsell-btn').addEventListener('click', async function() {
+        const upsellHandler = async function() {
             const btn = this;
             if (!sessionId) {
                 window.location.href = courseUrl;
@@ -1122,7 +1132,10 @@
                 btn.textContent = 'Yes, I Want 5,000 Credits To Start Making Profit Right Now';
                 alert('Something went wrong. Please try again or contact support.');
             }
-        });
+        };
+
+        document.getElementById('upsell-btn').addEventListener('click', upsellHandler);
+        document.getElementById('upsell-btn-2').addEventListener('click', upsellHandler);
     </script>
 </body>
 </html>
