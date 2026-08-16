@@ -1088,6 +1088,7 @@
         const sessionId = params.get('session_id');
         const subId = params.get('sub_id');
         const courseUrl = 'https://scale.cr8or.ai/Course/ai-video-studio' + (subId ? '?sub_id=' + encodeURIComponent(subId) : sessionId ? '?session_id=' + encodeURIComponent(sessionId) : '');
+        const upsellCourseUrl = courseUrl + (courseUrl.indexOf('?') !== -1 ? '&' : '?') + 'upsell=1';
 
         document.querySelectorAll('#decline-btn, #decline-btn-2').forEach(btn => {
             btn.addEventListener('click', function() {
@@ -1115,15 +1116,8 @@
                 const data = await response.json();
 
                 if (data.success) {
-                    if (typeof fbq === 'function') {
-                        fbq('track', 'Purchase', {
-                            content_name: 'Bulk Discount | 50% Off Credits | CR8OR AI',
-                            value: 325.00,
-                            currency: 'USD'
-                        });
-                    }
                     btn.textContent = 'Done — Your Credits Are Being Added...';
-                    setTimeout(function() { window.location.href = courseUrl; }, 2000);
+                    setTimeout(function() { window.location.href = upsellCourseUrl; }, 2000);
                     return;
                 }
 
@@ -1139,15 +1133,8 @@
                     }
 
                     if (paymentIntent && paymentIntent.status === 'succeeded') {
-                        if (typeof fbq === 'function') {
-                            fbq('track', 'Purchase', {
-                                content_name: 'Bulk Discount | 50% Off Credits | CR8OR AI',
-                                value: 325.00,
-                                currency: 'USD'
-                            });
-                        }
                         btn.textContent = 'Done — Your Credits Are Being Added...';
-                        setTimeout(function() { window.location.href = courseUrl; }, 2000);
+                        setTimeout(function() { window.location.href = upsellCourseUrl; }, 2000);
                         return;
                     }
                 }

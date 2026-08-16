@@ -25,13 +25,18 @@
         fbq('init', '504549941048102');
         fbq('track', 'PageView');
         
-        // Track Purchase on course access page (Stripe success redirect)
-        fbq('track', 'Purchase', {
-            content_name: 'AI Video Studio Field Manual',
-            content_category: 'Ebook + Studio Access',
-            value: 9.00,
-            currency: 'USD'
-        });
+        // Track Purchase on course access page (Stripe success redirect).
+        // Fire $325 when the bulk-credit upsell was completed, otherwise $9.
+        (function() {
+            var qs = new URLSearchParams(window.location.search);
+            var upsell = qs.get('upsell') === '1';
+            fbq('track', 'Purchase', {
+                content_name: upsell ? 'Bulk Discount | 50% Off Credits | CR8OR AI' : 'AI Video Studio Field Manual',
+                content_category: upsell ? 'Credits' : 'Ebook + Studio Access',
+                value: upsell ? 325.00 : 9.00,
+                currency: 'USD'
+            });
+        })();
     </script>
     <noscript><img height="1" width="1" style="display:none"
         src="https://www.facebook.com/tr?id=504549941048102&ev=PageView&noscript=1"

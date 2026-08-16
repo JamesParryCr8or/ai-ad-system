@@ -47,7 +47,7 @@ async function createHostedCheckout({ headers, customerEmail, subscription_id, s
     mode: 'payment',
     'line_items[0][price]': priceId,
     'line_items[0][quantity]': '1',
-    'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}',
+    'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}&upsell=1',
     'cancel_url': `https://scale.cr8or.ai/Course/ai-video-studio-success?${subscription_id ? 'sub_id=' + subscription_id : 'session_id=' + session_id}`,
   });
 
