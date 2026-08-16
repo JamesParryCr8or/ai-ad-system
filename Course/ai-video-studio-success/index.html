@@ -24,6 +24,8 @@
         src="https://www.facebook.com/tr?id=504549941048102&ev=PageView&noscript=1"
     /></noscript>
 
+    <script src="https://js.stripe.com/v3/"></script>
+
     <style>
         :root {
             --void: #07060E;
@@ -1122,11 +1124,42 @@
                     }
                     btn.textContent = 'Done — Your Credits Are Being Added...';
                     setTimeout(function() { window.location.href = courseUrl; }, 2000);
-                } else if (data.requires_action && data.url) {
-                    window.location.href = data.url;
-                } else {
-                    throw new Error(data.error || 'Failed to complete upsell');
+                    return;
                 }
+
+                // One-click: confirm the off-session PaymentIntent inline with the saved card.
+                if (data.client_secret && data.payment_method_id && data.publishable_key) {
+                    const stripe = Stripe(data.publishable_key);
+                    const { error, paymentIntent } = await stripe.confirmCardPayment(data.client_secret, {
+                        payment_method: data.payment_method_id,
+                        return_url: window.location.href,
+                    });
+
+                    if (error) {
+                        throw new Error(error.message || 'Card authentication failed');
+                    }
+
+                    if (paymentIntent && paymentIntent.status === 'succeeded') {
+                        if (typeof fbq === 'function') {
+                            fbq('track', 'Purchase', {
+                                content_name: 'Bulk Discount | 50% Off Credits | CR8OR AI',
+                                value: 325.00,
+                                currency: 'USD'
+                            });
+                        }
+                        btn.textContent = 'Done — Your Credits Are Being Added...';
+                        setTimeout(function() { window.location.href = courseUrl; }, 2000);
+                        return;
+                    }
+                }
+
+                // Fallback: hosted Stripe checkout for cards that need a full checkout flow.
+                if (data.requires_action && data.url) {
+                    window.location.href = data.url;
+                    return;
+                }
+
+                throw new Error(data.error || 'Failed to complete upsell');
             } catch (error) {
                 console.error('Upsell error:', error);
                 btn.disabled = false;

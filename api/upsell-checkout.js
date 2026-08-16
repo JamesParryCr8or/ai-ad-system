@@ -42,6 +42,33 @@ async function ensureCreditsPrice(headers) {
   return price.id;
 }
 
+async function createHostedCheckout({ headers, customerEmail, subscription_id, session_id, priceId }) {
+  const fallbackParams = new URLSearchParams({
+    mode: 'payment',
+    'line_items[0][price]': priceId,
+    'line_items[0][quantity]': '1',
+    'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}',
+    'cancel_url': `https://scale.cr8or.ai/Course/ai-video-studio-success?${subscription_id ? 'sub_id=' + subscription_id : 'session_id=' + session_id}`,
+  });
+
+  if (customerEmail) {
+    fallbackParams.append('customer_email', customerEmail);
+  }
+
+  const csRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
+    method: 'POST',
+    headers,
+    body: fallbackParams,
+  });
+  const cs = await csRes.json();
+
+  if (!csRes.ok) {
+    throw new Error(cs.error?.message || 'Failed to create upsell checkout');
+  }
+
+  return cs.url;
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -62,6 +89,7 @@ export default async function handler(req, res) {
   }
 
   const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY;
+  const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY || '';
 
   if (!stripeSecretKey) {
     return res.status(500).json({ error: 'Stripe secret key not configured' });
@@ -79,7 +107,6 @@ export default async function handler(req, res) {
 
     // 1. Resolve customer + saved payment method
     if (subscription_id) {
-      // New flow: subscription created via Payment Intents/Setup Intents
       const subRes = await fetch(
         `https://api.stripe.com/v1/subscriptions/${subscription_id}?expand[0]=latest_invoice.payment_intent`,
         { headers: stripeHeaders }
@@ -101,7 +128,6 @@ export default async function handler(req, res) {
         if (custRes.ok && cust.email) customerEmail = cust.email;
       }
     } else if (session_id) {
-      // Legacy flow: hosted Checkout session (fallback)
       const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}`, {
         headers: stripeHeaders,
       });
@@ -128,7 +154,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // 2. One-click: charge the saved payment method off-session
+    // 2. One-click: create an off-session PaymentIntent and let the frontend confirm it.
+    //    This handles 3DS/SCA inline without sending the user to a hosted checkout.
     if (paymentMethodId && customerId) {
       const piParams = new URLSearchParams({
         amount: String(CREDITS_UNIT_AMOUNT),
@@ -136,7 +163,7 @@ export default async function handler(req, res) {
         customer: customerId,
         payment_method: paymentMethodId,
         off_session: 'true',
-        confirm: 'true',
+        confirm: 'false',
         description: 'Bulk Discount | 50% Off Credits | CR8OR AI — 5,000 credits',
         'metadata[product]': 'cr8or-credits-5000',
         'metadata[offer]': 'bulk-discount-50pct',
@@ -149,47 +176,31 @@ export default async function handler(req, res) {
       });
       const pi = await piRes.json();
 
-      if (piRes.ok && pi.status === 'succeeded') {
+      if (piRes.ok && pi.client_secret) {
         return res.status(200).json({
-          success: true,
-          payment_intent: pi.id,
-          customer_email: customerEmail,
+          success: false,
+          requires_action: true,
+          client_secret: pi.client_secret,
+          payment_method_id: paymentMethodId,
+          publishable_key: stripePublishableKey,
         });
       }
-
-      // One-click failed (card declined / requires authentication) — fall through to hosted checkout
     }
 
     // 3. Fallback: hosted Stripe checkout for the same offer
     const priceId = await ensureCreditsPrice(stripeHeaders);
-
-    const fallbackParams = new URLSearchParams({
-      mode: 'payment',
-      'line_items[0][price]': priceId,
-      'line_items[0][quantity]': '1',
-      'success_url': 'https://scale.cr8or.ai/Course/ai-video-studio?session_id={CHECKOUT_SESSION_ID}',
-      'cancel_url': `https://scale.cr8or.ai/Course/ai-video-studio-success?${subscription_id ? 'sub_id=' + subscription_id : 'session_id=' + session_id}`,
-    });
-
-    if (customerEmail) {
-      fallbackParams.append('customer_email', customerEmail);
-    }
-
-    const csRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-      method: 'POST',
+    const url = await createHostedCheckout({
       headers: stripeHeaders,
-      body: fallbackParams,
+      customerEmail,
+      subscription_id,
+      session_id,
+      priceId,
     });
-    const cs = await csRes.json();
-
-    if (!csRes.ok) {
-      return res.status(400).json({ error: cs.error?.message || 'Failed to create upsell checkout' });
-    }
 
     return res.status(200).json({
       success: false,
       requires_action: true,
-      url: cs.url,
+      url,
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
