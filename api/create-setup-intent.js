@@ -47,7 +47,6 @@ export default async function handler(req, res) {
       body: new URLSearchParams({
         customer: customer.id,
         usage: 'off_session',
-        'payment_method_types[0]': 'card',
         'automatic_payment_methods[enabled]': 'true',
       }),
     });
