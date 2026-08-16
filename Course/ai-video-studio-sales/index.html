@@ -1234,6 +1234,100 @@
         .modal-error.visible {
             display: block;
         }
+        /* ── Reviews Carousel ── */
+        .reviews-section {
+            padding: 3rem 0 4rem;
+        }
+        .reviews-carousel {
+            position: relative;
+            max-width: 68rem;
+            margin: 0 auto;
+            padding: 0 3rem;
+        }
+        @media (max-width: 640px) {
+            .reviews-carousel {
+                padding: 0 1rem;
+            }
+        }
+        .reviews-viewport {
+            overflow: hidden;
+        }
+        .reviews-track {
+            display: flex;
+            gap: 1.25rem;
+            transition: transform 0.5s ease;
+            will-change: transform;
+        }
+        .review-card {
+            flex: 0 0 320px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+        }
+        .review-stars {
+            color: var(--amber-400);
+            font-size: 1.05rem;
+            letter-spacing: 0.15em;
+        }
+        .review-text {
+            font-size: 0.92rem;
+            color: var(--body);
+            line-height: 1.65;
+            flex-grow: 1;
+        }
+        .review-author {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 0.9rem;
+        }
+        .review-author strong {
+            color: #fff;
+            font-size: 0.9rem;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .review-author span {
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-family: 'Space Grotesk', monospace;
+            white-space: nowrap;
+        }
+        .reviews-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(20,18,27,.55);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,.08);
+            width: 2.6rem;
+            height: 2.6rem;
+            border-radius: 999px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: grid;
+            place-items: center;
+            transition: background .2s ease, transform .2s ease;
+            z-index: 5;
+        }
+        .reviews-btn:hover {
+            background: rgba(20,18,27,.75);
+            transform: translateY(-50%) scale(1.05);
+        }
+        .reviews-prev {
+            left: .2rem;
+        }
+        .reviews-next {
+            right: .2rem;
+        }
+
     </style>
 </head>
 
@@ -1401,6 +1495,716 @@
         <div style="text-align: center; margin: 2rem 0;">
             <button type="button" class="btn checkout-btn" style="max-width: 22rem;">Join 1,200 Other Students Making Money With AI Video →</button>
         </div>
+
+        <!-- ── REVIEWS CAROUSEL ── -->
+        <section class="reviews-section">
+            <div class="wrap-narrow" style="text-align: center; margin-bottom: 2.5rem;">
+                <span class="sec-eyebrow">Community Reviews</span>
+                <h2 class="sec-title">What Members Say About The AI Video Studio Community</h2>
+                <p style="color: var(--text-secondary)">Real reviews from real members of the AI Video Studio Community — 1,200+ creators building with AI video.</p>
+            </div>
+
+            <div class="reviews-carousel">
+                <button class="reviews-btn reviews-prev" aria-label="Previous reviews">&#10094;</button>
+                <div class="reviews-viewport">
+                    <div class="reviews-track">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Best AI community on Skool. I tried others before joining, but quickly realised I'd found my home. The training is exceptional. No gatekeeping and perfect for my ADHD brain. It's excellent value and the community is engaging and supportive. Don't bother going anywhere else.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Jan B.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Since I started, not only have I improved a lot on my skills, but I also landed a client, and the potential is amazing within the community, not only the content but also the activities and the community support... It feels like we're robbing them for the price... It's better ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>José G.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Great community! The lessons are very well structured making it easy to follow and learn. If like me, you're overwhelmed with how quickly AI is evolving and don't know where to start, this is the right place for you. Highly recommend!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>TN</strong>
+                        <span>09-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;The best AI community on the planet. If you want to learn about AI it's the place to be. Lessons have been researched and created covering all aspects of AI. In addition to this the community as a whole is there to help so all in all it's a great learning environment. Whether ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Graham R.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I've been doing AI Generations since '22. I stepped in and took the lessons and knew a good amount of the info but was Golden Nuggets everywhere. Community is nice, learning is done well. Weekly contests where you can show off your skill and win Money! Money for completing the...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Nipahc A.</strong>
+                        <span>02-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I watched some AI how to videos on YouTube but this is hands down the best learning place with support from all the great people there. Up your AI game and join us.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Happy</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I have been part of this community for almost 2 months and I can say it's truly engaging and very supportive. The courses are amazing, always updated, challenges going on all the time so it keeps us growing, applying what we learning and of course, growing the portfolio. I am ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Ioana D.</strong>
+                        <span>19-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I am so apprehensive about paying for some of the communities, but I stumbled across this one and decided I'll try it for one month and if I get no value I'll walk away with a lesson learned. After a few days, I immediately knew this is going to be an investment to change my f...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>KimMor</strong>
+                        <span>21-Jan-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Amazing AI Course! I highly recommend this to anyone wanting to master AI generative video and image creation! I was pleasantly surprised at how much value has been stacked inside the community! Thanks so much for creating this community! Well done!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Hearty D.</strong>
+                        <span>21-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I joined a few months ago, and I can genuinely say it has been one of the most worthwhile AI courses I've joined. What I particularly like is that it isn't just a collection of videos telling you what AI can theoretically do. The course encourages you to actually create things...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Ahmed R.</strong>
+                        <span>20-Jul-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I joined not really knowing what to expect. What I found was something very effective, supportive and fun. The leadership team is present and the roadmap is clear. The feedback is real and specific. There's intention behind how everything is built. What I personally appreciate...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>D. T.</strong>
+                        <span>06-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Anyone can learn AI image and video creation and this community is THE BEST to be in! Truly fun challenges that make learning fun, and the people really help each other, cheer each other on! Also great VALUE for the small investment!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Maria G.</strong>
+                        <span>17-Mar-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I accidentally found them on Instagram, the amount of work put in this group is incredible, they probably have everything that a person needs to learn AI, never leaving this group.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Naveen P.</strong>
+                        <span>18-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I already had some experience with AI models but since I discovered the bootcamp my work went so much better! Learned how to make better prompts, how to keep the consistency and the micro details. Don't hesitate, join now!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Nicolaos K.</strong>
+                        <span>16-Mar-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;My AI creative skills have become industry standard. I couldn't express well enough how this bootcamp has tremendously contributed to my growth as a content creator. The consistent course development, the actual industry project challenges and the contributions of the communit...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Tom R.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;The Only AI Community You'll Ever Need! If you're tired of AI courses that are outdated by the time you finish them, this is the antidote. Being ranked #36 isn't just a number, it's a testament to how active and high-value this place is. With 100+ lectures covering every corne...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>zayan a.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;A real community that actually helps. I honestly didn't expect it to be this good. This feels like a real community, not just a course. People actually help, share what works, and give feedback. I've learned a lot faster here than trying to figure everything out alone.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Adnane</strong>
+                        <span>06-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Am really loving the experience. It's fantastic!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Amaka E.</strong>
+                        <span>02-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;So far still on the first lesson but I like how they talk about the shots angles like close up shots and wide shots and how to keep character consistency. I can't wait to get to the UGC creator lessons I'm excited for those overall great experience. $55 for the whole year this...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Angel F.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Joined for AI content tips, stayed because the community refuses to let you slack. I've been in a lot of 'communities' that were basically ghost towns with a welcome post from 2021. This one is the opposite. Open it any time and someone is sharing wins, giving feedback, or dro...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Ankur L.</strong>
+                        <span>19-Dec-25</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I have joined many communities but this is by far the best group! I cannot say enough how supportive this group is. Not just from the creators of this community but the community as a whole. This has been the best experience I've had where I felt completely welcomed, valued an...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Bernardette S.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This community and the value of the course is amazing! What I've learned in less than one month is incredible. I have so much confidence in myself now.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Carla B.</strong>
+                        <span>26-Jan-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I really appreciate being part of this AI learning group. It has been a great experience, and I've learned so many valuable things that helped me understand AI better. The support, shared knowledge, and collaboration make it an excellent environment for growth. Thank you to ev...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>customer</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I enjoy the community! The training, and energy are all phenomenal! It's a very encouraging and informative atmosphere!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Danielle</strong>
+                        <span>02-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Amazing Community, really good and easy to learn step by step teaching. I'm totally addicted, I love it! I enjoy everyday I pass in that Community, learning each time something new!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Elmy</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;The founder brings so much passion to the table, making this a truly unique space where you can learn a ton without ever feeling bored. The skill level is impressive, and everyone seems to embrace this new AI technology, bringing their creativity to the forefront. There's such...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Fabrice B.</strong>
+                        <span>24-Jan-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Absolutely amazing community, I genuinely feel like it's family. The courses are to the point, the members keep progressing, the challenges keep the motivation UP, the creators keep pushing... It's one of the best communities I've seen and been part of so far. Recommend it to ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>fadwa.naboulssi</strong>
+                        <span>16-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Continuous engagement with the community. The bootcamp is a community that learns together, enabling each other and helps to connect us with brands! The classroom does not just stop there. There's always learning opportunities in the form of challenges every week.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Felix W.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Over the years I have been part of many groups, beta tester, forums and lately communities and this is in the top 3 places I love to hang around, interact and participate in. All peoples I encountered, speak with, and interact with are kind and friendly. The overall vibe is gr...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Gabriel P.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;As a media buyer, AI videos are going to be the future. This community is helping us a lot to produce great ads for our clients and charge a premium. The help from the team has been great. A ton of value with feedback and assistance in creating great-looking AI videos quickly....&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Gayathra P.</strong>
+                        <span>21-Nov-25</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;5 stars to the team for taking this to be #1 ranked AI Video/Image community. At just $9/month, the fee is value for money. Lots to learn from detailed text prompting, all the way to high quality avatar video cloning. The community members are supportive and there are chances ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Marcus</strong>
+                        <span>18-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;By far the best AI boot camp I've come across! The support and guidance are incredible and you have everything you need within the community to succeed. Highly recommend!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Marina Z.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Truth be told this has been the best investment I've made thus far. They way the lessons are set up is very clear and to the point, so I recommend this class to anyone trying to elevate their understanding on how to use AI to create images and videos. Super grateful for the te...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Mr. S.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Absolutely insane value -- some of the most accomplished niche video creators showing their secrets, PLUS an active, motivating community, for the price of a Starbucks. It's like Warren Buffet making investment decisions for you in exchange for a peanut butter sandwich. Should...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Sean</strong>
+                        <span>20-Nov-25</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Let's be real. We've all seen courses in which promise all these things you learn and then pay to get in just so they can show you very little that you can actually use. This is like finding that relationship which not only looks good yet also holds up to what is promised... a...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Timothy P.</strong>
+                        <span>09-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This is without doubt the best community. I've seen it grow from 12000 members when I joined to over 17500 members of the Community today that's on its own shows the value found here. I've gone from zero to hero in this community by following the comprehensive lessons. There a...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Keithanthony T.</strong>
+                        <span>16-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I joined recently, and honestly, it's been a really good experience so far. As someone already working in video editing, I was looking for something practical to help me level up with AI tools, and this course has definitely delivered. What I like most is that it's not just th...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Abdullah K.</strong>
+                        <span>20-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This helped me go from 'playing with AI' to having a real, repeatable process. The course focuses on what actually matters in practice: how to write structured prompts, how to plan shots (storyboarding / multi-shot workflows), how to keep consistency (characters, style, lighti...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Alexandru C.</strong>
+                        <span>01-Jan-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Joining this community changed the way I work. It helped me build consistency and discipline — something I've been working on within myself. The mentors respond quickly, and the members are approachable and genuinely supportive. You don't feel alone here. Everyone helps each o...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>BeezPrint P.</strong>
+                        <span>18-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Great community with relevant & current content. Updates tool discussions as new tools comes out. Great introduction to the tools & potential of generating AI content. I would recommend it for AI newbies.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Blakely D.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Absolutely a Must Join. This community has opened my eyes to all the possibilities of using AI in my everyday life with simple to follow guidance one of the most supportive communities of creators. Its home, its family, its exponential growth, it amazing. If you havent joined ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Bruce G.</strong>
+                        <span>01-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;It's been almost 2 weeks I think, and my level has improved by many times, btw i wasn't pro, i just knew a few things and i've been getting better and better.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Carlos S.</strong>
+                        <span>16-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Easily a 5-star experience and the best online course I've taken. The founder explains things very methodically so a beginner as well as experienced ad creators can get value from it. I will readily recommend this course to friends and family. There are tons of superbowl-level...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Chuka O.</strong>
+                        <span>18-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;One of the most active AI communities I've been part of. People share real results, ask smart questions, and help each other constantly. The growth is fast and you can feel the energy inside the group. If you want to stay updated, learn new AI skills, and be around motivated c...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>CozyPeach</strong>
+                        <span>13-Oct-25</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I don't write reviews often, but this one felt earned. I've been part of a lot of online programs and communities, and most of them look great from the outside but fall flat once you're inside. This hasn't been that experience. What stood out to me first is how beginner-friend...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Diana</strong>
+                        <span>16-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I was a complete beginner with AI when I joined. In just one month I have learned many new skills that have helped me get noticed as an AI content creator. The lessons provided are easy to understand and not overwhelming. It has an amazing value for money as it shows you how t...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Domagoj V.</strong>
+                        <span>20-Nov-25</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Great value for the price and you'll learn a lot, you'll have a great community. It's so good to be surrounded with like minded people. Positive vibes.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>elden a.</strong>
+                        <span>12-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This is a great place to really learn how to create AI videos that you can use in almost any area. I am thankful to have found such a great community.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Eric M.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Hi, I'm Frankstella Freeman from Sierra Leone. My experience so far has been so amazing. This community is highly reliable for MASTERING AI.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Frankstella F.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Ain't gon lie to you. I don't do reviews like that unless it's worth it. Man this community been amazing the classroom section is designed to get you from beginner to advanced. I ended up creating projects that I never thought I was able with AI. They give plenty of prompt exa...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Hamishbert P.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Very understandable flow and easy to follow! Valuable tips and guidance how to use the tech even to non tech savy ppl like me!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>helena</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This course is really easy to follow and you get results fast. As long as you follow the instructions and be a great student, you'll excel! The community is also really nice and helpful. Everyone's really encouraging and they want to help each other grow in this skill.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Isabelle S.</strong>
+                        <span>10-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I would give this community 10 Stars if I could! The energy and support of those within this community is unmatched. Insane amount of value you get. 4 weeks ago I had no idea about AI, now I'm in the process of building an AI generated business. I cannot speak highly enough of...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>J</strong>
+                        <span>16-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This is by far the BEST community. After just a few days inside of this incredible group, not only did I learn how to master AI creation but I also made so many new friends and had the time of my life learning. The trainers are world-class and are the best in their industry. T...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>J.D. D.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I joined looking to level up my AI video creation skills, and it completely exceeded my expectations. What makes this program stand out is how practical and actionable everything is. It's not just theory — you actually build real systems, workflows, and repeatable processes yo...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Joan</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I wanted a course where I can learn how to clone AI and create UGC content. I saw ads on Instagram and decided to give it a try. The best decision ever. I was able to learn much more than I wanted and to top it all off the members are super supportive and all questions you hav...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Josanne T.</strong>
+                        <span>13-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I've only been here for a little under a week now, but so far I'm loving the community. There's a lot of engagement and support which really helps. It's really easy to navigate the app.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Jose</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Being an AI enthusiast and AI Creative Founder, I have learned a lot in this community. The people here are GOLD, they help you with every step and give constructive feedback on your work. The learning process and challenges make this community more engaging and worth spending...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Karunakar A.</strong>
+                        <span>18-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I joined about a week ago and this place is awesome! I've used the course and interacted every day since joining. The members are really nice, motivating and encouraging. The lessons are straightforward but not too simple or dumb like another AI course I tried. It's honestly a...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Katy D.</strong>
+                        <span>12-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I'm genuinely grateful I joined. I'm learning skills I didn't think I'd be able to learn, creating AI videos from scratch, improving realism, getting better at prompts, making scenes consistent, and editing everything into a clean final video that's actually usable for content...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Khadiesha M.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I had an amazing experience. Only after one week I was able to create super realistic AI videos. Would recommend this class to anyone who wants a shortcut to learning about AI video and image generation.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Kristian K.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;It is one of the best Communities I have ever joined. Very supportive and very active members as well as the classes are so good and informative. I can't thank enough for all the learnings and lessons I got and also the challenges are amazing!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Lalit N.</strong>
+                        <span>17-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Best AI course. With so much value!! I've learned the difference from a 14mm lens to 150 mm lens through visual learning. This community is very supportive when you need help. I love the opportunity this has to collaborate and find work within the community.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Marche</strong>
+                        <span>11-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I would rate the bootcamp 100% 5* you deserve it. I learned everything I know now thru you guys. This platform is a big win for me and I will recommend to absolutely everyone. Thank you again for all your support and for everything you teach me! Big hugs.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Maria V.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I have joined this bootcamp two weeks ago and have all positive experiences. Community members are very helpful and actively sharing and engaging in each other's journey/questions. The support team is very encouraging, helpful and supportive. I have joined a lot of courses/com...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Marivic B.</strong>
+                        <span>16-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;The founders are absolute goats out there. Teaching amazing AI stuff for only 9 bucks, must try.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Miguel</strong>
+                        <span>17-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Amazing community and the classroom has a lot of useful lessons, glad I joined and I would suggest it for everyone who wants to start an AI project.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Nina P.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I don't expect something this decent in this price.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Nuttapatch J.</strong>
+                        <span>24-Jul-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;One of the best courses I ever joined, I was skeptical because the price is so cheap and I thought the video quality and information provided was gonna be too vague, but I was very impressed, I was able to learn the basics of AI video and image generation as well as advanced t...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Omar A.</strong>
+                        <span>20-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Before joining this bootcamp, I knew almost nothing about creating images, editing, or making videos—especially engaging videos for social media. All I knew was that these were skills I needed to develop. What amazed me most is how clearly and elegantly the course breaks every...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Rania K.</strong>
+                        <span>02-Jun-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;So much value, care, support and passion is brought to this community.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Sam J.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Joining has honestly been a game changer for me. I have never in my life experienced learning at this speed and intensity. The amount of growth in such a short time is almost unreal. It's not just 'another course.' It's a living, breathing community. I'm active there every sin...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Sanja</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;The founder is next to you! The tutorials are high quality and to the point, highly recommend!&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Stefanos M.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;Very active community. If you wanna learn about AI this is the place.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>TalkAboutIt</strong>
+                        <span>10-Feb-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This has been such an amazing experience!!! It's not just about AI tools—it's about creativity, exploration, and actually doing things. I've learned so much in a short time and had so much fun creating. The guidance is clear, the ideas are inspiring, and the whole space feels ...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>tamara t.</strong>
+                        <span>01-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;This is one of the best AI communities I've ever been with. I'm very happy to have found it. The courses are detailed and easy to follow. The challenges promotes engagement and the sense of community grows.&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Veronica</strong>
+                        <span>16-Apr-26</span>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="review-text">&ldquo;I'm just getting started but love the interactiveness of the group and learning from everyone, very supportive environment and love that everyone shares what they are working on as well as being open to the processes they've used. Also, the modules are short so it's easy to ab...&rdquo;</p>
+                    <div class="review-author">
+                        <strong>Zion D.</strong>
+                        <span>17-Feb-26</span>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                <button class="reviews-btn reviews-next" aria-label="Next reviews">&#10095;</button>
+            </div>
+        </section>
 
         <!-- ── PROBLEM / WRONG BUYER ── -->
         <section style="padding: 3rem 0;">
@@ -2566,6 +3370,71 @@
             if (error) error.classList.remove('visible');
             this.style.borderColor = '';
         });
+
+        // Reviews carousel
+        (function() {
+            const track = document.querySelector('.reviews-track');
+            if (!track) return;
+            const cards = track.querySelectorAll('.review-card');
+            if (cards.length === 0) return;
+
+            const card = cards[0];
+            const gap = 20;
+            let index = 0;
+            let autoTimer = null;
+
+            function cardWidth() {
+                return card.getBoundingClientRect().width + gap;
+            }
+
+            function maxIndex() {
+                const viewport = track.parentElement.getBoundingClientRect().width;
+                const visible = Math.max(1, Math.floor((viewport + gap) / cardWidth()));
+                return Math.max(0, cards.length - visible);
+            }
+
+            function update() {
+                const max = maxIndex();
+                if (index > max) index = max;
+                track.style.transform = 'translateX(-' + (index * cardWidth()) + 'px)';
+            }
+
+            function next() {
+                const max = maxIndex();
+                index = index >= max ? 0 : index + 1;
+                update();
+            }
+
+            function prev() {
+                const max = maxIndex();
+                index = index <= 0 ? max : index - 1;
+                update();
+            }
+
+            function startAuto() {
+                stopAuto();
+                autoTimer = setInterval(next, 4000);
+            }
+
+            function stopAuto() {
+                if (autoTimer) clearInterval(autoTimer);
+            }
+
+            const prevBtn = document.querySelector('.reviews-prev');
+            const nextBtn = document.querySelector('.reviews-next');
+            if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAuto(); });
+            if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAuto(); });
+
+            const wrapper = document.querySelector('.reviews-carousel');
+            if (wrapper) {
+                wrapper.addEventListener('mouseenter', stopAuto);
+                wrapper.addEventListener('mouseleave', startAuto);
+            }
+
+            window.addEventListener('resize', update);
+            startAuto();
+            update();
+        })();
 
         // Mobile: hide top banner until the stats section (incl. "$0 / Month") is scrolled past
         (function() {
