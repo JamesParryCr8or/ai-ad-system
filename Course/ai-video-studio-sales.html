@@ -1033,7 +1033,7 @@
                 <p style="font-size: 0.95rem; color: var(--body); margin-bottom: 1.5rem;">
                     Instant access to the complete 7,500-word Field Manual, 8-module Technique Library, 90-minute delivery system, and pay-as-you-go CR8OR AI Studio access.
                 </p>
-                <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_STRIPE_PAYMENT_LINK?success_url=https://scale.cr8or.ai/Course/ai-video-studio" class="btn">Get Instant Access For $9 →</a>
+                <button type="button" class="btn checkout-btn">Get Instant Access For $9 →</button>
                 <div class="cta-guarantee">
                     <span>🔒 256-Bit Secure Checkout</span> · <span>⚡ Instant Digital Access</span>
                 </div>
@@ -1587,7 +1587,7 @@
                 </div>
                 <div class="savings-pill">Save $138 Today · Price Bumps at Midnight</div>
                 
-                <a href="https://buy.stripe.com/REPLACE_WITH_YOUR_STRIPE_PAYMENT_LINK?success_url=https://scale.cr8or.ai/Course/ai-video-studio" class="btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</a>
+                <button type="button" class="btn checkout-btn" style="max-width: 100%; font-size: 1.05rem;">DOWNLOAD FIELD MANUAL & GET STUDIO ACCESS ($9) →</button>
                 
                 <div class="cta-guarantee">
                     <span>⚡ Instant PDF Download + Studio Login Credentials</span>
@@ -1718,8 +1718,8 @@
         })();
 
         // Facebook Pixel - InitiateCheckout on CTA clicks
-        document.querySelectorAll('a[href*="cr8or.ai/checkout"]').forEach(btn => {
-            btn.addEventListener('click', function() {
+        document.querySelectorAll('.checkout-btn').forEach(btn => {
+            btn.addEventListener('click', async function() {
                 if (typeof fbq === 'function') {
                     fbq('track', 'InitiateCheckout', {
                         content_name: 'AI Video Studio Field Manual',
@@ -1727,6 +1727,31 @@
                         value: 9.00,
                         currency: 'USD'
                     });
+                }
+
+                btn.disabled = true;
+                btn.textContent = 'Redirecting...';
+
+                try {
+                    const response = await fetch('/api/create-checkout-session', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+
+                    const data = await response.json();
+
+                    if (data.url) {
+                        window.location.href = data.url;
+                    } else {
+                        throw new Error(data.error || 'Failed to create checkout session');
+                    }
+                } catch (error) {
+                    console.error('Checkout error:', error);
+                    btn.disabled = false;
+                    btn.textContent = 'Get Instant Access For $9 →';
+                    alert('Something went wrong. Please try again or contact support.');
                 }
             });
         });
