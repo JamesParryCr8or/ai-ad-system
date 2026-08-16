@@ -137,6 +137,22 @@
             border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
+        .top-banner .banner-btn {
+            width: auto;
+            max-width: none;
+            padding: 0.45rem 1.4rem;
+            font-size: 0.72rem;
+            background: #fff;
+            color: #7C3AED;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+            line-height: 1;
+        }
+
+        .top-banner .banner-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+        }
+
         /* ── Hero Section ── */
         .hero {
             padding: 4.5rem 0 3.5rem;
@@ -998,6 +1014,7 @@
         <span>🔥 <b>LIMITED V2.0 LAUNCH:</b> Instant $138 Discount Applied Automatically</span>
         <span>1,200+ members and counting — building the largest AI video community</span>
         <span class="pill">Today Only $9</span>
+        <button type="button" class="btn checkout-btn banner-btn">Order Now</button>
     </div>
 
     <div class="wrap">
@@ -1793,6 +1810,7 @@
                     });
                 }
 
+                const originalText = btn.textContent;
                 btn.disabled = true;
                 btn.textContent = 'Redirecting...';
 
@@ -1814,7 +1832,7 @@
                 } catch (error) {
                     console.error('Checkout error:', error);
                     btn.disabled = false;
-                    btn.textContent = 'Get Instant Access For $9 →';
+                    btn.textContent = originalText;
                     alert('Something went wrong. Please try again or contact support.');
                 }
             });
