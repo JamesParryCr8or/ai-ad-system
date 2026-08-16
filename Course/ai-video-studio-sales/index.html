@@ -919,22 +919,10 @@
         }
         .video-slide video {
             width: 100%;
-            height: auto;
             display: block;
-        }
-        .video-slide.landscape video {
-            max-width: 70%;
-            margin: 0 auto;
-            aspect-ratio: 16/9;
-            object-fit: cover;
-            border-radius: .5rem;
-        }
-        .video-slide.portrait video {
-            max-width: 55%;
-            margin: 0 auto;
-            aspect-ratio: 9/16;
-            object-fit: cover;
-            border-radius: .5rem;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+            background: #000;
         }
         .carousel-btn {
             position: absolute;
