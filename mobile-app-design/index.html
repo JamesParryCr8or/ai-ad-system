@@ -2218,100 +2218,122 @@
             </div>
         </section>
 
-        <!-- BUILD INTELLIGENCE DEPLOYED -->
+        <!-- APP ENGINEERING STACK -->
         <section class="creative-gallery" style="margin: 120px 0; text-align: center;">
             <div class="proof-header">
                 <div class="header-badge"
                     style="color: var(--cyan-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
-                    Build Intelligence</div>
-                <h2 style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 20px;">Engineered App Systems</h2>
+                    Developer-Led Build System</div>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 20px;">What Gets Built Under The Hood</h2>
                 <p style="color: var(--text-secondary); max-width: 700px; margin: 20px auto; font-size: 18px;">
-                    Mobile products engineered around clean UX, connected data, automation and launch-ready workflows.</p>
+                    Not just a nice-looking prototype. We build the screens, data model, auth, integrations and deployment
+                    layer your app needs to run in the real world.</p>
             </div>
 
             <div
                 style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px;">
-                <!-- HairMax Ads -->
                 <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
                     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/HairMax/HairMax%20Best%20Performaning%20Ad%201.png" alt="HairMax Ad 1"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--purple-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Scale Mission: HairMax</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Benefit-Led Hook
-                        </div>
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(139,92,246,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--cyan-400); font-size: 12px; margin-bottom: 14px;">// frontend/AppShell.tsx</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">const app = {
+  layout: 'mobile-first',
+  installable: true,
+  navigation: ['Home', 'Data', 'AI', 'Profile'],
+  states: ['loading', 'empty', 'active', 'error']
+};</pre>
+                    </div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--cyan-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Mobile Frontend</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">iOS-compatible app interface</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Responsive screens, app-style navigation, onboarding, dashboards, admin views, loading states and mobile QA.</div>
                     </div>
                 </div>
                 <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
                     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/HairMax/HairMax%20Best%20Performaning%20Ad%202.png" alt="HairMax Ad 2"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--purple-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Scale Mission: HairMax</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Clinical Authority
-                        </div>
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(34,211,238,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--emerald-400); font-size: 12px; margin-bottom: 14px;">// database/schema.sql</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">create table users;
+create table projects;
+create table app_events;
+enable row level security;
+sync auth.uid() to account_id;</pre>
+                    </div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Backend Foundation</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">Database, auth and storage</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Supabase-style database setup, user accounts, roles, gated areas, file uploads, secure records and admin access.</div>
+                    </div>
+                </div>
+
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(217,70,239,0.12), rgba(139,92,246,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--fuchsia-400); font-size: 12px; margin-bottom: 14px;">// api/workflows.ts</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">await stripe.checkout();
+await crm.createContact();
+await ai.generateResponse();
+await notify.user();</pre>
+                    </div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--fuchsia-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Integrations</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">Payments, CRM and AI APIs</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Stripe, booking flows, CRM sync, notifications, webhooks, AI assistants, generation tools and operational automations.</div>
                     </div>
                 </div>
 
                 <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
                     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/HairMax/HairMax%20Best%20Performaning%20Ad%203.png" alt="HairMax Ad 3"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--purple-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Scale Mission: HairMax</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Comparative Proof
-                        </div>
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(217,70,239,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--amber-400); font-size: 12px; margin-bottom: 14px;">// deploy/checklist.md</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">[x] mobile breakpoints
+[x] form validation
+[x] auth states
+[x] analytics events
+[x] production deploy</pre>
                     </div>
-                </div>
-
-                <!-- PCP Ads -->
-                <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
-                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/Get%20My%20Claim/PCP%20Ad%20Creative%201.png" alt="PCP Ad 1"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Lead-Gen Mission: PCP Claims</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Direct Result
-                            Proof</div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--amber-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Launch Readiness</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">QA, analytics and deployment</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Production hosting, conversion tracking, app events, form checks, browser testing and launch handover.</div>
                     </div>
                 </div>
                 <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
                     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/Get%20My%20Claim/PCP%20Ad%20Creative%202.png" alt="PCP Ad 2"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Lead-Gen Mission: PCP Claims</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Urgency & Scarcity
-                        </div>
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(139,92,246,0.16), rgba(52,211,153,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--purple-300); font-size: 12px; margin-bottom: 14px;">// admin/ops-panel.json</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">{
+  "users": "manage",
+  "content": "edit",
+  "exports": "csv",
+  "alerts": "enabled"
+}</pre>
+                    </div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--purple-300); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Admin Tools</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">Manage the app without a developer</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Internal panels for content, users, uploads, submissions, reports and manual overrides where the business needs control.</div>
                     </div>
                 </div>
                 <div class="creative-card"
-                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s;"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; text-align: left;"
                     onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/Ad%20Creative/Get%20My%20Claim/PCP%20Ad%20Creative%203.png" alt="PCP Ad 3"
-                        style="width: 100%; display: block;">
-                    <div style="padding: 20px; text-align: left; border-top: 1px solid var(--border);">
-                        <div
-                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">
-                            Lead-Gen Mission: PCP Claims</div>
-                        <div style="color: var(--text-primary); font-weight: 600;">Performance Angle: Financial Gain
-                            Hook
-                        </div>
+                    <div style="padding: 24px; background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(251,113,133,0.08)); border-bottom: 1px solid var(--border);">
+                        <div style="font-family: 'JetBrains Mono', monospace; color: var(--cyan-400); font-size: 12px; margin-bottom: 14px;">// iteration/events.json</div>
+                        <pre style="margin: 0; white-space: pre-wrap; color: var(--text-secondary); font-size: 12px; line-height: 1.6; font-family: 'JetBrains Mono', monospace;">track('signup_complete');
+track('feature_used');
+track('payment_started');
+track('ai_prompt_sent');</pre>
+                    </div>
+                    <div style="padding: 22px;">
+                        <div style="color: var(--cyan-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">Iteration Loop</div>
+                        <div style="color: var(--text-primary); font-weight: 700; margin-bottom: 8px;">Know what to improve next</div>
+                        <div style="color: var(--text-secondary); font-size: 14px; line-height: 1.55;">Usage events, funnel metrics, drop-off points and roadmap signals so the app can get better after launch.</div>
                     </div>
                 </div>
             </div>
