@@ -1,0 +1,3009 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI App System — Native-Feeling Mobile Web Apps & iOS Development | CR8OR</title>
+    <link rel="icon" type="image/png" href="CR8OR AI Logo (1080 X 1080).png">
+    <meta name="description" content="Done-for-you mobile app development. Native-feeling web apps, iOS compatible, with native database backend setup. Powered by our AI systems 24/7.">
+    <meta property="og:title" content="AI App System — Native-Feeling Mobile Web Apps & iOS Development | CR8OR">
+    <meta property="og:description" content="Done-for-you mobile app development. Native-feeling web apps, iOS compatible, with native database backend setup. Powered by our AI systems 24/7.">
+    <meta property="og:image" content="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/010e8a6c-7f05-4732-9ba4-aef76c24a24a/802e8d10-5d05-4b4f-a766-54c63598439e.png">
+    <meta property="og:url" content="https://apps.cr8or.ai/">
+    <meta property="og:type" content="website">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --purple-100: #F3E8FF;
+            --purple-200: #DDD6FE;
+            --purple-300: #C4B5FD;
+            --purple-400: #A78BFA;
+            --purple-500: #8B5CF6;
+            --purple-600: #7C3AED;
+            --purple-700: #6D28D9;
+            --purple-800: #5B21B6;
+            --purple-900: #4C1D95;
+            --violet-500: #8B5CF6;
+            --fuchsia-400: #E879F9;
+            --fuchsia-500: #D946EF;
+            --cyan-400: #22D3EE;
+            --emerald-400: #34D399;
+            --amber-400: #FBBF24;
+            --rose-400: #FB7185;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --border: rgba(139, 92, 246, 0.15);
+            --glow: rgba(139, 92, 246, 0.3);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Ambient background ── */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(34, 211, 238, 0.03) 0%, transparent 60%);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Layout ── */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px 80px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px 40px 100px;
+            }
+        }
+
+        /* ── Limited Time Banner ── */
+        .top-banner {
+            background: linear-gradient(90deg, var(--purple-600), var(--fuchsia-600));
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                margin-bottom: 48px;
+            }
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 20px;
+        }
+
+        .header .badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+            }
+
+            50% {
+                opacity: 0.7;
+                box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(32px, 7vw, 64px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .header p {
+                font-size: 18px;
+            }
+        }
+
+        /* ── Phase sections ── */
+        .phase {
+            margin-bottom: 24px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .phase-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .phase-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .phase-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+
+        /* Phase colour themes */
+        .phase--research .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--research .phase-title {
+            color: var(--cyan-400);
+        }
+
+        .phase--creative .phase-number {
+            background: rgba(217, 70, 239, 0.15);
+            color: var(--fuchsia-400);
+            border: 1px solid rgba(217, 70, 239, 0.25);
+        }
+
+        .phase--creative .phase-title {
+            color: var(--fuchsia-400);
+        }
+
+        .phase--concepts .phase-number {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple-400);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .phase--concepts .phase-title {
+            color: var(--purple-400);
+        }
+
+        .phase--deploy .phase-number {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--amber-400);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
+
+        .phase--deploy .phase-title {
+            color: var(--amber-400);
+        }
+
+        .phase--capture .phase-number {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--emerald-400);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+        }
+
+        .phase--capture .phase-title {
+            color: var(--emerald-400);
+        }
+
+        .phase--nurture .phase-number {
+            background: rgba(251, 113, 133, 0.15);
+            color: var(--rose-400);
+            border: 1px solid rgba(251, 113, 133, 0.25);
+        }
+
+        .phase--nurture .phase-title {
+            color: var(--rose-400);
+        }
+
+        .phase--loop .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--loop .phase-title {
+            color: var(--cyan-400);
+        }
+
+        /* ── Cards grid ── */
+        .cards {
+            display: grid;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .cards {
+                gap: 10px;
+            }
+        }
+
+        .cards--4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .cards--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .cards--5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .cards--6 {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        @media (max-width: 1024px) {
+
+            .cards--4,
+            .cards--5,
+            .cards--6 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .cards--4,
+            .cards--5,
+            .cards--6,
+            .cards--3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .cards--4,
+            .cards--3,
+            .cards--5,
+            .cards--6 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, var(--purple-500)), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(139, 92, 246, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-detail {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card--cyan {
+            --card-accent: var(--cyan-400);
+        }
+
+        .card--fuchsia {
+            --card-accent: var(--fuchsia-400);
+        }
+
+        .card--purple {
+            --card-accent: var(--purple-400);
+        }
+
+        .card--amber {
+            --card-accent: var(--amber-400);
+        }
+
+        .card--emerald {
+            --card-accent: var(--emerald-400);
+        }
+
+        .card--rose {
+            --card-accent: var(--rose-400);
+        }
+
+        /* ── Flow connector ── */
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 0;
+            position: relative;
+        }
+
+        .flow-connector .line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+        }
+
+        .flow-connector .arrow {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .flow-connector .arrow svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--purple-400);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: bounce-down 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce-down {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(3px);
+            }
+        }
+
+        /* ── VSL Section ── */
+        .vsl-section {
+            text-align: center;
+            margin: 32px 0 80px;
+            animation: fadeUp 1s ease-out both;
+        }
+
+        .vsl-headline {
+            font-size: clamp(28px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        @media (min-width: 768px) {
+            .vsl-headline {
+                margin-bottom: 40px;
+            }
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            aspect-ratio: 16 / 9;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-container:hover {
+            transform: scale(1.005);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 80px rgba(139, 92, 246, 0.2);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, var(--bg-card-hover), var(--bg-card));
+        }
+
+        .play-button {
+            width: 90px;
+            height: 90px;
+            background: var(--purple-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 30px var(--purple-600));
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container:hover .play-button {
+            transform: scale(1.15);
+            background: var(--purple-500);
+        }
+
+        .quiz-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--purple-500), var(--fuchsia-500));
+            color: white;
+            padding: 18px 32px;
+            border-radius: 100px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .quiz-cta {
+                padding: 24px 56px;
+                font-size: 20px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            }
+        }
+
+        .quiz-cta:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .quiz-cta svg {
+            transition: transform 0.3s;
+        }
+
+        .quiz-cta:hover svg {
+            transform: translateX(6px);
+        }
+
+        /* ── Proof Section ── */
+        .proof-section {
+            margin: 60px 0;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.8s ease-out both;
+        }
+
+        @media (min-width: 768px) {
+            .proof-section {
+                margin: 100px 0;
+                padding: 60px;
+            }
+        }
+
+        .proof-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .proof-header h2 {
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, var(--emerald-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: rgba(7, 6, 14, 0.6);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--emerald-400);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--emerald-400);
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .case-study-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (min-width: 1100px) {
+            .case-study-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+                margin-top: 60px;
+            }
+        }
+
+        .case-card {
+            background: rgba(13, 11, 26, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--purple-400);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-card-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .case-card-content {
+            padding: 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--emerald-400);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .case-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .case-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .case-stats {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 20px;
+        }
+
+        .case-stat-item .val {
+            display: block;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .case-stat-item .lbl {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .case-study-visuals {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 32px;
+            align-items: center;
+            background: rgba(13, 11, 26, 0.4);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .case-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .case-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-image-wrapper:hover .case-image {
+            transform: scale(1.05);
+        }
+
+        .case-content h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        .case-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .case-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .case-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .case-list li svg {
+            color: var(--emerald-400);
+            flex-shrink: 0;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        /* ── Feedback loop ── */
+        .feedback-loop {
+            margin-top: 40px;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(139, 92, 246, 0.05), rgba(217, 70, 239, 0.05));
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .feedback-loop {
+                padding: 28px 32px;
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .feedback-loop .loop-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            animation: spin-slow 6s linear infinite;
+        }
+
+        .loop-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--cyan-400);
+            margin-bottom: 4px;
+        }
+
+        .loop-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .loop-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .loop-tag {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Parallel Channels ── */
+        .parallel-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .parallel-section {
+            background: rgba(13, 11, 26, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .parallel-section .section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .parallel-section .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+
+        .mini-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: all 0.3s;
+        }
+
+        .mini-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+
+        .mini-card .mc-icon {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .mini-card .mc-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mini-card .mc-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 2px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .footer .brand {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--purple-400), var(--fuchsia-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 900px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-study-visuals {
+                grid-template-columns: 1fr;
+            }
+
+            .parallel-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── AI Arsenal Section ── */
+        .ai-arsenal-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            background: var(--bg-surface);
+            padding: 80px 40px;
+        }
+
+        .ai-arsenal-wrapper .ambient-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(232, 121, 249, 0.05) 0%, transparent 40%);
+        }
+
+        .ai-arsenal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .arsenal-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .arsenal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 24px;
+        }
+
+        .arsenal-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            box-shadow: 0 0 8px var(--emerald-400);
+            animation: arsenal-pulse 2s infinite;
+        }
+
+        @keyframes arsenal-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .arsenal-header h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .arsenal-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .model-category {
+            margin-bottom: 40px;
+            background: rgba(13, 11, 26, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .category-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .model-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-chip:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .model-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .model-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .model-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .model-provider {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-chip.pro {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .model-chip.pro .model-name {
+            color: var(--cyan-400);
+        }
+
+        .arsenal-footer {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .arsenal-footer p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .ai-arsenal-wrapper {
+                padding: 40px 20px;
+                border-radius: 20px;
+            }
+
+            .model-category {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .model-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 20px 10px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+        }
+
+        /* ── Industries Grid ── */
+        .industries-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .industry-card:hover {
+            border-color: var(--purple-400);
+            background: var(--bg-card-hover);
+        }
+
+        .industry-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .industry-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ── Founder Section ── */
+        .founder-section {
+            margin: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+        }
+
+        @media (min-width: 900px) {
+            .founder-section {
+                grid-template-columns: 1fr 1.5fr;
+                padding: 60px;
+                gap: 80px;
+            }
+        }
+
+        .founder-image-wrapper {
+            position: relative;
+        }
+
+        .founder-image {
+            width: 100%;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .founder-content h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff, var(--purple-300));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .founder-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* ── Pricing & Guarantee ── */
+        .pricing-section {
+            margin: 100px 0;
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1), transparent);
+            border-radius: 40px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .price-box {
+            margin: 40px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 24px;
+        }
+
+        .new-price {
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            display: block;
+            line-height: 1;
+        }
+
+        .guarantee-box {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid var(--emerald-400);
+            padding: 32px;
+            border-radius: 24px;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .guarantee-box h3 {
+            color: var(--emerald-400);
+            margin-bottom: 12px;
+        }
+
+        /* ── FAQ Section ── */
+        .faq-section {
+            margin: 100px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ── iPhone Mockup Styling ── */
+        .iphone-mockup-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            aspect-ratio: 0.5;
+        }
+
+        .iphone-mockup-container .iphone-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow:
+                0 0 0 3px #333,
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .iphone-frame {
+            transform: scale(1.02);
+        }
+
+        .iphone-mockup-container .iphone-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 42px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .iphone-mockup-container .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .iphone-mockup-container .notch::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 42px;
+            overflow: hidden;
+        }
+
+        .iphone-mockup-container .mockup-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 42px;
+        }
+
+        .iphone-mockup-container .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .iphone-mockup-container .side-button {
+            position: absolute;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .volume-up {
+            top: 120px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .volume-down {
+            top: 170px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .power-button {
+            top: 140px;
+            right: -4px;
+            width: 8px;
+            height: 60px;
+        }
+
+        .iphone-mockup-container .youtube-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 10px 15px 15px;
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .youtube-controls {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .progress-container-yt {
+            margin-bottom: 8px;
+        }
+
+        .iphone-mockup-container .progress-bar-yt {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .progress-fill-yt {
+            height: 100%;
+            background: #ff0000;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .iphone-mockup-container .progress-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            left: 0%;
+        }
+
+        .iphone-mockup-container .progress-bar-yt:hover .progress-handle {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .iphone-mockup-container .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .iphone-mockup-container .yt-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .iphone-mockup-container .yt-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .iphone-mockup-container .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .iphone-mockup-container .volume-slider-wrapper {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease;
+        }
+
+        .iphone-mockup-container .volume-control:hover .volume-slider-wrapper {
+            width: 50px;
+        }
+
+        .iphone-mockup-container .volume-slider-yt {
+            width: 50px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .volume-slider-yt::-webkit-slider-thumb {
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .time-display {
+            color: white;
+            font-size: 11px;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .iphone-mockup-container {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iphone-mockup-container {
+                max-width: 200px;
+            }
+
+            .iphone-mockup-container .notch {
+                width: 100px;
+                height: 20px;
+            }
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .vsl-headline {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        .vsl-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .vsl-video-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .vsl-cta-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        /* ── Sticky Bottom Bar ── */
+        .sticky-cta {
+            position: fixed;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 15px 20px;
+            z-index: 9999;
+            transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta .quiz-cta {
+            margin: 0;
+            max-width: 500px;
+            width: 100%;
+            padding: 18px 30px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .sticky-cta .quiz-cta span {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient"></div>
+    <div class="noise"></div>
+    <div class="container">
+        <header class="header" style="animation: fadeUp 0.6s ease-out both; padding-top: 20px;">
+            <div class="badge"><span class="dot"></span>Fully Automated System</div>
+            <h1>The AI App System</h1>
+            <p>From concept to App Store — native-feeling mobile web apps, iOS compatible, backend database included, powered by AI 24/7.</p>
+        </header>
+
+        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both;">
+            <h2 class="vsl-headline">Launch Your Mobile App In Weeks, Not Months</h2>
+            <div class="vsl-grid">
+                <div class="vsl-video-box">
+                    <video
+                        id="vsl-video"
+                        src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/1787062075532_App_Fiverr_1.mp4"
+                        controls
+                        playsinline
+                        style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="vsl-cta-box">
+                    <a href="quiz-funnel.html" class="quiz-cta"
+                        style="max-width: 480px; width: 100%; padding: 25px 40px; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                            <span style="letter-spacing: 0.1em; font-weight: 800;">START APP BUILD ASSESSMENT →</span>
+                            <span
+                                style="font-size: 14px; opacity: 0.9; font-weight: 600; letter-spacing: 0.05em;">SECURE
+                                YOUR APP AUDIT</span>
+                        </div>
+                    </a>
+                    <p
+                        style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">
+                        Risk Free — 60 Day Guarantee
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- 🏢 INDUSTRIES WE SERVE -->
+        <section class="industries-section" style="animation: fadeUp 0.8s ease-out both;">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Proven Versatility</div>
+                <h2
+                    style="font-size: clamp(32px, 6vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 40px; background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Dominating Every Industry</h2>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card"><span class="industry-icon">🛒</span>
+                    <div class="industry-name">E-Commerce</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">🏪</span>
+                    <div class="industry-name">Local Business</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">🏠</span>
+                    <div class="industry-name">Real Estate</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">📱</span>
+                    <div class="industry-name">SMMA</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">🛡️</span>
+                    <div class="industry-name">Insurance</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">💼</span>
+                    <div class="industry-name">Professional Services</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">🎯</span>
+                    <div class="industry-name">Coaching</div>
+                </div>
+                <div class="industry-card"><span class="industry-icon">🎮</span>
+                    <div class="industry-name">Gaming</div>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; margin: 60px auto 0;">
+                <a href="quiz-funnel.html" class="quiz-cta"
+                    style="max-width: 550px; width: 100%; padding: 25px 40px; text-align: center; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                        <span style="display: block; font-size: 18px; letter-spacing: 0.1em; font-weight: 800;">START AI
+                            GROWTH ASSESSMENT →</span>
+                        <span
+                            style="display: block; font-size: 14px; opacity: 0.9; font-weight: 600; letter-spacing: 0.05em;">SECURE
+                            YOUR MARKET AUDIT</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- 📱 APP SHOWCASE -->
+        <section class="ugc-showcase" style="margin: 80px 0; text-align: center; animation: fadeUp 0.8s ease-out both;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--fuchsia-400);">Real Apps — Built By Our Systems</div>
+                <h2>Battle-Tested App Performance</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 20px auto;">While our AI systems power the backend, we also deploy high-performance human-designed apps. Here are a few examples of the mobile experiences we build.</p>
+            </div>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 60px;">
+                <!-- Block 1 (New iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/new-video4.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline>
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 2 (iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/Naked+Sunday+Example+.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 3 (iPhone Mockup) -->
+                <div class="iphone-mockup-container"
+                    data-video="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/image_gen/ac34dc93-e8ee-49e6-bb85-91029aa5f033.mp4">
+                    <div class="iphone-frame">
+                        <div class="side-button volume-up"></div>
+                        <div class="side-button volume-down"></div>
+                        <div class="side-button power-button"></div>
+                        <div class="iphone-screen">
+                            <div class="notch"></div>
+                            <div class="video-content">
+                                <video class="mockup-video" autoplay loop muted playsinline></video>
+                            </div>
+                            <div class="youtube-controls">
+                                <div class="progress-container-yt">
+                                    <div class="progress-bar-yt">
+                                        <div class="progress-fill-yt"></div>
+                                        <div class="progress-handle"></div>
+                                    </div>
+                                </div>
+                                <div class="controls-row">
+                                    <div class="left-controls">
+                                        <button class="yt-btn play-pause-yt"><span class="play-icon">⏸️</span></button>
+                                        <div class="volume-control">
+                                            <button class="yt-btn volume-btn"><span
+                                                    class="volume-icon">🔇</span></button>
+                                            <div class="volume-slider-wrapper">
+                                                <input type="range" class="volume-slider-yt" min="0" max="1" step="0.1"
+                                                    value="0">
+                                            </div>
+                                        </div>
+                                        <span class="time-display">0:00 / 0:00</span>
+                                    </div>
+                                    <div class="right-controls"><button class="yt-btn fullscreen-btn">⛶</button></div>
+                                </div>
+                            </div>
+                            <div class="home-indicator"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ⚙️ APP INFRASTRUCTURE -->
+        <section class="creative-gallery" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--cyan-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Technical Mastery</div>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 20px;">Engineered App Infrastructure</h2>
+                <p style="color: var(--text-secondary); max-width: 700px; margin: 20px auto; font-size: 18px;">
+                    Native database architecture, backend APIs, and iOS-compatible web app builds — engineered by the AI App System for maximum performance.</p>
+            </div>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 60px;">
+                <!-- App Infrastructure Cards -->
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">🗄️</div>
+                    <div style="color: var(--purple-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Database Architecture</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Native Database Setup</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">Supabase/PostgreSQL architecture with real-time sync, indexing, and query optimisation.</div>
+                </div>
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">📱</div>
+                    <div style="color: var(--cyan-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Mobile Web App</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">iOS Compatible PWA</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">Progressive web app with native-feeling UX, offline-first, and iOS gesture support.</div>
+                </div>
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">🔌</div>
+                    <div style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Backend Integration</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">API & Third-Party Services</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">REST/GraphQL endpoints, payment gateways, analytics, and CRM integrations.</div>
+                </div>
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">🔐</div>
+                    <div style="color: var(--amber-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Security</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Auth & Compliance</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">OAuth, JWT, role-based access, audit logs, and GDPR-compliant data handling.</div>
+                </div>
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">⚡</div>
+                    <div style="color: var(--fuchsia-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Real-Time Features</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Live Data Sync</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">WebSockets, live updates, push notifications, and instant data refresh across devices.</div>
+                </div>
+                <div class="creative-card"
+                    style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); overflow: hidden; transition: transform 0.3s; padding: 32px; text-align: left;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <div style="font-size: 40px; margin-bottom: 16px;">☁️</div>
+                    <div style="color: var(--rose-400); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;">
+                        Cloud Infrastructure</div>
+                    <div style="color: var(--text-primary); font-weight: 600;">Vercel/AWS Deployment</div>
+                    <div style="color: var(--text-secondary); font-size: 14px; margin-top: 8px;">CDN, auto-scaling, edge functions, and 99.9% uptime SLA for production apps.</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <a href="quiz-funnel.html" class="quiz-cta"
+                    style="display: inline-block; max-width: 500px; width: 100%; padding: 25px 50px; text-align: center;">
+                    <span style="display: block; font-size: 18px; letter-spacing: 0.1em;">START APP BUILD ASSESSMENT
+                        →</span>
+                    <span style="display: block; font-size: 13px; opacity: 0.8; margin-top: 4px;">Secure Your App
+                        Audit</span>
+                </a>
+            </div>
+        </section>
+
+
+
+
+        <!-- ⚔️ THE CR8OR AI ARSENAL -->
+        <section class="ai-arsenal-wrapper" style="animation: fadeUp 0.8s ease-out both;">
+            <div class="ambient-glow"></div>
+            <div class="ai-arsenal-container">
+                <div class="arsenal-header">
+                    <div class="arsenal-badge"><span class="dot"></span>Fully Automated Intelligence</div>
+                    <h2>The Growth Arsenal</h2>
+                    <p>We don't just build with one tool. We deploy a full-stack AI strike force. Our system dynamically switches
+                        between the world's most powerful engines to deliver the winning app architecture for your brand.</p>
+                </div>
+
+                <!-- 🎬 VIDEO MODELS -->
+                <div class="model-category">
+                    <div class="category-label">
+                        <div class="category-icon">🎬</div>
+                        <div class="category-info">
+                            <h3>Video Generation</h3>
+                            <span>12 Models Deployed</span>
+                        </div>
+                    </div>
+                    <div class="model-grid">
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199"
+                                alt="OpenAI">
+                            <div class="model-info"><span class="model-name">Sora 2 Pro</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199"
+                                alt="OpenAI">
+                            <div class="model-info"><span class="model-name">Sora 2</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3.1</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3.1 Fast</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197"
+                                alt="Kling">
+                            <div class="model-info"><span class="model-name">Kling 2.5 Turbo Pro</span><span
+                                    class="model-provider">Kling AI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Qwen.png?_wwcv=1770391171200"
+                                alt="Alibaba">
+                            <div class="model-info"><span class="model-name">Wan 2.2 i2V Fast</span><span
+                                    class="model-provider">Alibaba</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Bytedance.png?_wwcv=1770391163027"
+                                alt="ByteDance">
+                            <div class="model-info"><span class="model-name">Seedance 1 Pro</span><span
+                                    class="model-provider">ByteDance</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 2</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197"
+                                alt="Kling">
+                            <div class="model-info"><span class="model-name">Kling v2.1</span><span
+                                    class="model-provider">Kling AI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Bytedance.png?_wwcv=1770391163027"
+                                alt="ByteDance">
+                            <div class="model-info"><span class="model-name">Seedance 1 Lite</span><span
+                                    class="model-provider">ByteDance</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Veo_Deepmind.png?_wwcv=1770391171192"
+                                alt="Google">
+                            <div class="model-info"><span class="model-name">Veo 3 Fast</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🖼️ IMAGE MODELS -->
+                <div class="model-category">
+                    <div class="category-label">
+                        <div class="category-icon">🖼️</div>
+                        <div class="category-info">
+                            <h3>Image & Photorealism</h3>
+                            <span>11 Models Deployed</span>
+                        </div>
+                    </div>
+                    <div class="model-grid">
+                        <div class="model-chip pro"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux 1.1 Pro Ultra</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip pro"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fdeepmind-veo3.svg&w=96&q=75" alt="Google">
+                            <div class="model-info"><span class="model-name">Imagen 4.0 Ultra</span><span
+                                    class="model-provider">Google DeepMind</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fsora-2.webp&w=96&q=75" alt="OpenAI">
+                            <div class="model-info"><span class="model-name">GPT Image 1</span><span
+                                    class="model-provider">OpenAI</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Kontext Max</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Kontext Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux 1.1 Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Krea Dev</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Pro</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Dev</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo" src="AI%20Logos/Flux%20Logo.png" alt="Flux">
+                            <div class="model-info"><span class="model-name">Flux Schnell</span><span
+                                    class="model-provider">Black Forest Labs</span></div>
+                        </div>
+                        <div class="model-chip"><img class="model-logo"
+                                src="https://galaxy.ai/_next/image?url=%2Fdeepmind-veo3.svg&w=96&q=75" alt="Google">
+                            <div class="model-info"><span class="model-name">Nano Banana</span><span
+                                    class="model-provider">Experimental</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🎙️ AUDIO & UGC & TOOLS -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px;">
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🎙️</div>
+                            <div class="category-info">
+                                <h3>Audio & Voice</h3><span>Elite Soundscape</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip pro"><img class="model-logo" src="AI%20Logos/11%20Labs%20Logo.png"
+                                    alt="ElevenLabs">
+                                <div class="model-info"><span class="model-name">ElevenLabs</span><span
+                                        class="model-provider">Voice & SFX</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🗣️</div>
+                            <div class="category-info">
+                                <h3>AI UGC</h3><span>Avatar Strike Force</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip pro"><img class="model-logo"
+                                    src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/CR8OR_AI_Logo__1080_X_1080_.png?_wwcv=1743328997940"
+                                    alt="CR8OR">
+                                <div class="model-info"><span class="model-name">CR8OR LipDub</span><span
+                                        class="model-provider">Bespoke UGC Video</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="model-category">
+                        <div class="category-label">
+                            <div class="category-icon">🔧</div>
+                            <div class="category-info">
+                                <h3>Intelligence Tools</h3><span>Operational Layer</span>
+                            </div>
+                        </div>
+                        <div class="model-grid">
+                            <div class="model-chip">
+                                <div class="model-logo"
+                                    style="display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(34,211,238,0.1);color:var(--cyan-400);">
+                                    ✍️</div>
+                                <div class="model-info"><span class="model-name">AI Copywriting</span><span
+                                        class="model-provider">Ad-Tuned Scripts</span></div>
+                            </div>
+                            <div class="model-chip">
+                                <div class="model-logo"
+                                    style="display:flex;align-items:center;justify-content:center;font-size:16px;background:rgba(232, 121, 249, 0.1);color:var(--fuchsia-400);">
+                                    🔥</div>
+                                <div class="model-info"><span class="model-name">Firecrawl</span><span
+                                        class="model-provider">Market Scraping</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="arsenal-footer">
+                    <p>Our infrastructure matches your growth ambitions. Battle-tested, machine-optimized, and
+                        model-agnostic.</p>
+                </div>
+                <div style="display: flex; justify-content: center; margin-top: 40px;">
+                    <a href="quiz-funnel.html" class="quiz-cta"
+                        style="max-width: 450px; padding: 22px 35px; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                            <span style="letter-spacing: 0.1em; font-weight: 800; font-size: 16px;">START AI GROWTH
+                                ASSESSMENT →</span>
+                            <span
+                                style="font-size: 12px; opacity: 0.9; font-weight: 600; letter-spacing: 0.05em;">SECURE
+                                YOUR MARKET AUDIT</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section class="founder-section">
+            <div class="founder-image-wrapper">
+                <img src="Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image">
+            </div>
+            <div class="founder-content">
+                <div class="header-badge"
+                    style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Meet the Founder</div>
+                <h2>Hey, I'm James Parry</h2>
+                <p>Over the last 10 years I have consulted with over 100 CPG & DTC brands to crack the code on scaling
+                    with performance ad creative, media buying, and CRM automation.</p>
+                <p>I created my own DTC brand, DREAMSILK, scaling to over 10,000 customers, and founded CR8OR to help
+                    other brands leverage the same systems.</p>
+                <p>Now I'm building a comprehensive suite of tools for brands & founders, focusing on AI-powered app development, native database architecture, and cross-platform mobile solutions.</p>
+            </div>
+        </section>
+        <!-- ═══════════════════════════════════════ --><!-- MISSIONS DEPLOYED: PROVEN RESULTS --><!-- ═══════════════════════════════════════ -->
+        <section class="proof-section">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--emerald-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Missions Deployed</div>
+                <h2>Engineered for Market Dominance</h2>
+            </div><!-- Featured Case: HairMax -->
+            <div class="case-study-visuals">
+                <div class="case-image-wrapper"><img src="Results%20Screenshots/Shopify%20%C2%A32.8M%20Results.png"
+                        alt="HairMax Results" class="case-image"></div>
+                <div class="case-content"><span class="case-tag">Scale Mission: HairMax</span>
+                    <h3>+160% Revenue Growth for Legacy Brand</h3>
+                    <p>HairMax was stuck at a creative plateau. We installed the end-to-end system—from deep avatar
+                        research to automated Klaviyo flows—generating £2.8M in revenue with 100% automated P&L
+                        intelligence.</p>
+                    <ul class="case-list">
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>AI-Forge generated 24+high-converting variants</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>SMS & Email added £470K+backend revenue</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>SPINE connected for real-time SKU profitability</li>
+                    </ul>
+                </div>
+            </div><!-- Featured Case: Fitness App -->
+            <div class="case-study-visuals">
+                <div class="case-image-wrapper"><img src="Landing%20Page/Headhot%20James%20Parry.png"
+                        alt="Fitness App Results" class="case-image"></div>
+                <div class="case-content"><span class="case-tag">App Mission: Fitness Brand</span>
+                    <h3>50K+ Downloads in 3 Months</h3>
+                    <p>The fitness brand was stuck with a clunky legacy app. We installed the end-to-end system—from native
+                        database setup to iOS-compatible PWA—generating 50K+ downloads with a 4.8 star rating and sub-2s
+                        load times.</p>
+                    <ul class="case-list">
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>Native database architecture with real-time sync</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>iOS-compatible PWA with offline-first UX</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>AI-powered push notifications & personalisation</li>
+                    </ul>
+                </div>
+            </div><!-- Secondary Cases Grid -->
+            <div class="case-study-grid"><!-- SaaS Dashboard Case -->
+                <div class="case-card"><img src="Ad%20Creative/DREAMSILK/DREAMSILK%20Hero%20Image.png"
+                        alt="SaaS Dashboard App" class="case-card-image">
+                    <div class="case-card-content"><span class="case-tag">SaaS Dashboard App</span>
+                        <h3>Sub-2s Load Time, 99.9% Uptime</h3>
+                        <p>React Native app with real-time analytics, built on Supabase backend. Scaled to 10K+ daily active
+                            users with zero downtime.</p>
+                        <div class="case-stats">
+                            <div class="case-stat-item"><span class="val">10K+</span><span class="lbl">DAU</span></div>
+                            <div class="case-stat-item"><span class="val">&lt;2s</span><span class="lbl">Load Time</span></div>
+                            <div class="case-stat-item"><span class="val">99.9%</span><span class="lbl">Uptime</span></div>
+                        </div>
+                    </div>
+                </div><!-- E-Commerce PWA Case -->
+                <div class="case-card"><img src="Results%20Screenshots/Shopify%20%C2%A32.8M%20Results.png"
+                        alt="E-Commerce PWA" class="case-card-image">
+                    <div class="case-card-content"><span class="case-tag">E-Commerce PWA</span>
+                        <h3>60% Repeat Users, Offline Ready</h3>
+                        <p>Progressive web app for DTC brand with offline capabilities, Apple Pay integration, and AI-powered
+                            product recommendations.</p>
+                        <div class="case-stats">
+                            <div class="case-stat-item"><span class="val">60%</span><span class="lbl">Repeat Rate</span></div>
+                            <div class="case-stat-item"><span class="val">4.8★</span><span class="lbl">App Rating</span></div>
+                            <div class="case-stat-item"><span class="val">0</span><span class="lbl">Downtime</span></div>
+                        </div>
+                    </div>
+                </div><!-- Result Card -->
+                <div class="case-card"
+                    style="border-style: dashed; background: transparent; justify-content: center; align-items: center; padding: 40px; text-align: center;">
+                    <h3 style="margin-bottom: 20px;">Your App is Next</h3>
+                    <p>We build the system. You launch the app. Every platform optimised 24/7.</p>
+                    <a href="quiz-funnel.html" class="quiz-cta"
+                        style="width: 100%; justify-content: center; padding: 18px 24px; font-size: 14px;">START APP
+                        BUILD ASSESSMENT →</a>
+                </div>
+            </div>
+        </section><!-- ═══════════════════════════════════════ --><!-- PHASE 1: DEEP MARKET & USER RESEARCH --><!-- ═══════════════════════════════════════ -->
+        <div class="phase phase--research">
+            <div class="phase-header">
+                <div class="phase-number">01</div>
+                <div>
+                    <div class="phase-title">Deep Market & User Research</div>
+                    <div class="phase-subtitle">AI-powered market intelligence & customer profiling for app success</div>
+                </div>
+            </div>
+            <div class="cards cards--5">
+                <div class="card card--cyan"><span class="card-icon">🔬</span>
+                    <div class="card-name">ICP Deep Dive</div>
+                    <div class="card-detail">User personas · pain points · feature desires · usage patterns</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">⭐</span>
+                    <div class="card-name">App Review Mining</div>
+                    <div class="card-detail">App Store · Google Play · Trustpilot sentiment</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🏪</span>
+                    <div class="card-name">Competitive Analysis</div>
+                    <div class="card-detail">Top apps · feature gaps · monetisation models</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🕵️</span>
+                    <div class="card-name">Market Intel</div>
+                    <div class="card-detail">Category trends · pricing strategies · positioning</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🧠</span>
+                    <div class="card-name">Brand Node Build</div>
+                    <div class="card-detail">App knowledge base · UX voice · feature priorities</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Research feeds app specs & prototypes </div>
+        </div>        <!-- PHASE 2: AI APP ARCHITECTURE & DESIGN --><!-- ═══════════════════════════════════════ -->
+        <div class="phase phase--creative">
+            <div class="phase-header">
+                <div class="phase-number">02</div>
+                <div>
+                    <div class="phase-title">AI App Architecture & Design</div>
+                    <div class="phase-subtitle">Unlimited design assets & prototypes produced at scale from brand node</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--fuchsia"><span class="card-icon">🎨</span>
+                    <div class="card-name">UI/UX Design</div>
+                    <div class="card-detail">Figma prototypes · design systems · component libraries</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🗣️</span>
+                    <div class="card-name">App Prototypes</div>
+                    <div class="card-detail">Interactive mockups · user flows · wireframes</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🖼️</span>
+                    <div class="card-name">App Store Creative</div>
+                    <div class="card-detail">Screenshots · preview videos · icon design</div>
+                </div>
+                <div class="card card--fuchsia"><span class="card-icon">🎙️</span>
+                    <div class="card-name">App Demo Videos</div>
+                    <div class="card-detail">Walkthroughs · feature highlights · onboarding flows</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Designs flow into feature specs & builds </div>
+        </div>        <!-- PHASE 3: NATIVE FEATURES & UX FLOWS --><!-- ═══════════════════════════════════════ -->
+        <div class="phase phase--concepts">
+            <div class="phase-header">
+                <div class="phase-number">03</div>
+                <div>
+                    <div class="phase-title">Native Features & UX Flows</div>
+                    <div class="phase-subtitle">AI builds feature specs mapped to user needs & business goals</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--purple"><span class="card-icon">📐</span>
+                    <div class="card-name">Feature Architecture</div>
+                    <div class="card-detail">Core workflows · user journeys · edge cases</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">✍️</span>
+                    <div class="card-name">In-App Copy</div>
+                    <div class="card-detail">Push notifications · onboarding · microcopy</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">🎞️</span>
+                    <div class="card-name">User Flow Mapping</div>
+                    <div class="card-detail">Screen-by-screen · navigation · state management</div>
+                </div>
+                <div class="card card--purple"><span class="card-icon">🧪</span>
+                    <div class="card-name">Feature Variants</div>
+                    <div class="card-detail">A/B testable features · MVP scoping · rollout plans</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Deployed across all platforms simultaneously </div>
+        </div><!-- PHASE 4: OMNICHANNEL AD DEPLOYMENT -->
+        <div class="phase phase--deploy">
+            <div class="phase-header">
+                <div class="phase-number">04</div>
+                <div>
+                    <div class="phase-title">Cross-Platform Deployment</div>
+                    <div class="phase-subtitle">All platforms running in parallel — AI manages build & integration</div>
+                </div>
+            </div>
+            <div class="parallel-wrapper">
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">📱</span>Mobile Web App
+                    </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">📲</div>
+                            <div class="mc-name">PWA Build</div>
+                            <div class="mc-sub">Offline-first · responsive · app-like UX</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🍎</div>
+                            <div class="mc-name">iOS Optimisation</div>
+                            <div class="mc-sub">Safari tuning · iOS gestures · native feel</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🤖</div>
+                            <div class="mc-name">Android Compatible</div>
+                            <div class="mc-sub">Chrome optimisation · material design</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="parallel-section">
+                    <div class="section-label" style="color: var(--amber-400);"><span class="icon">🖥️</span>Backend & API
+                    </div>
+                    <div class="mini-cards">
+                        <div class="mini-card">
+                            <div class="mc-icon">🗄️</div>
+                            <div class="mc-name">Database Setup</div>
+                            <div class="mc-sub">Supabase/PostgreSQL · real-time sync</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🔌</div>
+                            <div class="mc-name">API Integration</div>
+                            <div class="mc-sub">REST · GraphQL · third-party services</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="mc-icon">🔐</div>
+                            <div class="mc-name">Auth & Security</div>
+                            <div class="mc-sub">OAuth · JWT · encryption · compliance</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>App enters production & user acquisition </div>
+        </div>        <!-- PHASE 5: NATIVE DATABASE & BACKEND --><!-- ═══════════════════════════════════════ -->
+        <div class="phase phase--capture">
+            <div class="phase-header">
+                <div class="phase-number">05</div>
+                <div>
+                    <div class="phase-title">Native Database & Backend</div>
+                    <div class="phase-subtitle">Production-grade infrastructure, fully managed</div>
+                </div>
+            </div>
+            <div class="cards cards--4">
+                <div class="card card--emerald"><span class="card-icon">📊</span>
+                    <div class="card-name">Database Architecture</div>
+                    <div class="card-detail">Schema design · indexing · query optimisation</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">🔄</span>
+                    <div class="card-name">Real-Time Sync</div>
+                    <div class="card-detail">WebSockets · live updates · conflict resolution</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">🔐</span>
+                    <div class="card-name">Auth & Security</div>
+                    <div class="card-detail">OAuth providers · role-based access · audit logs</div>
+                </div>
+                <div class="card card--emerald"><span class="card-icon">☁️</span>
+                    <div class="card-name">Cloud Infrastructure</div>
+                    <div class="card-detail">Vercel/AWS · CDN · auto-scaling</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Users enter intelligent in-app experience </div>
+        </div>        <!-- PHASE 6: AI-POWERED APP FEATURES --><!-- ═══════════════════════════════════════ -->
+        <div class="phase phase--nurture">
+            <div class="phase-header">
+                <div class="phase-number">06</div>
+                <div>
+                    <div class="phase-title">AI-Powered App Features</div>
+                    <div class="phase-subtitle">Intelligent automation running 24/7 inside your app</div>
+                </div>
+            </div>
+            <div class="cards cards--6">
+                <div class="card card--rose"><span class="card-icon">🤖</span>
+                    <div class="card-name">AI Chatbot</div>
+                    <div class="card-detail">In-app support · FAQ · ticket routing</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">📧</span>
+                    <div class="card-name">Push Notifications</div>
+                    <div class="card-detail">Behavioural triggers · personalised messaging</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">📊</span>
+                    <div class="card-name">Analytics Dashboard</div>
+                    <div class="card-detail">User behaviour · funnels · retention metrics</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">🎯</span>
+                    <div class="card-name">Personalisation Engine</div>
+                    <div class="card-detail">Recommendations · dynamic content · A/B testing</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">💬</span>
+                    <div class="card-name">In-App Messaging</div>
+                    <div class="card-detail">Live chat · support tickets · CRM sync</div>
+                </div>
+                <div class="card card--rose"><span class="card-icon">🔄</span>
+                    <div class="card-name">Automated Workflows</div>
+                    <div class="card-detail">Triggers · actions · business logic</div>
+                </div>
+            </div>
+        </div>
+        <div class="flow-connector">
+            <div class="line"></div>
+            <div class="arrow"><svg viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" />
+                </svg>Performance data flows back </div>
+        </div><!-- PHASE 7: FEEDBACK LOOP -->
+        <div class="phase phase--loop">
+            <div class="phase-header">
+                <div class="phase-number">07</div>
+                <div>
+                    <div class="phase-title">Performance Intelligence & Feedback Loop</div>
+                    <div class="phase-subtitle">AI analyses everything — optimises the entire system automatically</div>
+                </div>
+            </div>
+            <div class="cards cards--3">
+                <div class="card card--cyan"><span class="card-icon">🧠</span>
+                    <div class="card-name">SPINE Analysis</div>
+                    <div class="card-detail">Real-time profitability · decision trees · MER tracking</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">📊</span>
+                    <div class="card-name">Automated Reporting</div>
+                    <div class="card-detail">Performance DB · client dashboards · KPI alerts</div>
+                </div>
+                <div class="card card--cyan"><span class="card-icon">🔄</span>
+                    <div class="card-name">AI Optimisation Engine</div>
+                    <div class="card-detail">New briefs generated · winning angles scaled · losers killed</div>
+                </div>
+            </div>
+        </div><!-- Feedback Loop Banner -->
+        <div class="feedback-loop">
+            <div class="loop-icon">🔁</div>
+            <div class="loop-content">
+                <h3>Continuous Feedback Loop</h3>
+                <p>Performance data feeds back into deep research & brand node — AI generates new creative briefs from
+                    winning patterns,
+                    scales top performers,
+                    kills underperformers,
+                    and evolves the entire system automatically.</p>
+                <div class="loop-tags"><span class="loop-tag">Winner Scaling</span><span class="loop-tag">New Brief
+                        Generation</span><span class="loop-tag">Audience Refinement</span><span
+                        class="loop-tag">Creative
+                        Iteration</span><span class="loop-tag">Budget Reallocation</span>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- 💬 WHATSAPP RESULTS SECTION -->
+        <section class="whatsapp-results" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--emerald-400);">From the Frontlines</div>
+                <h2>Client Wins & Daily Logs</h2>
+                <p style="color: var(--text-secondary); max-width: 600px; margin: 20px auto;">Real conversations with
+                    real clients seeing massive growth using the system.</p>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; margin-top: 60px; align-items: start; max-width: 1400px; margin-left: auto; margin-right: auto;">
+                <div style="background: var(--bg-card); padding: 0; border-radius: 24px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);"
+                    onmouseover="this.style.transform='translateY(-15px)'; this.style.borderColor='var(--emerald-500)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)';">
+                    <img src="Case%20Studies/Results/TikTok%20Leads%20%C2%A35.87%20CPL.png" alt="TikTok Results"
+                        style="width: 100%; height: auto; display: block;">
+                    <div
+                        style="padding: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); text-align: left;">
+                        <span
+                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase;">TikTok
+                            Ads Mission</span>
+                        <div style="color: white; font-weight: 600; font-size: 16px; margin-top: 4px;">£5.87 Cost Per
+                            Lead (Legacy Brand)</div>
+                    </div>
+                </div>
+                <div style="background: var(--bg-card); padding: 0; border-radius: 24px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);"
+                    onmouseover="this.style.transform='translateY(-15px)'; this.style.borderColor='var(--emerald-500)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)';">
+                    <img src="Case%20Studies/Results/%C2%A34K%20Daily%20Spend%2C%20%C2%A330%20CPA%20for%20Sim%20Card.png"
+                        alt="Daily Spend Results" style="width: 100%; height: auto; display: block;">
+                    <div
+                        style="padding: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); text-align: left;">
+                        <span
+                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase;">Scaling
+                            Mission</span>
+                        <div style="color: white; font-weight: 600; font-size: 16px; margin-top: 4px;">£4,000 Daily Ad
+                            Spend at £30 CPA</div>
+                    </div>
+                </div>
+                <div style="background: var(--bg-card); padding: 0; border-radius: 24px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);"
+                    onmouseover="this.style.transform='translateY(-15px)'; this.style.borderColor='var(--emerald-500)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)';">
+                    <img src="Case%20Studies/Results/Black%20Friday%20Pump.png" alt="Black Friday Results"
+                        style="width: 100%; height: auto; display: block;">
+                    <div
+                        style="padding: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); text-align: left;">
+                        <span
+                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase;">Campaign
+                            Management</span>
+                        <div style="color: white; font-weight: 600; font-size: 16px; margin-top: 4px;">Black Friday Peak
+                            Performance Delta</div>
+                    </div>
+                </div>
+                <div style="background: var(--bg-card); padding: 0; border-radius: 24px; border: 1px solid var(--border); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);"
+                    onmouseover="this.style.transform='translateY(-15px)'; this.style.borderColor='var(--emerald-500)';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='var(--border)';">
+                    <img src="Case%20Studies/Results/PCP%20Leads%20%C2%A39%20Per%20E-Sign%2C%20%C2%A319%20ID%2C%20%C2%A371%20Docs%20Uploaded.png"
+                        alt="PCP Results" style="width: 100%; height: auto; display: block;">
+                    <div
+                        style="padding: 20px; background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); text-align: left;">
+                        <span
+                            style="color: var(--emerald-400); font-size: 12px; font-weight: 700; text-transform: uppercase;">Lead
+                            Gen Mission</span>
+                        <div style="color: white; font-weight: 600; font-size: 16px; margin-top: 4px;">PCP Claims: £9
+                            E-Signatures at Scale</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- 🏢 BRAND INFRASTRUCTURE -->
+        <section class="brand-wall-section" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Strategic Partnerships</div>
+                <h2
+                    style="font-size: clamp(32px, 6vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 40px; background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    Brands Powered By Our Systems</h2>
+                <div style="display: flex; justify-content: center; margin-top: 40px;">
+                    <img src="Landing%20Page/Brands%20We've%20Worked%20With.png" alt="Brands we've worked with"
+                        style="max-width: 900px; width: 100%; opacity: 0.95; height: auto;">
+                </div>
+            </div>
+
+            <div style="margin-top: 80px;">
+                <a href="quiz-funnel.html" class="quiz-cta"
+                    style="display: inline-block; max-width: 550px; width: 100%; padding: 25px 50px; text-align: center; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);">
+                    <span style="display: block; font-size: 20px; letter-spacing: 0.1em; font-weight: 700;">START AI
+                        GROWTH ASSESSMENT →</span>
+                    <span style="display: block; font-size: 14px; opacity: 0.9; margin-top: 6px;">Secure Your AI
+                        Marketing Audit Now</span>
+                </a>
+                <p
+                    style="margin-top: 20px; color: var(--text-muted); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;">
+                    Risk Free — 60 Day Money Back Guarantee</p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Smart iPhone Mockup - Auto-generates unique IDs from video filename
+        document.addEventListener('DOMContentLoaded', function () {
+            // Find all iPhone mockup containers
+            const containers = document.querySelectorAll('.iphone-mockup-container');
+
+            containers.forEach(function (container) {
+                const videoUrl = container.getAttribute('data-video');
+                if (!videoUrl) return;
+
+                // Extract filename from URL
+                const parts = videoUrl.split('/');
+                const filename = parts[parts.length - 1];
+
+                console.log('Initializing iPhone mockup for:', filename);
+
+                // Set up all elements within this container
+                const video = container.querySelector('.mockup-video');
+                const playPauseBtn = container.querySelector('.play-pause-yt');
+                const playIcon = container.querySelector('.play-icon');
+                const volumeBtn = container.querySelector('.volume-btn');
+                const volumeIcon = container.querySelector('.volume-icon');
+                const volumeSlider = container.querySelector('.volume-slider-yt');
+                const progressBar = container.querySelector('.progress-bar-yt');
+                const progressFill = container.querySelector('.progress-fill-yt');
+                const progressHandle = container.querySelector('.progress-handle');
+                const timeDisplay = container.querySelector('.time-display');
+                const fullscreenBtn = container.querySelector('.fullscreen-btn');
+
+                // Set video source
+                video.src = videoUrl;
+
+                // Exit if any elements are missing
+                if (!video || !playPauseBtn) return;
+
+                // Play/Pause functionality
+                playPauseBtn.addEventListener('click', function () {
+                    if (video.paused) {
+                        video.play();
+                        playIcon.textContent = '⏸️';
+                    } else {
+                        video.pause();
+                        playIcon.textContent = '▶️';
+                    }
+                });
+
+                // Volume control
+                volumeBtn.addEventListener('click', function () {
+                    video.muted = !video.muted;
+                    updateVolumeIcon();
+                    volumeSlider.value = video.muted ? 0 : video.volume;
+                });
+
+                volumeSlider.addEventListener('input', function () {
+                    video.volume = this.value;
+                    video.muted = this.value == 0;
+                    updateVolumeIcon();
+                });
+
+                function updateVolumeIcon() {
+                    if (video.muted || video.volume == 0) {
+                        volumeIcon.textContent = '🔇';
+                    } else if (video.volume < 0.5) {
+                        volumeIcon.textContent = '🔉';
+                    } else {
+                        volumeIcon.textContent = '🔊';
+                    }
+                }
+
+                // Progress bar and time display
+                video.addEventListener('timeupdate', function () {
+                    if (!video.duration) return;
+
+                    const progress = (video.currentTime / video.duration) * 100;
+                    progressFill.style.width = progress + '%';
+                    progressHandle.style.left = progress + '%';
+
+                    // Update time display
+                    const currentMin = Math.floor(video.currentTime / 60);
+                    const currentSec = Math.floor(video.currentTime % 60);
+                    const durationMin = Math.floor(video.duration / 60);
+                    const durationSec = Math.floor(video.duration % 60);
+
+                    timeDisplay.textContent = `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${durationMin}:${durationSec.toString().padStart(2, '0')}`;
+                });
+
+                progressBar.addEventListener('click', function (e) {
+                    const rect = progressBar.getBoundingClientRect();
+                    const percent = (e.clientX - rect.left) / rect.width;
+                    video.currentTime = percent * video.duration;
+                });
+
+                // Fullscreen functionality
+                fullscreenBtn.addEventListener('click', function () {
+                    if (video.requestFullscreen) {
+                        video.requestFullscreen();
+                    } else if (video.webkitRequestFullscreen) {
+                        video.webkitRequestFullscreen();
+                    }
+                });
+
+                // Handle video loading
+                video.addEventListener('canplay', function () {
+                    video.play().catch(e => {
+                        console.log('Video autoplay prevented:', filename, e);
+                        playIcon.textContent = '▶️';
+                    });
+                });
+
+                // Update play icon when video plays/pauses
+                video.addEventListener('play', function () {
+                    playIcon.textContent = '⏸️';
+                });
+
+                video.addEventListener('pause', function () {
+                    playIcon.textContent = '▶️';
+                });
+
+                // Initialize
+                updateVolumeIcon();
+            });
+        });
+
+        // Sticky Bottom Bar Logic
+        window.addEventListener('scroll', function () {
+            const stickyBar = document.getElementById('sticky-cta-bar');
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+
+            if (scrollPercent > 25) {
+                stickyBar.classList.add('visible');
+            } else {
+                stickyBar.classList.remove('visible');
+            }
+        });
+    </script>
+
+    <!-- Sticky Bottom Bar -->
+    <div id="sticky-cta-bar" class="sticky-cta">
+        <a href="quiz-funnel.html" class="quiz-cta">
+            <span>START AI GROWTH ASSESSMENT →</span>
+        </a>
+    </div>
+</body>
+
+</html>
+<!-- Deployment Trigger: March 8, 2026 - Reordered sections sync -->
