@@ -236,7 +236,7 @@
             font-weight: 700;
         }
 
-        .hero-banner-img {
+        .hero-banner-video {
             width: 100%;
             max-width: 72rem;
             margin: 0 auto 2.5rem;
@@ -244,11 +244,13 @@
             border: 1px solid var(--border);
             box-shadow: var(--glow), 0 20px 60px rgba(0, 0, 0, 0.45);
             display: block;
+            aspect-ratio: 16 / 9;
+            background: #000;
             object-fit: cover;
         }
 
         @media (max-width: 640px) {
-            .hero-banner-img {
+            .hero-banner-video {
                 display: none;
             }
         }
@@ -1388,7 +1390,9 @@
             </div>
         </header>
 
-        <img class="hero-banner-img" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/010e8a6c-7f05-4732-9ba4-aef76c24a24a/49a902c1-0c55-4e8b-9ab0-0a1d5f40d3df.png" alt="AI Video Studio community banner" loading="eager">
+        <video class="hero-banner-video" autoplay muted loop playsinline preload="auto" poster="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/010e8a6c-7f05-4732-9ba4-aef76c24a24a/49a902c1-0c55-4e8b-9ab0-0a1d5f40d3df.png" aria-label="AI Video Studio showreel">
+            <source src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/1787054227553_Website_Fiverr_1_.mp4" type="video/mp4">
+        </video>
 
         <div style="text-align: center; margin: 2rem 0;">
             <button type="button" class="btn checkout-btn" style="max-width: 22rem;">Join 1,200 Other Students Making Money With AI Video →</button>
