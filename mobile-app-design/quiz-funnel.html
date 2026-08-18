@@ -224,6 +224,32 @@
             transform: translateX(0);
         }
 
+        .other-answer {
+            display: none;
+            gap: 10px;
+            margin-top: 4px;
+        }
+
+        .other-answer.active {
+            display: flex;
+        }
+
+        .other-answer .form-input {
+            flex: 1;
+        }
+
+        .other-submit {
+            border: none;
+            border-radius: 12px;
+            padding: 0 18px;
+            color: #07060E;
+            background: linear-gradient(135deg, #ffffff, #C4B5FD);
+            font-weight: 800;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
         /* Form Inputs */
         .form-group {
             margin-bottom: 20px;
@@ -528,6 +554,11 @@
                         rebuild</button>
                     <button class="option-btn" onclick="nextStep(1, 'Agency building for clients')">🏢 Agency building
                         for clients</button>
+                    <button class="option-btn" onclick="showOther(1, 'Other app stage')">✍️ Other / more specific</button>
+                    <div class="other-answer" data-other-step="1">
+                        <input type="text" class="form-input" id="other-step-1" placeholder="Tell us the current stage">
+                        <button type="button" class="other-submit" onclick="submitOther(1, 'Other app stage')">Next</button>
+                    </div>
                 </div>
             </div>
 
@@ -558,6 +589,11 @@
                     <button class="option-btn" onclick="nextStep(3, 'Community or course app')">👥 Community, course or
                         membership app</button>
                     <button class="option-btn" onclick="nextStep(3, 'Gaming tech app')">🎮 Gaming tech app</button>
+                    <button class="option-btn" onclick="showOther(3, 'Other app type')">✍️ Other app type</button>
+                    <div class="other-answer" data-other-step="3">
+                        <input type="text" class="form-input" id="other-step-3" placeholder="Describe the app type">
+                        <button type="button" class="other-submit" onclick="submitOther(3, 'Other app type')">Next</button>
+                    </div>
                 </div>
             </div>
 
@@ -574,6 +610,11 @@
                     <button class="option-btn" onclick="nextStep(4, 'AI APIs and advanced workflows')">🤖 AI APIs and
                         advanced workflows</button>
                     <button class="option-btn" onclick="nextStep(4, 'Not sure yet')">🧭 Not sure yet</button>
+                    <button class="option-btn" onclick="showOther(4, 'Other backend requirement')">✍️ Other backend need</button>
+                    <div class="other-answer" data-other-step="4">
+                        <input type="text" class="form-input" id="other-step-4" placeholder="Describe the backend or integrations">
+                        <button type="button" class="other-submit" onclick="submitOther(4, 'Other backend requirement')">Next</button>
+                    </div>
                 </div>
             </div>
 
@@ -685,6 +726,40 @@
 
 
 
+
+        function showOther(step) {
+            const row = document.querySelector(`[data-other-step="${step}"]`);
+            const input = document.getElementById(`other-step-${step}`);
+            if (row) row.classList.add('active');
+            if (input) input.focus();
+        }
+
+        function submitOther(step, label) {
+            const input = document.getElementById(`other-step-${step}`);
+            const value = input ? input.value.trim() : '';
+            if (!value) {
+                if (input) input.focus();
+                return;
+            }
+
+            nextStep(step, `${label}: ${value}`);
+        }
+
+        document.querySelectorAll('.other-answer .form-input').forEach(function(input) {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    const row = input.closest('.other-answer');
+                    const step = row ? Number(row.dataset.otherStep) : 0;
+                    const labels = {
+                        1: 'Other app stage',
+                        3: 'Other app type',
+                        4: 'Other backend requirement'
+                    };
+                    if (step) submitOther(step, labels[step]);
+                }
+            });
+        });
 
         function nextStep(step, answer) {
             quizData.answers[step] = answer;
