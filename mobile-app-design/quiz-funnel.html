@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CR8OR AI — App Build Assessment</title>
+    <link rel="icon" type="image/png" href="/CR8OR AI Logo (1080 X 1080).png">
+    <script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --purple-500: #8B5CF6;
+            --purple-400: #A78BFA;
+            --purple-300: #C4B5FD;
+            --fuchsia-500: #D946EF;
+            --cyan-400: #22D3EE;
+            --emerald-400: #34D399;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --border: rgba(139, 92, 246, 0.15);
+            --glow: rgba(139, 92, 246, 0.3);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Ambient background */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.06) 0%, transparent 60%);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 650px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 48px;
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 24px;
+            filter: drop-shadow(0 0 15px var(--glow));
+            animation: logo-float 6s ease-in-out infinite;
+        }
+
+        @keyframes logo-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .quiz-header h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .quiz-header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+        }
+
+        /* Progress Bar */
+        .progress-wrapper {
+            margin-bottom: 40px;
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 100px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--purple-500), var(--fuchsia-500));
+            box-shadow: 0 0 10px var(--glow);
+            transition: width 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Steps */
+        .step {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-text {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+        }
+
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-btn:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateX(4px);
+        }
+
+        .option-btn::after {
+            content: '→';
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .option-btn:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Form Inputs */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--purple-500);
+            background: var(--bg-card);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #ffffff;
+            background: linear-gradient(135deg, #ffffff 0%, #E8E1FF 50%, #C4B5FD 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            color: #07060E;
+            font-weight: 800;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            box-shadow: 0 10px 30px rgba(196, 181, 253, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(196, 181, 253, 0.5);
+            filter: brightness(1.05);
+        }
+
+        /* ── Custom Flag Dropdown ── */
+        .flag-select-wrapper {
+            position: relative;
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .flag-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            background: var(--bg-deep);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 12px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .flag-trigger:hover,
+        .flag-trigger.open {
+            border-color: var(--purple-500);
+            background: var(--bg-card);
+        }
+
+        .flag-trigger img {
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .flag-trigger .chevron {
+            margin-left: auto;
+            font-size: 10px;
+            opacity: 0.5;
+            transition: transform 0.3s ease;
+        }
+
+        .flag-trigger.open .chevron {
+            transform: rotate(180deg);
+        }
+
+        .flag-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 220px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 100;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .flag-dropdown.open {
+            display: block;
+            animation: dropdownFade 0.2s ease;
+        }
+
+        @keyframes dropdownFade {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .flag-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--text-primary);
+            transition: background 0.2s ease;
+        }
+
+        .flag-option:hover {
+            background: var(--bg-card-hover);
+        }
+
+        .flag-option img {
+            border-radius: 2px;
+            flex-shrink: 0;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+
+        /* Loader */
+        .loader-container {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .loader-circle {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(139, 92, 246, 0.1);
+            border-top-color: var(--cyan-400);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: var(--cyan-400);
+        }
+
+        /* Results */
+        .result-card {
+            text-align: center;
+            animation: resultFadeIn 0.8s ease;
+        }
+
+        @keyframes resultFadeIn {
+            from {
+                opacity: 0;
+                scale: 0.95;
+            }
+
+            to {
+                opacity: 1;
+                scale: 1;
+            }
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 100px;
+            color: var(--cyan-400);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .result-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--text-primary);
+            color: var(--bg-deep);
+            padding: 18px 36px;
+            border-radius: 14px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+            background: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .quiz-container {
+                padding: 32px 24px;
+            }
+
+            .quiz-header h1 {
+                font-size: 24px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option-btn {
+                padding: 16px 20px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="ambient"></div>
+    <div class="noise"></div>
+
+    <div class="quiz-container">
+        <div id="quiz-flow">
+            <!-- Header -->
+            <div class="quiz-header">
+                <img src="/CR8OR AI Logo (1080 X 1080).png" alt="CR8OR AI" class="logo">
+                <h1>App Build Assessment</h1>
+                <p>Map the fastest route from app idea to launch-ready product.</p>
+            </div>
+
+            <!-- Progress -->
+            <div class="progress-wrapper">
+                <div class="progress-meta">
+                    <span id="step-name">Step 1 of 6</span>
+                    <span id="step-pct">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="step active" data-step="1">
+                <div class="question-text">What stage is your app idea at?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(1, 'Idea only')">💡 Idea only</button>
+                    <button class="option-btn" onclick="nextStep(1, 'Wireframes or designs ready')">📐 Wireframes or
+                        designs ready</button>
+                    <button class="option-btn" onclick="nextStep(1, 'Existing website or prototype')">🌐 Existing
+                        website or prototype</button>
+                    <button class="option-btn" onclick="nextStep(1, 'Live product needs rebuild')">🚀 Live product needs
+                        rebuild</button>
+                    <button class="option-btn" onclick="nextStep(1, 'Agency building for clients')">🏢 Agency building
+                        for clients</button>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="step" data-step="2">
+                <div class="question-text">What platforms do you need?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(2, 'Mobile web app')">🌐 Mobile web app</button>
+                    <button class="option-btn" onclick="nextStep(2, 'iOS compatible web app')">📱 iOS compatible web
+                        app</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Android compatible web app')">🤖 Android compatible
+                        web app</button>
+                    <button class="option-btn" onclick="nextStep(2, 'All of the above')">⚡ Web, iOS and Android style
+                        experience</button>
+                    <button class="option-btn" onclick="nextStep(2, 'Not sure yet')">🧭 Not sure yet</button>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="step" data-step="3">
+                <div class="question-text">What kind of app are you building?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(3, 'Client portal or dashboard')">📊 Client portal or
+                        dashboard</button>
+                    <button class="option-btn" onclick="nextStep(3, 'AI app or chatbot')">🧠 AI app or chatbot</button>
+                    <button class="option-btn" onclick="nextStep(3, 'Marketplace or booking app')">🛒 Marketplace,
+                        booking or payments app</button>
+                    <button class="option-btn" onclick="nextStep(3, 'Community or course app')">👥 Community, course or
+                        membership app</button>
+                    <button class="option-btn" onclick="nextStep(3, 'Gaming tech app')">🎮 Gaming tech app</button>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="step" data-step="4">
+                <div class="question-text">What backend does it need?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(4, 'Simple frontend only')">🎨 Simple frontend
+                        only</button>
+                    <button class="option-btn" onclick="nextStep(4, 'Database and user accounts')">🗄️ Database and user
+                        accounts</button>
+                    <button class="option-btn" onclick="nextStep(4, 'Payments, CRM and automations')">💳 Payments, CRM
+                        and automations</button>
+                    <button class="option-btn" onclick="nextStep(4, 'AI APIs and advanced workflows')">🤖 AI APIs and
+                        advanced workflows</button>
+                    <button class="option-btn" onclick="nextStep(4, 'Not sure yet')">🧭 Not sure yet</button>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="step" data-step="5">
+                <div class="question-text">When do you want the first version live?</div>
+                <div class="options-grid">
+                    <button class="option-btn" onclick="nextStep(5, 'ASAP / next 30 days')">⚡ ASAP / next 30
+                        days</button>
+                    <button class="option-btn" onclick="nextStep(5, '30-60 days')">🗓️ 30-60 days</button>
+                    <button class="option-btn" onclick="nextStep(5, '60-90 days')">📆 60-90 days</button>
+                    <button class="option-btn" onclick="nextStep(5, 'Just planning')">🔍 Just planning</button>
+                </div>
+            </div>
+
+            <!-- Step 6: Info Gathering -->
+            <div class="step" data-step="6">
+                <div class="question-text">Build Your App Roadmap</div>
+                <form id="lead-form" onsubmit="handleLeadSubmit(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-input" name="name" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" class="form-input" name="email" placeholder="john@company.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <div style="display: flex; gap: 8px; align-items: flex-start;">
+                        <!-- Custom flag picker -->
+                        <div class="flag-select-wrapper" id="flag-wrapper">
+                            <div class="flag-trigger" id="flag-trigger" onclick="toggleFlagDropdown()">
+                                <img id="flag-img" src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="GB">
+                                <span id="flag-code">+44</span>
+                                <span class="chevron">▼</span>
+                            </div>
+                            <div class="flag-dropdown" id="flag-dropdown">
+                                <div class="flag-option" onclick="selectCountry('gb','+44','GB')"><img src="https://flagcdn.com/24x18/gb.png" width="24" height="18" alt="GB"> United Kingdom (+44)</div>
+                                <div class="flag-option" onclick="selectCountry('us','+1','US')"><img src="https://flagcdn.com/24x18/us.png" width="24" height="18" alt="US"> United States (+1)</div>
+                                <div class="flag-option" onclick="selectCountry('au','+61','AU')"><img src="https://flagcdn.com/24x18/au.png" width="24" height="18" alt="AU"> Australia (+61)</div>
+                                <div class="flag-option" onclick="selectCountry('ie','+353','IE')"><img src="https://flagcdn.com/24x18/ie.png" width="24" height="18" alt="IE"> Ireland (+353)</div>
+                                <div class="flag-option" onclick="selectCountry('ae','+971','AE')"><img src="https://flagcdn.com/24x18/ae.png" width="24" height="18" alt="AE"> UAE (+971)</div>
+                                <div class="flag-option" onclick="selectCountry('ca','+1','CA')"><img src="https://flagcdn.com/24x18/ca.png" width="24" height="18" alt="CA"> Canada (+1)</div>
+                                <div class="flag-option" onclick="selectCountry('nz','+64','NZ')"><img src="https://flagcdn.com/24x18/nz.png" width="24" height="18" alt="NZ"> New Zealand (+64)</div>
+                                <div class="flag-option" onclick="selectCountry('za','+27','ZA')"><img src="https://flagcdn.com/24x18/za.png" width="24" height="18" alt="ZA"> South Africa (+27)</div>
+                                <div class="flag-option" onclick="selectCountry('es','+34','ES')"><img src="https://flagcdn.com/24x18/es.png" width="24" height="18" alt="ES"> Spain (+34)</div>
+                                <div class="flag-option" onclick="selectCountry('fr','+33','FR')"><img src="https://flagcdn.com/24x18/fr.png" width="24" height="18" alt="FR"> France (+33)</div>
+                                <div class="flag-option" onclick="selectCountry('de','+49','DE')"><img src="https://flagcdn.com/24x18/de.png" width="24" height="18" alt="DE"> Germany (+49)</div>
+                            </div>
+                            <input type="hidden" name="country_code" id="country-code-val" value="+44">
+                        </div>
+                        <input type="tel" class="form-input" name="phone" placeholder="7000 000000" required style="flex: 1;">
+                    </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" class="form-input" name="company" placeholder="Acme Corp" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Website URL</label>
+                        <input type="text" class="form-input" name="website" placeholder="company.co.uk" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Reveal My App Roadmap →</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Final Result Placeholder -->
+        <div id="quiz-result" style="display: none;">
+            <!-- Result will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        const quizData = {
+            answers: {},
+            currentStep: 1,
+            totalSteps: 6
+        };
+
+        // ── Flag Dropdown ──
+        function toggleFlagDropdown() {
+            const trigger = document.getElementById('flag-trigger');
+            const dropdown = document.getElementById('flag-dropdown');
+            trigger.classList.toggle('open');
+            dropdown.classList.toggle('open');
+        }
+
+        function selectCountry(code, dial, label) {
+            document.getElementById('flag-img').src = `https://flagcdn.com/24x18/${code}.png`;
+            document.getElementById('flag-img').alt = label;
+            document.getElementById('flag-code').innerText = dial;
+            document.getElementById('country-code-val').value = dial;
+            document.getElementById('flag-trigger').classList.remove('open');
+            document.getElementById('flag-dropdown').classList.remove('open');
+        }
+
+        document.addEventListener('click', function(e) {
+            const wrapper = document.getElementById('flag-wrapper');
+            if (wrapper && !wrapper.contains(e.target)) {
+                const trigger = document.getElementById('flag-trigger');
+                const dropdown = document.getElementById('flag-dropdown');
+                if (trigger) trigger.classList.remove('open');
+                if (dropdown) dropdown.classList.remove('open');
+            }
+        });
+
+
+
+
+        function nextStep(step, answer) {
+            quizData.answers[step] = answer;
+
+            const currentElement = document.querySelector(`.step[data-step="${step}"]`);
+            const nextElement = document.querySelector(`.step[data-step="${step + 1}"]`);
+
+            if (nextElement) {
+                currentElement.classList.remove('active');
+                nextElement.classList.add('active');
+                quizData.currentStep = step + 1;
+                updateProgress();
+            }
+        }
+
+        function updateProgress() {
+            const pct = Math.round(((quizData.currentStep - 1) / quizData.totalSteps) * 100);
+            document.getElementById('progress-bar').style.width = pct + '%';
+            document.getElementById('step-pct').innerText = pct + '%';
+            document.getElementById('step-name').innerText = `Step ${quizData.currentStep} of ${quizData.totalSteps}`;
+        }
+
+        async function handleLeadSubmit(event) {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            const leadData = Object.fromEntries(formData.entries());
+
+            // Combine with quiz answers
+            const payload = {
+                lead: leadData,
+                assessment: {
+                    app_stage: quizData.answers[1],
+                    platforms: quizData.answers[2],
+                    app_type: quizData.answers[3],
+                    backend_scope: quizData.answers[4],
+                    launch_timeline: quizData.answers[5]
+                },
+                timestamp: new Date().toISOString()
+            };
+
+            // Show loader
+            document.getElementById('quiz-flow').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            document.getElementById('quiz-result').innerHTML = `
+        <div class="loader-container">
+          <div class="loader-circle"></div>
+          <div class="loading-text">BUILDING APP ROADMAP...</div>
+          <div class="loading-text" id="loader-subtext" style="font-size: 11px; margin-top: 10px; opacity: 0.6;">Mapping product stage...</div>
+        </div>
+      `;
+
+            // Fake sequence for effect
+            const subtexts = [
+                "Mapping product stage...",
+                "Scoping platform requirements...",
+                "Checking backend and AI workflow needs...",
+                "Finalizing app build roadmap..."
+            ];
+
+            for (let i = 0; i < subtexts.length; i++) {
+                await new Promise(r => setTimeout(r, 800));
+                const sub = document.getElementById('loader-subtext');
+                if (sub) sub.innerText = subtexts[i];
+            }
+
+            // Determine result based on logic
+            const result = calculateResult(payload.assessment);
+
+            // Send webhook (placeholder)
+            try {
+                await fetch('https://services.leadconnectorhq.com/hooks/u3QaT76YAw3PJvfiuGkZ/webhook-trigger/670f31d1-572d-4da8-8230-cdbe34598b6c', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (e) {
+                console.warn("Webhook failed (expected for placeholder):", e);
+            }
+
+            displayResult(result);
+        }
+
+        function calculateResult(ans) {
+            const stage = ans.app_stage;
+            const platforms = ans.platforms;
+            const backend = ans.backend_scope;
+            const timeline = ans.launch_timeline;
+
+            // Tier 1: Full build
+            if (
+                (platforms === 'All of the above' || platforms.includes('iOS')) &&
+                (backend.includes('Payments') || backend.includes('AI APIs')) &&
+                timeline.includes('ASAP')
+            ) {
+                return 'tier1';
+            }
+
+            // Tier 3: Prototype scope
+            if (
+                stage === 'Idea only' ||
+                backend === 'Simple frontend only' ||
+                timeline === 'Just planning'
+            ) {
+                return 'tier3';
+            }
+
+            // Tier 2: Standard app build
+            return 'tier2';
+        }
+
+        function displayResult(tier) {
+            const container = document.getElementById('quiz-result');
+            const name = document.querySelector('input[name="name"]').value.split(' ')[0];
+            const company = document.querySelector('input[name="company"]').value;
+            const appType = quizData.answers[3];
+            const platforms = quizData.answers[2];
+            const backend = quizData.answers[4];
+
+            let html = '';
+
+            if (tier === 'tier1') {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥇 FULL APP BUILD</div>
+            <h2 class="result-title">Target Locked, ${name}.</h2>
+            <p class="result-desc">Based on ${company}'s need for <strong>${platforms}</strong> and a <strong>${appType}</strong>, this looks like a full mobile app build with backend infrastructure.</p>
+            
+            <div style="background: rgba(139, 92, 246, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid var(--border);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--emerald-400); margin-bottom: 12px; text-transform: uppercase;">// APP BUILD DEPLOYMENT PLAN</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🎯</span> <strong>Phase 1:</strong> App scope, user journeys, screens and launch roadmap for ${company}.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>📱</span> <strong>Phase 2:</strong> iOS-compatible mobile web app interface and native-style UX.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🗄️</span> <strong>Phase 3:</strong> Database, auth, storage, payments, CRM and automation setup.</li>
+                <li style="display: flex; gap: 10px;"><span>🤖</span> <strong>Phase 4:</strong> AI features, reporting, admin controls and iteration loop.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px; font-style: italic;">
+              This is the right call if you want the app built properly instead of stuck in planning.
+            </p>
+
+            <div style="margin-top: 8px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #ffffff;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #07060E; text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 24px; border-bottom: 1px solid #eeeeee; font-weight: 700; background: #f8f8f8;">// BOOK YOUR APP BUILD ROADMAP CALL</div>
+              <iframe src="https://api.leadconnectorhq.com/widget/booking/OxRH5g7JiswQd2BSSpWN" style="width: 100%; height: 1000px; border: none; overflow: hidden; display: block;" scrolling="no" id="OxRH5g7JiswQd2BSSpWN_app_quiz"></iframe>
+            </div>
+          </div>
+        `;
+            } else if (tier === 'tier3') {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥉 PROTOTYPE SCOPE</div>
+            <h2 class="result-title">Shape The MVP, ${name}.</h2>
+            <p class="result-desc">For ${company}, the fastest next move is turning the idea into a tight clickable product scope before overbuilding.</p>
+            
+            <div style="background: rgba(34, 211, 238, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid rgba(34, 211, 238, 0.15);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--cyan-400); margin-bottom: 12px; text-transform: uppercase;">// MVP ROADMAP</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>📐</span> Clarify user journeys, screens and launch features.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>📱</span> Design a mobile-first prototype that feels real on iPhone.</li>
+                <li style="display: flex; gap: 10px;"><span>🧭</span> Decide what needs backend, database, payments or AI later.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">
+              Book a roadmap call and we will map the cleanest first build.
+            </p>
+
+            <div style="margin-top: 8px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #ffffff;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #07060E; text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 24px; border-bottom: 1px solid #eeeeee; font-weight: 700; background: #f8f8f8;">// BOOK YOUR APP BUILD ROADMAP CALL</div>
+              <iframe src="https://api.leadconnectorhq.com/widget/booking/OxRH5g7JiswQd2BSSpWN" style="width: 100%; height: 1000px; border: none; overflow: hidden; display: block;" scrolling="no" id="OxRH5g7JiswQd2BSSpWN_app_quiz_prototype"></iframe>
+            </div>
+          </div>
+        `;
+            } else {
+                html = `
+          <div class="result-card">
+            <div class="result-badge">🥈 STANDARD APP BUILD</div>
+            <h2 class="result-title">Your Build Path Is Clear, ${name}.</h2>
+            <p class="result-desc">A <strong>${appType}</strong> for ${company} with <strong>${backend}</strong> is a strong fit for a focused app build sprint.</p>
+            
+            <div style="background: rgba(217, 70, 239, 0.05); padding: 24px; border-radius: 16px; margin-bottom: 32px; text-align: left; border: 1px solid rgba(217, 70, 239, 0.15);">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--fuchsia-400); margin-bottom: 12px; text-transform: uppercase;">// BUILD SPRINT FEATURES</div>
+              <ul style="color: var(--text-secondary); font-size: 15px; list-style: none; padding: 0;">
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>📱</span> Mobile web app screens built for ${platforms}.</li>
+                <li style="margin-bottom: 12px; display: flex; gap: 10px;"><span>🗄️</span> Database, auth and admin setup where needed.</li>
+                <li style="display: flex; gap: 10px;"><span>⚡</span> CRM, automations, AI APIs or payment flows connected into the product.</li>
+              </ul>
+            </div>
+
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 24px;">
+              The next step is a short build call so we can confirm scope, timeline and backend requirements.
+            </p>
+
+            <div style="margin-top: 8px; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #ffffff;">
+              <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #07060E; text-transform: uppercase; letter-spacing: 0.1em; padding: 16px 24px; border-bottom: 1px solid #eeeeee; font-weight: 700; background: #f8f8f8;">// BOOK YOUR APP BUILD ROADMAP CALL</div>
+              <iframe src="https://api.leadconnectorhq.com/widget/booking/OxRH5g7JiswQd2BSSpWN" style="width: 100%; height: 1000px; border: none; overflow: hidden; display: block;" scrolling="no" id="OxRH5g7JiswQd2BSSpWN_app_quiz_standard"></iframe>
+            </div>
+          </div>
+        `;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+
+</html>
