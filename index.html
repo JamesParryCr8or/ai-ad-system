@@ -958,6 +958,133 @@
             background: rgba(52, 211, 153, 0.08);
         }
 
+        .financial-reporting {
+            margin: 120px 0;
+            padding: 28px;
+            border: 1px solid rgba(34, 211, 238, 0.16);
+            border-radius: 28px;
+            background:
+                linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(139, 92, 246, 0.06) 48%, rgba(52, 211, 153, 0.07)),
+                rgba(13, 11, 26, 0.48);
+            overflow: hidden;
+        }
+
+        @media (min-width: 900px) {
+            .financial-reporting {
+                padding: 48px;
+            }
+        }
+
+        .financial-reporting-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (min-width: 1100px) {
+            .financial-reporting-layout {
+                grid-template-columns: minmax(280px, 0.38fr) minmax(0, 0.62fr);
+                gap: 44px;
+            }
+        }
+
+        .financial-reporting-copy {
+            text-align: left;
+        }
+
+        .financial-reporting-copy h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--cyan-400), var(--emerald-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .financial-reporting-copy p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .financial-reporting-points {
+            display: grid;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .financial-reporting-point {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .financial-reporting-point svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--emerald-400);
+        }
+
+        .financial-reporting-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: #07120f;
+            background: linear-gradient(135deg, var(--emerald-400), var(--cyan-400));
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 16px 30px rgba(34, 211, 238, 0.18);
+        }
+
+        .financial-reporting-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .financial-reporting-frame {
+            min-width: 0;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #f8f9fa;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .financial-reporting-frame iframe {
+            width: 100%;
+            height: min(72vh, 760px);
+            min-height: 520px;
+            display: block;
+            border: 0;
+            background: #fff;
+        }
+
+        @media (max-width: 640px) {
+            .financial-reporting {
+                margin: 80px 0;
+                padding: 20px;
+                border-radius: 22px;
+            }
+
+            .financial-reporting-frame iframe {
+                min-height: 460px;
+            }
+        }
+
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -2956,7 +3083,60 @@
 
 
 
-        <!-- 💬 WHATSAPP RESULTS SECTION -->
+        <!-- FINANCIAL REPORTING SECTION -->
+        <section class="financial-reporting">
+            <div class="financial-reporting-layout">
+                <div class="financial-reporting-copy">
+                    <div class="header-badge"
+                        style="color: var(--cyan-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 14px; font-weight: 700; text-transform: uppercase;">
+                        In Depth Financial Reporting</div>
+                    <h2>Live P&amp;L visibility for every growth decision</h2>
+                    <p>SPINE connects revenue, refunds, COGS, distribution, media spend, payroll, and operating expenses
+                        into one live view, so scaling decisions are made from contribution margin instead of surface-level
+                        ad metrics.</p>
+                    <div class="financial-reporting-points">
+                        <div class="financial-reporting-point">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Month-by-month net sales, gross profit, net margin, ACOS, and channel spend.
+                        </div>
+                        <div class="financial-reporting-point">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            YTD totals and mean values make trend changes visible without manual reporting work.
+                        </div>
+                        <div class="financial-reporting-point">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Built for operators who need to see actual profitability before pushing more budget.
+                        </div>
+                    </div>
+                    <a class="financial-reporting-link"
+                        href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsj41n_VCCN4alEX7dCjq9--WdW5_NYgNzKiVJLd_tZFljLHQ3ke0gqp675dG9VgPe3t_LX3aPKwW8/pubhtml?gid=0&amp;single=true"
+                        target="_blank" rel="noopener noreferrer">
+                        Open Full Report
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M7 17L17 7"></path>
+                            <path d="M8 7h9v9"></path>
+                        </svg>
+                    </a>
+                </div>
+                <div class="financial-reporting-frame">
+                    <iframe
+                        src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsj41n_VCCN4alEX7dCjq9--WdW5_NYgNzKiVJLd_tZFljLHQ3ke0gqp675dG9VgPe3t_LX3aPKwW8/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"
+                        title="Published financial reporting spreadsheet" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- WHATSAPP RESULTS SECTION -->
         <section class="whatsapp-results" style="margin: 120px 0; text-align: center;">
             <div class="proof-header">
                 <div class="header-badge" style="color: var(--emerald-400);">From the Frontlines</div>
