@@ -851,6 +851,113 @@
             flex-shrink: 0;
         }
 
+        .case-study-sites {
+            margin: 120px 0;
+            text-align: center;
+        }
+
+        .website-tile-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        @media (min-width: 700px) {
+            .website-tile-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px;
+            }
+        }
+
+        @media (min-width: 1120px) {
+            .website-tile-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        .website-tile {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(13, 11, 26, 0.58);
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+        }
+
+        .website-tile:hover {
+            transform: translateY(-8px);
+            border-color: rgba(52, 211, 153, 0.48);
+            background: rgba(19, 16, 43, 0.86);
+            box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38);
+        }
+
+        .website-tile-preview {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(34, 211, 238, 0.08));
+        }
+
+        .website-tile-preview img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .website-tile:hover .website-tile-preview img {
+            transform: scale(1.06);
+            filter: saturate(1.08) contrast(1.05);
+        }
+
+        .website-tile-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            min-height: 92px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .website-tile-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .website-tile-url {
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            word-break: break-word;
+        }
+
+        .website-tile-arrow {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--emerald-400);
+            border: 1px solid rgba(52, 211, 153, 0.28);
+            background: rgba(52, 211, 153, 0.08);
+        }
+
         .cta-button {
             display: inline-flex;
             align-items: center;
@@ -2920,7 +3027,141 @@
 
 
 
-        <!-- 🏢 BRAND INFRASTRUCTURE -->
+        <!-- CASE STUDY WEBSITE TILES -->
+        <section class="case-study-sites">
+            <div class="proof-header">
+                <div class="header-badge"
+                    style="color: var(--emerald-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">
+                    Case Study Websites</div>
+                <h2>Live Sites Built to Convert</h2>
+                <p style="color: var(--text-secondary); max-width: 660px; margin: 20px auto 0;">A snapshot of brands,
+                    commerce sites, and growth assets supported by CR8OR systems.</p>
+            </div>
+
+            <div class="website-tile-grid">
+                <a class="website-tile" href="https://hairmax.co.uk/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open HairMax case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://hairmax.co.uk/"
+                            alt="Screenshot of HairMax website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">HairMax</div>
+                            <div class="website-tile-url">hairmax.co.uk</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://t3micro.co.uk/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open T3 Micro case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://t3micro.co.uk/"
+                            alt="Screenshot of T3 Micro website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">T3 Micro</div>
+                            <div class="website-tile-url">t3micro.co.uk</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://leo.hair/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open LEO Hair case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://leo.hair/"
+                            alt="Screenshot of LEO Hair website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">LEO Hair</div>
+                            <div class="website-tile-url">leo.hair</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://dreamsilk.io/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open DREAMSILK case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://dreamsilk.io/"
+                            alt="Screenshot of DREAMSILK website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">DREAMSILK</div>
+                            <div class="website-tile-url">dreamsilk.io</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://www.williamwoodmirrors.co.uk/" target="_blank"
+                    rel="noopener noreferrer" aria-label="Open William Wood Mirrors case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://www.williamwoodmirrors.co.uk/"
+                            alt="Screenshot of William Wood Mirrors website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">William Wood Mirrors</div>
+                            <div class="website-tile-url">williamwoodmirrors.co.uk</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://cr8or.ai/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open CR8OR AI case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://cr8or.ai/"
+                            alt="Screenshot of CR8OR AI website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">CR8OR AI</div>
+                            <div class="website-tile-url">cr8or.ai</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://atlanticcouncil.co.uk/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open Atlantic Council case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://atlanticcouncil.co.uk/"
+                            alt="Screenshot of Atlantic Council website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">Atlantic Council</div>
+                            <div class="website-tile-url">atlanticcouncil.co.uk</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+
+                <a class="website-tile" href="https://advantisdirect.co.uk/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Open Advantis Direct case study website">
+                    <div class="website-tile-preview">
+                        <img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://advantisdirect.co.uk/"
+                            alt="Screenshot of Advantis Direct website" loading="lazy">
+                    </div>
+                    <div class="website-tile-body">
+                        <div>
+                            <div class="website-tile-name">Advantis Direct</div>
+                            <div class="website-tile-url">advantisdirect.co.uk</div>
+                        </div>
+                        <span class="website-tile-arrow" aria-hidden="true">-&gt;</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- BRAND INFRASTRUCTURE -->
         <section class="brand-wall-section" style="margin: 120px 0; text-align: center;">
             <div class="proof-header">
                 <div class="header-badge"
