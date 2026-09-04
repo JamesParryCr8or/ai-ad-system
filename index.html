@@ -1412,6 +1412,55 @@
             gap: 12px;
         }
 
+        .model-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .model-preview-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            border-radius: 18px;
+            background: rgba(19, 16, 43, 0.72);
+            transition: var(--transition);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+        }
+
+        .model-preview-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--cyan-400);
+            box-shadow: 0 24px 52px rgba(0, 0, 0, 0.36);
+        }
+
+        .model-preview-media {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .model-preview-media img,
+        .model-preview-media video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .model-preview-media video {
+            background: #05040a;
+        }
+
+        .model-preview-body {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px 16px;
+        }
+
         .model-chip {
             background: var(--bg-card);
             border: 1px solid var(--border);
@@ -2446,21 +2495,51 @@
                             <span>5 featured models deployed</span>
                         </div>
                     </div>
-                    <div class="model-grid">
-                        <div class="model-chip pro"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199" alt="OpenAI">
-                            <div class="model-info"><span class="model-name">Sora 2 Pro</span><span class="model-provider">OpenAI</span></div>
+                    <div class="model-preview-grid">
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://tjzk.replicate.delivery/models_models_featured_image/a61a2425-53d5-4515-bef1-84a104dd0126/Screenshot_2025-10-07_at_3.07..png"
+                                    alt="Sora 2 Pro preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Sora.png?_wwcv=1770391171199" alt="OpenAI">
+                                <div class="model-info"><span class="model-name">Sora 2 Pro</span><span class="model-provider">OpenAI</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804233375_deepmind-veo3.svg" alt="Google DeepMind">
-                            <div class="model-info"><span class="model-name">Veo 3.1</span><span class="model-provider">Google DeepMind</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://lh3.googleusercontent.com/ZiwH_wa1LfkkOwklJ874qQBiNdhxukLDOasXDAOIvj_myLyX8RgewbtrCiB-GYYeGHwV54tZ8M8CY3bBmqZ3qikQliW7hpIfotfdgiQXSUOgR79s8VE=w1440-h810-n-nu"
+                                    alt="Veo 3.1 preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804233375_deepmind-veo3.svg" alt="Google DeepMind">
+                                <div class="model-info"><span class="model-name">Veo 3.1</span><span class="model-provider">Google DeepMind</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803738413_Bytedance.png" alt="ByteDance">
-                            <div class="model-info"><span class="model-name">Seedance 2.5</span><span class="model-provider">ByteDance</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <video src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/video/c2a6f60c-dfb0-4feb-bf9e-4b35eb5fc75f.mp4"
+                                    muted autoplay loop playsinline preload="metadata" aria-label="Seedance 2.5 preview"></video>
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803738413_Bytedance.png" alt="ByteDance">
+                                <div class="model-info"><span class="model-name">Seedance 2.5</span><span class="model-provider">ByteDance</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803861126_bflml_logo.jfif" alt="Flux">
-                            <div class="model-info"><span class="model-name">FLUX 3</span><span class="model-provider">Black Forest Labs</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <video src="https://replicate.delivery/xezq/fBgMivRne4sVKUqyOebsWw8SdTNUHYiNJt6z9k2SZWoOVD8tA/tmpqivtyeho.mp4"
+                                    muted autoplay loop playsinline preload="metadata" aria-label="FLUX 3 preview"></video>
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803861126_bflml_logo.jfif" alt="Flux">
+                                <div class="model-info"><span class="model-name">FLUX 3</span><span class="model-provider">Black Forest Labs</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197" alt="Kling">
-                            <div class="model-info"><span class="model-name">Kling 2.5 Turbo Pro</span><span class="model-provider">Kling</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <video src="https://replicate.delivery/xezq/17c3JG1SzH6NCduMiKp1Cxyqvpad0GXRf507Pqq5GOqNsZsKA/tmpg4w3kyjz.mp4"
+                                    muted autoplay loop playsinline preload="metadata" aria-label="Kling 2.5 Turbo Pro preview"></video>
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/Kling.png?_wwcv=1770391171197" alt="Kling">
+                                <div class="model-info"><span class="model-name">Kling 2.5 Turbo Pro</span><span class="model-provider">Kling</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2474,21 +2553,51 @@
                             <span>5 featured models deployed</span>
                         </div>
                     </div>
-                    <div class="model-grid">
-                        <div class="model-chip pro"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/ChatGPT_logo.svg.png?_wwcv=1774887978727" alt="OpenAI">
-                            <div class="model-info"><span class="model-name">GPT Image 2.0</span><span class="model-provider">OpenAI</span></div>
+                    <div class="model-preview-grid">
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/stories/1749130901.png"
+                                    alt="GPT Image 2.0 preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://cdn.weweb.io/designs/60904273-4bfe-4167-859d-d6d796efda55/sections/ChatGPT_logo.svg.png?_wwcv=1774887978727" alt="OpenAI">
+                                <div class="model-info"><span class="model-name">GPT Image 2.0</span><span class="model-provider">OpenAI</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804233375_deepmind-veo3.svg" alt="Google DeepMind">
-                            <div class="model-info"><span class="model-name">Nano Banana 3 Pro</span><span class="model-provider">Google DeepMind</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://lh3.googleusercontent.com/vRx3DydCtURsIFXXcVl2tIbWtSDQXsLFZa_Ex8n099letmx92n0TIxoRLo65RFiwaRVeLPVuGIeH9dHzRsPVj75YqphzPuDKVLt0NxHvzmN6b6AwZA=w1440-h810-n-nu"
+                                    alt="Nano Banana 3 Pro preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804233375_deepmind-veo3.svg" alt="Google DeepMind">
+                                <div class="model-info"><span class="model-name">Nano Banana 3 Pro</span><span class="model-provider">Google DeepMind</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803738413_Bytedance.png" alt="ByteDance">
-                            <div class="model-info"><span class="model-name">Seedream 5.0 Pro</span><span class="model-provider">ByteDance</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/010e8a6c-7f05-4732-9ba4-aef76c24a24a/4fc03581-d32a-4739-85cb-70c2595b6704.png"
+                                    alt="Seedream 5.0 Pro preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803738413_Bytedance.png" alt="ByteDance">
+                                <div class="model-info"><span class="model-name">Seedream 5.0 Pro</span><span class="model-provider">ByteDance</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803861126_bflml_logo.jfif" alt="Flux">
-                            <div class="model-info"><span class="model-name">Flux Kontext Max</span><span class="model-provider">Black Forest Labs</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://replicate.delivery/xezq/Mbbd8Tx2YfRYXSEmLgblTzGtj4ZurpgPjLui6jAqfXLasRzUA/tmpkav_ivyd.jpg"
+                                    alt="Flux Kontext Max preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779803861126_bflml_logo.jfif" alt="Flux">
+                                <div class="model-info"><span class="model-name">Flux Kontext Max</span><span class="model-provider">Black Forest Labs</span></div>
+                            </div>
                         </div>
-                        <div class="model-chip pro"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804888000_unnamed.webp" alt="Recraft">
-                            <div class="model-info"><span class="model-name">Recraft V4</span><span class="model-provider">Recraft</span></div>
+                        <div class="model-preview-card">
+                            <div class="model-preview-media">
+                                <img src="https://replicate.delivery/xezq/3xGXF3IfTLW0I69qxg4Tz0xS7hU4uxQqOKxsMAnf8LrYD3IWA/tmpkjam_js3.webp"
+                                    alt="Recraft V4 preview" loading="lazy">
+                            </div>
+                            <div class="model-preview-body"><img class="model-logo" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/admin-assets/1779804888000_unnamed.webp" alt="Recraft">
+                                <div class="model-info"><span class="model-name">Recraft V4</span><span class="model-provider">Recraft</span></div>
+                            </div>
                         </div>
                     </div>
                 </div>
