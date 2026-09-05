@@ -440,19 +440,27 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
 .section-head .lead { max-width: 780px; }
 .slider-controls {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   flex: 0 0 auto;
 }
 .slider-controls button {
-  width: 46px;
-  height: 46px;
+  min-width: 132px;
+  height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: rgba(255,255,255,0.06);
   color: #fff;
-  font: 900 1.8rem/1 Outfit, sans-serif;
+  font: 900 0.92rem/1 Outfit, sans-serif;
   cursor: pointer;
   transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+.slider-controls button span {
+  font-size: 1.65rem;
+  line-height: 0.8;
 }
 .slider-controls button:hover {
   transform: translateY(-2px);
@@ -460,9 +468,7 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
   background: rgba(255,255,255,0.1);
 }
 .batch-slider {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(0, 100%);
+  display: flex;
   gap: 18px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -472,14 +478,17 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
 }
 .batch-slider::-webkit-scrollbar { display: none; }
 .batch-slide {
+  flex: 0 0 100%;
+  min-width: 100%;
+  box-sizing: border-box;
   scroll-snap-align: start;
   display: grid;
-  grid-template-columns: 0.38fr 0.62fr;
-  gap: 24px;
+  grid-template-columns: minmax(220px, 0.28fr) minmax(0, 0.72fr);
+  gap: 30px;
   align-items: center;
-  padding: 22px;
+  padding: 30px;
   border: 1px solid var(--line);
-  border-radius: 24px;
+  border-radius: 28px;
   background: linear-gradient(145deg, rgba(18,28,61,0.9), rgba(11,13,31,0.94));
   box-shadow: var(--shadow);
 }
@@ -495,19 +504,44 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
   font-size: clamp(1.5rem, 3vw, 2.35rem);
 }
 .batch-copy p { color: var(--muted); }
+.batch-copy {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .batch-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 16px;
 }
 .batch-grid img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  border-radius: 14px;
+  border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.12);
   background: #090816;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.26);
+  box-shadow: 0 18px 42px rgba(0,0,0,0.34);
+}
+.batch-dots {
+  display: flex;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 18px;
+}
+.batch-dots button {
+  width: 34px;
+  height: 7px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.22);
+  cursor: pointer;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+.batch-dots button.active {
+  width: 58px;
+  background: linear-gradient(90deg, var(--mint), var(--blue), var(--pink));
 }
 .leo-strip {
   display: grid;
@@ -586,7 +620,8 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
   }
   .batch-slide { padding: 16px; border-radius: 18px; }
   .batch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .slider-controls button { width: 42px; height: 42px; }
+  .slider-controls { width: 100%; }
+  .slider-controls button { flex: 1; min-width: 0; height: 48px; }
   .bump-inner {
     grid-template-columns: 28px 1fr;
   }

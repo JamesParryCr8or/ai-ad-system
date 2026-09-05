@@ -102,11 +102,30 @@
     if (!slider) return;
     const prev = document.querySelector('[data-batch-prev]');
     const next = document.querySelector('[data-batch-next]');
-    const move = (direction) => {
-      const slide = slider.querySelector('.batch-slide');
-      const amount = slide ? slide.getBoundingClientRect().width + 18 : slider.clientWidth;
-      slider.scrollBy({ left: amount * direction, behavior: 'smooth' });
+    const slides = Array.from(slider.querySelectorAll('.batch-slide'));
+    const dots = Array.from(document.querySelectorAll('[data-batch-dot]'));
+    const slideAmount = () => {
+      const slide = slides[0];
+      return slide ? slide.getBoundingClientRect().width + 18 : slider.clientWidth;
     };
+    const activeIndex = () => Math.round(slider.scrollLeft / Math.max(1, slideAmount()));
+    const updateDots = () => {
+      const current = Math.min(slides.length - 1, Math.max(0, activeIndex()));
+      dots.forEach((dot, index) => dot.classList.toggle('active', index === current));
+    };
+    const goTo = (index) => {
+      slider.scrollTo({ left: slideAmount() * index, behavior: 'smooth' });
+    };
+    const move = (direction) => {
+      const target = (activeIndex() + direction + slides.length) % slides.length;
+      goTo(target);
+    };
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => goTo(Number(dot.dataset.batchDot || 0)));
+    });
+    slider.addEventListener('scroll', () => window.requestAnimationFrame(updateDots), { passive: true });
+    window.addEventListener('resize', updateDots);
+    updateDots();
     if (prev) prev.addEventListener('click', () => move(-1));
     if (next) next.addEventListener('click', () => move(1));
   }
