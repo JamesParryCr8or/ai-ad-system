@@ -8,13 +8,66 @@
   <link rel="stylesheet" href="/40-ads/assets/funnel.css">
 </head>
 <body>
-<main class="page">
+<main class="page campaign-setup-page">
   <div class="wrap section tight">
     <div class="progress"><div class="progress-label"><span>Step 2 of 4 - Optional Campaign Launch</span><span>50%</span></div><div class="bar" style="--step:50%"><span></span></div></div>
     <section class="upsell-hero">
       <div class="eyebrow">Your ads are being created</div>
       <h1>Would You Like Us to Launch Them Too?</h1>
       <p class="lead" style="margin-inline:auto">Having 40 ads is valuable. Testing them through a clean, properly organised Meta campaign is where you begin learning what your market responds to.</p>
+    </section>
+    <div class="vsl-block">
+      <div class="video-frame">
+        <video
+          id="campaign-vsl"
+          src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/1787055241021_Marketing_Fiverr_1.mp4"
+          poster="/40-ads/assets/vsl-poster.jpg"
+          preload="none"
+          playsinline></video>
+        <button class="video-facade" type="button" data-video-facade="campaign-vsl" aria-label="Play the campaign launch video">
+          <span class="video-play"></span>
+        </button>
+      </div>
+      <p class="video-caption">One minute on how we set up and manage campaigns that turn ad spend into customers.</p>
+    </div>
+    <figure class="campaign-proof-image">
+      <img src="/40-ads/assets/meta-ads-manager.png" alt="Meta Ads Manager campaign dashboard showing campaign performance">
+    </figure>
+    <section class="wins-section">
+      <div class="eyebrow">From the Frontlines</div>
+      <h2>Client Wins &amp; Daily Logs</h2>
+      <p class="lead">Real conversations with real clients seeing massive growth using the system.</p>
+      <div class="wins-grid">
+        <article class="wins-card">
+          <img src="/Case%20Studies/Results/TikTok%20Leads%20%C2%A35.87%20CPL.png" alt="TikTok campaign results showing £5.87 cost per lead">
+          <div class="wins-body">
+            <div class="wins-kicker">TikTok Ads Mission</div>
+            <div class="wins-title">£5.87 Cost Per Lead (Legacy Brand)</div>
+          </div>
+        </article>
+        <article class="wins-card">
+          <img src="/Case%20Studies/Results/%C2%A34K%20Daily%20Spend%2C%20%C2%A330%20CPA%20for%20Sim%20Card.png" alt="Campaign results showing £4,000 daily ad spend at £30 cost per acquisition">
+          <div class="wins-body">
+            <div class="wins-kicker">Scaling Mission</div>
+            <div class="wins-title">£4,000 Daily Ad Spend at £30 CPA</div>
+          </div>
+        </article>
+        <article class="wins-card">
+          <img src="/Case%20Studies/Results/Black%20Friday%20Pump.png" alt="Black Friday campaign performance results">
+          <div class="wins-body">
+            <div class="wins-kicker">Campaign Management</div>
+            <div class="wins-title">Black Friday Peak Performance Delta</div>
+          </div>
+        </article>
+        <article class="wins-card">
+          <img src="/Case%20Studies/Results/PCP%20Leads%20%C2%A39%20Per%20E-Sign%2C%20%C2%A319%20ID%2C%20%C2%A371%20Docs%20Uploaded.png" alt="PCP claims campaign results showing £9 per e-signature">
+          <div class="wins-body">
+            <div class="wins-kicker">Lead Gen Mission</div>
+            <div class="wins-title">PCP Claims: £9 E-Signatures at Scale</div>
+          </div>
+        </article>
+      </div>
+      <p class="notice wins-note">Screenshots are from live client ad accounts managed by CR8OR AI. They illustrate the campaign structure and management approach behind this service. They are not a projection of the results your own account will produce.</p>
     </section>
     <section class="card offer-panel">
       <h2>Meta Campaign Launch</h2>
@@ -30,5 +83,17 @@
   </div>
 </main>
 <script src="/40-ads/assets/funnel.js"></script>
+<script>
+document.querySelectorAll('[data-video-facade]').forEach(function (facade) {
+  facade.addEventListener('click', function () {
+    var video = document.getElementById(facade.dataset.videoFacade);
+    if (!video) return;
+    facade.remove();
+    video.preload = 'auto';
+    video.controls = true;
+    video.play();
+  });
+});
+</script>
 </body>
 </html>
