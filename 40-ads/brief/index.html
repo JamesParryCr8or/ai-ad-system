@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Creative Brief | CR8OR AI</title>
+  <link rel="icon" type="image/png" href="/CR8OR AI Logo (1080 X 1080).png">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/40-ads/assets/funnel.css">
+</head>
+<body>
+<main class="checkout-shell">
+  <div class="narrow">
+    <div class="progress"><div class="progress-label"><span>Customer Intake</span><span data-step-label>Step 1 of 5</span></div><div class="bar"><span></span></div></div>
+    <form class="checkout-card" data-brief-form>
+      <h1 style="font-size:2.6rem;margin-bottom:12px">Creative Brief</h1>
+      <p>Save and resume later. Delivery begins after all required assets and information are supplied.</p>
+      <section class="brief-step active">
+        <h2>Business</h2><div class="form-grid">
+          <div class="field"><label>Business name</label><input name="businessName" required></div><div class="field"><label>Website</label><input name="website" type="url"></div>
+          <div class="field full"><label>Product URL</label><input name="productUrl" type="url" required></div><div class="field"><label>Industry</label><input name="industry"></div>
+          <div class="field"><label>Target countries</label><input name="targetCountries"></div><div class="field"><label>Main advertising platform</label><select name="platform"><option>Meta</option><option>TikTok</option><option>Google</option><option>Other</option></select></div>
+          <div class="field full"><label>Have you advertised this product before?</label><textarea name="advertisedBefore"></textarea></div>
+        </div><button type="button" class="btn full" data-next-step>Continue</button>
+      </section>
+      <section class="brief-step">
+        <h2>Product</h2><div class="form-grid">
+          <div class="field"><label>Product name</label><input name="productName" required></div><div class="field"><label>Price</label><input name="productPrice"></div>
+          <div class="field full"><label>Primary features</label><textarea name="features"></textarea></div><div class="field full"><label>Primary customer benefits</label><textarea name="benefits"></textarea></div>
+          <div class="field full"><label>Customer problem solved</label><textarea name="problemSolved"></textarea></div><div class="field full"><label>Principal reasons customers buy</label><textarea name="buyReasons"></textarea></div>
+          <div class="field full"><label>Common objections</label><textarea name="objections"></textarea></div><div class="field full"><label>Current offer or promotion</label><textarea name="promotion"></textarea></div>
+          <div class="field full"><label>Claims that must not be made</label><textarea name="restrictedClaims"></textarea></div><div class="field full"><label>Required disclaimers</label><textarea name="disclaimers"></textarea></div>
+        </div><button type="button" class="btn secondary" data-prev-step>Back</button> <button type="button" class="btn" data-next-step>Continue</button>
+      </section>
+      <section class="brief-step">
+        <h2>Customer</h2><div class="form-grid">
+          <div class="field full"><label>Ideal customer</label><textarea name="idealCustomer"></textarea></div><div class="field"><label>Typical age range</label><input name="ageRange"></div>
+          <div class="field full"><label>Customer desires</label><textarea name="desires"></textarea></div><div class="field full"><label>Customer frustrations</label><textarea name="frustrations"></textarea></div>
+          <div class="field full"><label>Competitor URLs</label><textarea name="competitorUrls"></textarea></div><div class="field full"><label>Existing reviews or testimonials</label><textarea name="reviews"></textarea></div>
+        </div><button type="button" class="btn secondary" data-prev-step>Back</button> <button type="button" class="btn" data-next-step>Continue</button>
+      </section>
+      <section class="brief-step">
+        <h2>Brand Assets</h2><div class="form-grid">
+          <div class="field"><label>Logo upload</label><input name="logoUpload" type="file"></div><div class="field"><label>Product image upload</label><input name="productImages" type="file" multiple></div>
+          <div class="field"><label>Lifestyle image upload</label><input name="lifestyleImages" type="file" multiple></div><div class="field"><label>Brand colours</label><input name="brandColours"></div>
+          <div class="field"><label>Brand fonts</label><input name="brandFonts"></div><div class="field full"><label>Brand guidelines</label><textarea name="brandGuidelines"></textarea></div>
+          <div class="field full"><label>Advertising styles you like</label><textarea name="stylesLiked"></textarea></div><div class="field full"><label>Styles or language to avoid</label><textarea name="stylesAvoid"></textarea></div>
+        </div><button type="button" class="btn secondary" data-prev-step>Back</button> <button type="button" class="btn" data-next-step>Continue</button>
+      </section>
+      <section class="brief-step">
+        <h2>Confirmation</h2>
+        <div class="summary-box" data-brief-summary></div>
+        <label class="checkbox"><input type="checkbox" required><span>The supplied information is accurate.</span></label>
+        <label class="checkbox"><input type="checkbox" required><span>I have permission to use the uploaded assets.</span></label>
+        <label class="checkbox"><input type="checkbox" required><span>Product and advertising claims can be substantiated.</span></label>
+        <label class="checkbox"><input type="checkbox" required><span>I understand delivery begins after all required assets are supplied and turnaround may pause if information is incomplete.</span></label>
+        <button type="button" class="btn secondary" data-prev-step>Back</button> <button class="btn" type="submit">Submit Brief</button>
+      </section>
+    </form>
+  </div>
+</main>
+<script src="/40-ads/assets/funnel.js"></script>
+</body>
+</html>
