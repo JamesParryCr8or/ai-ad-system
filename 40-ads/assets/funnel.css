@@ -331,7 +331,8 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
 }
 
 @media (max-width: 560px) {
-  .section { padding: 64px 0; }
+  .section { padding: 42px 0; }
+  .section.tight { padding: 34px 0; }
   .hero { min-height: auto; padding-top: 30px; }
   h1 { font-size: 3rem; }
   .mockup-stage { min-height: 380px; margin-inline: -10px; }
@@ -342,5 +343,6 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
   .comparison { display: block; overflow-x: auto; }
   .mobile-cta { display: block; }
   .leo-collage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .reveal { opacity: 1; transform: none; }
   .footer { padding-bottom: 96px; }
 }
