@@ -31,6 +31,35 @@ async function createHostedCheckout({ headers, selected, offer, customer, custom
   return data.url;
 }
 
+async function createSubscription({ headers, selected, offer, customer, paymentMethod }) {
+  const priceParams = new URLSearchParams({
+    currency: 'gbp',
+    unit_amount: String(selected.amount),
+    'recurring[interval]': selected.interval,
+    'product_data[name]': selected.name,
+    'product_data[metadata][funnel]': '40-product-ads',
+    'product_data[metadata][upsell]': offer
+  });
+  const priceRes = await fetch('https://api.stripe.com/v1/prices', { method: 'POST', headers, body: priceParams });
+  const price = await priceRes.json();
+  if (!priceRes.ok) throw new Error(price.error?.message || 'Failed to create subscription price');
+
+  const subParams = new URLSearchParams({
+    customer,
+    default_payment_method: paymentMethod,
+    off_session: 'true',
+    'items[0][price]': price.id,
+    'items[0][quantity]': '1',
+    'metadata[funnel]': '40-product-ads',
+    'metadata[upsell]': offer,
+    'expand[0]': 'latest_invoice.payment_intent'
+  });
+  const subRes = await fetch('https://api.stripe.com/v1/subscriptions', { method: 'POST', headers, body: subParams });
+  const sub = await subRes.json();
+  if (!subRes.ok) throw new Error(sub.error?.message || 'Failed to create subscription');
+  return sub;
+}
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -41,7 +70,7 @@ export default async function handler(req, res) {
   const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY;
   if (!stripeSecretKey) return res.status(500).json({ error: 'Stripe secret key not configured' });
 
-  const { offer, session_id, order = {} } = req.body || {};
+  const { offer, session_id, payment_intent_id, order = {} } = req.body || {};
   const selected = OFFERS[offer];
   if (!selected) return res.status(400).json({ error: 'Unknown upsell offer' });
 
@@ -51,7 +80,15 @@ export default async function handler(req, res) {
     let customer = '';
     let customerEmail = order.customer?.email || '';
     let paymentMethod = '';
-    if (session_id) {
+    if (payment_intent_id) {
+      const paymentRes = await fetch(`https://api.stripe.com/v1/payment_intents/${payment_intent_id}`, { headers });
+      const payment = await paymentRes.json();
+      if (paymentRes.ok && payment.status === 'succeeded') {
+        customer = payment.customer || '';
+        customerEmail = payment.receipt_email || customerEmail;
+        paymentMethod = payment.payment_method || '';
+      }
+    } else if (session_id) {
       const sessionRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${session_id}?expand[0]=payment_intent`, { headers });
       const session = await sessionRes.json();
       if (sessionRes.ok) {
@@ -80,6 +117,11 @@ export default async function handler(req, res) {
       if (piRes.ok && pi.status === 'succeeded') {
         return res.status(200).json({ success: true, payment_intent: pi.id });
       }
+    }
+
+    if (selected.mode === 'subscription' && customer && paymentMethod) {
+      const sub = await createSubscription({ headers, selected, offer, customer, paymentMethod });
+      return res.status(200).json({ success: true, subscription_id: sub.id });
     }
 
     const url = await createHostedCheckout({ headers, selected, offer, customer, customerEmail });

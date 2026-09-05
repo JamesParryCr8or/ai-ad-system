@@ -1,5 +1,3 @@
-const BASE_URL = process.env.CR8OR_FUNNEL_BASE_URL || 'https://scale.cr8or.ai';
-
 function appendMetadata(params, prefix, value) {
   if (!value || typeof value !== 'object') return;
   Object.entries(value).forEach(([key, item]) => {
@@ -24,43 +22,58 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'A valid email is required' });
   }
 
-  const params = new URLSearchParams({
-    mode: 'payment',
-    customer_email: customer.email,
-    customer_creation: 'always',
-    billing_address_collection: 'required',
-    'phone_number_collection[enabled]': 'true',
-    'line_items[0][price_data][currency]': 'gbp',
-    'line_items[0][price_data][unit_amount]': '2700',
-    'line_items[0][price_data][product_data][name]': '40 Product Ad Variations',
-    'line_items[0][price_data][product_data][description]': '10 creative concepts with four static ad variations each.',
-    'line_items[0][quantity]': '1',
-    success_url: `${BASE_URL}/40-ads/campaign-setup?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${BASE_URL}/40-ads/checkout`,
-    'metadata[funnel]': '40-product-ads',
-    'metadata[strategy_report]': strategyReport ? 'yes' : 'no'
-  });
-
-  if (strategyReport) {
-    params.append('line_items[1][price_data][currency]', 'gbp');
-    params.append('line_items[1][price_data][unit_amount]', '1900');
-    params.append('line_items[1][price_data][product_data][name]', 'Creative Strategy Report');
-    params.append('line_items[1][price_data][product_data][description]', 'Customer angles, hooks, objections, positioning and recommended testing order.');
-    params.append('line_items[1][quantity]', '1');
-  }
-
-  appendMetadata(params, 'customer', customer);
-  appendMetadata(params, 'utm', utm);
-
   try {
-    const stripeRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${stripeSecretKey}`, 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params
+    const stripeHeaders = { Authorization: `Bearer ${stripeSecretKey}`, 'Content-Type': 'application/x-www-form-urlencoded' };
+    const customerParams = new URLSearchParams({
+      email: customer.email,
+      'metadata[funnel]': '40-product-ads'
     });
-    const data = await stripeRes.json();
-    if (!stripeRes.ok) return res.status(400).json({ error: data.error?.message || 'Failed to create checkout session' });
-    return res.status(200).json({ url: data.url, id: data.id });
+    const name = [customer.firstName, customer.lastName].filter(Boolean).join(' ');
+    const phone = [customer.countryCode, customer.telephone].filter(Boolean).join(' ');
+    if (name) customerParams.append('name', name);
+    if (phone) customerParams.append('phone', phone);
+    appendMetadata(customerParams, 'customer', customer);
+    appendMetadata(customerParams, 'utm', utm);
+
+    const customerRes = await fetch('https://api.stripe.com/v1/customers', {
+      method: 'POST',
+      headers: stripeHeaders,
+      body: customerParams
+    });
+    const stripeCustomer = await customerRes.json();
+    if (!customerRes.ok) return res.status(400).json({ error: stripeCustomer.error?.message || 'Failed to create Stripe customer' });
+
+    const amount = strategyReport ? 4600 : 2700;
+    const paymentParams = new URLSearchParams({
+      amount: String(amount),
+      currency: 'gbp',
+      customer: stripeCustomer.id,
+      receipt_email: customer.email,
+      description: strategyReport ? '40 Product Ad Variations + Creative Strategy Report' : '40 Product Ad Variations',
+      setup_future_usage: 'off_session',
+      'automatic_payment_methods[enabled]': 'true',
+      'metadata[funnel]': '40-product-ads',
+      'metadata[product]': '40-product-ad-variations',
+      'metadata[strategy_report]': strategyReport ? 'yes' : 'no'
+    });
+    appendMetadata(paymentParams, 'customer', customer);
+    appendMetadata(paymentParams, 'utm', utm);
+
+    const paymentRes = await fetch('https://api.stripe.com/v1/payment_intents', {
+      method: 'POST',
+      headers: stripeHeaders,
+      body: paymentParams
+    });
+    const payment = await paymentRes.json();
+    if (!paymentRes.ok) return res.status(400).json({ error: payment.error?.message || 'Failed to create payment intent' });
+
+    return res.status(200).json({
+      publishable_key: process.env.STRIPE_PUBLISHABLE_KEY || '',
+      client_secret: payment.client_secret,
+      payment_intent_id: payment.id,
+      customer_id: stripeCustomer.id,
+      amount
+    });
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }

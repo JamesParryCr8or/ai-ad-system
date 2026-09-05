@@ -6,6 +6,7 @@
   <link rel="icon" type="image/png" href="/CR8OR AI Logo (1080 X 1080).png">
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/40-ads/assets/funnel.css">
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 <main class="checkout-shell">
@@ -16,19 +17,28 @@
         <a class="brand" href="/40-ads/" data-preserve-utm><img src="/CR8OR AI Logo (1080 X 1080).png" alt="">CR8OR AI</a>
         <h1 style="font-size:2.4rem;margin:22px 0 12px">Secure Checkout</h1>
         <div class="form-grid">
-          <div class="field"><label>First name</label><input name="firstName" autocomplete="given-name" required></div>
-          <div class="field"><label>Last name</label><input name="lastName" autocomplete="family-name" required></div>
-          <div class="field full"><label>Email</label><input name="email" type="email" autocomplete="email" required></div>
-          <div class="field"><label>Telephone number, optional</label><input name="telephone" autocomplete="tel"></div>
-          <div class="field"><label>Business name</label><input name="businessName" required></div>
-          <div class="field full"><label>Website URL</label><input name="website" type="url" placeholder="https://" required></div>
-          <div class="field full"><label>Billing address</label><textarea name="billingAddress" autocomplete="billing street-address" required></textarea></div>
+          <div class="field"><label>First name</label><input name="firstName" autocomplete="given-name" placeholder="James" required></div>
+          <div class="field"><label>Last name</label><input name="lastName" autocomplete="family-name" placeholder="Parry" required></div>
+          <div class="field full"><label>Email</label><input name="email" type="email" autocomplete="email" placeholder="james@example.com" required></div>
+          <div class="field full"><label>Telephone number, optional</label><div class="phone-row"><select name="countryCode" aria-label="Country code"><option value="+44" selected>UK +44</option><option value="+353">IE +353</option><option value="+1">US +1</option><option value="+61">AU +61</option><option value="+64">NZ +64</option><option value="+33">FR +33</option><option value="+49">DE +49</option></select><input name="telephone" autocomplete="tel-national" inputmode="tel" placeholder="7700 900123"></div></div>
+          <div class="field"><label>Business name</label><input name="businessName" placeholder="CR8OR AI" required></div>
+          <div class="field full"><label>Website URL</label><input name="website" type="url" value="https://" placeholder="https://example.com" required></div>
+          <div class="field full"><label>Billing address</label><textarea name="billingAddress" autocomplete="billing street-address" placeholder="71-75 Shelton Street, London, WC2H 9JQ" required></textarea></div>
         </div>
         <div class="bump">
           <label class="checkbox"><input type="checkbox" name="strategyReport" value="yes"><span><strong>Add My Creative Strategy Report for £19</strong><br>Receive a concise report covering customer angles, hooks, likely objections, competitor positioning and a recommended testing order.</span></label>
         </div>
         <label class="checkbox"><input type="checkbox" name="termsAccepted" value="yes" required><span>I accept the terms, fulfilment policy and refund policy.</span></label>
-        <button class="btn full" type="submit">Complete My Order</button>
+        <div class="payment-panel" data-payment-panel>
+          <div class="payment-panel-head">
+            <strong>Payment details</strong>
+            <span data-payment-total>£27 today</span>
+          </div>
+          <div id="payment-element" class="payment-element"></div>
+          <p class="notice" data-payment-help>Complete your details above, then continue to load the secure payment form.</p>
+        </div>
+        <div class="error-msg" data-checkout-error></div>
+        <button class="btn full" type="submit">Continue to Payment</button>
         <p class="micro" style="text-align:center">Secure payment • One-off purchase • No automatic subscription</p>
       </form>
       <aside class="summary-box">
@@ -38,7 +48,7 @@
         <ul class="list">
           <li>40 static advertising variations</li><li>10 distinctive creative concepts</li><li>Advertising headlines and hooks</li><li>Human quality review</li><li>One factual or branding correction round</li>
         </ul>
-        <p class="notice">Payment details are collected by Stripe on the next secure screen. UTM details and your email are preserved for order support and abandoned-checkout follow-up.</p>
+        <p class="notice">Payment details are collected securely on this page by Stripe. UTM details and your email are preserved for order support and abandoned-checkout follow-up.</p>
       </aside>
     </div>
   </div>

@@ -101,36 +101,130 @@
     const form = document.querySelector('[data-checkout-form]');
     if (!form) return;
     const bump = document.querySelector('[name="strategyReport"]');
+    const errorBox = document.querySelector('[data-checkout-error]');
+    const paymentHelp = document.querySelector('[data-payment-help]');
+    const paymentTotal = document.querySelector('[data-payment-total]');
+    let stripe = null;
+    let elements = null;
+    let paymentIntentId = '';
+    let paymentReady = false;
+    let loadedTotal = 0;
+
+    function showError(message) {
+      if (!errorBox) {
+        alert(message);
+        return;
+      }
+      errorBox.textContent = message;
+      errorBox.classList.add('visible');
+    }
+
+    function clearError() {
+      if (errorBox) errorBox.classList.remove('visible');
+    }
+
+    function currentTotal() {
+      return bump && bump.checked ? 46 : 27;
+    }
+
+    function updateTotalLabel() {
+      if (paymentTotal) paymentTotal.textContent = '£' + currentTotal() + ' today';
+    }
+
+    async function loadPaymentElement(data, strategyReport) {
+      const total = strategyReport ? 46 : 27;
+      const res = await fetch('/api/40-ads-checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ customer: data, strategyReport, utm: read(UTM_KEY, {}) })
+      });
+      const json = await res.json();
+      if (!res.ok || !json.client_secret) throw new Error(json.error || 'Unable to start checkout');
+      if (!json.publishable_key) throw new Error('Stripe publishable key not configured on server');
+
+      stripe = Stripe(json.publishable_key);
+      elements = stripe.elements({
+        clientSecret: json.client_secret,
+        appearance: {
+          theme: 'night',
+          variables: {
+            colorPrimary: '#8B5CF6',
+            colorBackground: '#13102B',
+            colorText: '#F1EEFF',
+            colorTextSecondary: '#A5A0C0',
+            colorDanger: '#FB7185',
+            fontFamily: 'Outfit, Inter, system-ui, sans-serif',
+            borderRadius: '8px',
+            spacingUnit: '5px'
+          }
+        }
+      });
+      const mount = document.getElementById('payment-element');
+      mount.innerHTML = '';
+      elements.create('payment', { layout: 'tabs' }).mount('#payment-element');
+      paymentIntentId = json.payment_intent_id;
+      paymentReady = true;
+      loadedTotal = total;
+      if (paymentHelp) paymentHelp.textContent = 'Enter your card details securely here. Your payment method is saved for optional one-click upsells in the next steps.';
+    }
+
     track('InitiateCheckout', { currency: 'GBP', value: 27 });
+    updateTotalLabel();
     Array.from(form.elements).forEach((el) => {
       if (!el.name) return;
       const current = order().customer[el.name];
       if (current && el.type !== 'checkbox') el.value = current;
     });
+    if (bump) {
+      bump.addEventListener('change', () => {
+        updateTotalLabel();
+        if (paymentReady && loadedTotal !== currentTotal()) {
+          paymentReady = false;
+          paymentIntentId = '';
+          const mount = document.getElementById('payment-element');
+          if (mount) mount.innerHTML = '';
+          const btn = form.querySelector('button[type="submit"]');
+          if (btn) btn.textContent = 'Continue to Payment';
+          if (paymentHelp) paymentHelp.textContent = 'Your order total changed. Continue again to reload the secure payment form.';
+        }
+      });
+    }
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      clearError();
       const data = Object.fromEntries(new FormData(form).entries());
       const strategyReport = !!(bump && bump.checked);
       const total = strategyReport ? 46 : 27;
       saveOrder({ customer: data, selections: { strategyReport }, totalPaid: total });
-      if (strategyReport) track('OrderBumpAccepted', { currency: 'GBP', value: 19 });
-      await postWebhook('abandoned_or_started_checkout', { customer: data, strategyReport });
       const btn = form.querySelector('button[type="submit"]');
       btn.disabled = true;
-      btn.textContent = 'Opening secure payment...';
       try {
-        const res = await fetch('/api/40-ads-checkout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ customer: data, strategyReport, utm: read(UTM_KEY, {}) })
+        if (!paymentReady || loadedTotal !== total) {
+          btn.textContent = 'Loading secure payment...';
+          if (strategyReport) track('OrderBumpAccepted', { currency: 'GBP', value: 19 });
+          await postWebhook('abandoned_or_started_checkout', { customer: data, strategyReport });
+          await loadPaymentElement(data, strategyReport);
+          btn.disabled = false;
+          btn.textContent = 'Pay £' + total + ' Securely';
+          return;
+        }
+
+        btn.textContent = 'Processing...';
+        const { error, paymentIntent } = await stripe.confirmPayment({
+          elements,
+          confirmParams: { return_url: window.location.origin + appendUtm('/40-ads/campaign-setup/?payment_intent=' + encodeURIComponent(paymentIntentId)) },
+          redirect: 'if_required'
         });
-        const json = await res.json();
-        if (!res.ok || !json.url) throw new Error(json.error || 'Unable to start checkout');
-        window.location.href = json.url;
+        if (error) throw new Error(error.message || 'Payment failed. Please try again.');
+        if (!paymentIntent || paymentIntent.status !== 'succeeded') throw new Error('Payment was not completed.');
+        saveOrder({ paymentIntentId: paymentIntent.id, totalPaid: total });
+        track('Purchase', { currency: 'GBP', value: total, payment_intent: paymentIntent.id });
+        await postWebhook('purchase_completed', { customer: data, strategyReport, payment_intent: paymentIntent.id });
+        window.location.href = appendUtm('/40-ads/campaign-setup/?payment_intent=' + encodeURIComponent(paymentIntent.id));
       } catch (error) {
         btn.disabled = false;
-        btn.textContent = 'Complete My Order';
-        alert(error.message);
+        btn.textContent = paymentReady ? 'Pay £' + total + ' Securely' : 'Continue to Payment';
+        showError(error.message);
       }
     });
   }
@@ -159,7 +253,7 @@
           const res = await fetch('/api/40-ads-upsell', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ offer, session_id: qs.get('session_id'), order: order() })
+            body: JSON.stringify({ offer, session_id: qs.get('session_id'), payment_intent_id: qs.get('payment_intent') || order().paymentIntentId, order: order() })
           });
           const json = await res.json();
           if (json.url) window.location.href = json.url;
