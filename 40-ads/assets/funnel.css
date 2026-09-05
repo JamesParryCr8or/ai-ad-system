@@ -243,6 +243,34 @@ p { color: var(--muted); margin: 0 0 18px; }
 .checkout-shell { min-height: 100vh; display: grid; place-items: center; padding: 28px 0; }
 .checkout-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 24px; align-items: start; }
 .checkout-card, .summary-box { padding: 28px; }
+.summary-box { overflow: hidden; }
+.checkout-creative-stack {
+  position: relative;
+  min-height: 330px;
+  margin: -6px -2px 28px;
+}
+.checkout-creative-stack::before {
+  content: "";
+  position: absolute;
+  inset: 24% 7% 5%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(58,168,255,0.2), transparent 68%);
+  filter: blur(18px);
+}
+.checkout-creative-stack img {
+  position: absolute;
+  width: min(46%, 220px);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.16);
+  box-shadow: 0 22px 52px rgba(0,0,0,0.36);
+  background: #090816;
+}
+.checkout-creative-stack img:nth-child(1) { left: 0; top: 30px; transform: rotate(-7deg); }
+.checkout-creative-stack img:nth-child(2) { right: 3%; top: 0; transform: rotate(5deg); }
+.checkout-creative-stack img:nth-child(3) { left: 16%; top: 142px; transform: rotate(4deg); }
+.checkout-creative-stack img:nth-child(4) { right: 0; top: 128px; transform: rotate(-6deg); }
 .progress { margin: 0 0 26px; }
 .progress-label { display: flex; justify-content: space-between; color: var(--muted); font-size: 0.85rem; margin-bottom: 9px; }
 .bar { height: 8px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
@@ -611,6 +639,10 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
   .ad-card.story { width: 190px; }
   .trust-strip, .grid, .form-grid, .success-metrics { grid-template-columns: 1fr; }
   .checkout-card, .summary-box, .card { padding: 20px; }
+  .checkout-creative-stack { min-height: 280px; margin-bottom: 22px; }
+  .checkout-creative-stack img { width: min(48%, 190px); }
+  .checkout-creative-stack img:nth-child(3) { top: 122px; }
+  .checkout-creative-stack img:nth-child(4) { top: 110px; }
   .comparison { display: block; overflow-x: auto; }
   .mobile-cta { display: block; }
   .btn-hero {
