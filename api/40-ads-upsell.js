@@ -16,6 +16,7 @@ async function createHostedCheckout({ headers, selected, offer, customer, custom
     success_url: `${BASE_URL}${selected.next}?upsell=${encodeURIComponent(offer)}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${BASE_URL}${selected.next}`,
     'metadata[funnel]': '40-product-ads',
+    'metadata[stripe_mode]': 'test',
     'metadata[upsell]': offer
   });
 
@@ -38,6 +39,7 @@ async function createSubscription({ headers, selected, offer, customer, paymentM
     'recurring[interval]': selected.interval,
     'product_data[name]': selected.name,
     'product_data[metadata][funnel]': '40-product-ads',
+    'product_data[metadata][stripe_mode]': 'test',
     'product_data[metadata][upsell]': offer
   });
   const priceRes = await fetch('https://api.stripe.com/v1/prices', { method: 'POST', headers, body: priceParams });
@@ -51,6 +53,7 @@ async function createSubscription({ headers, selected, offer, customer, paymentM
     'items[0][price]': price.id,
     'items[0][quantity]': '1',
     'metadata[funnel]': '40-product-ads',
+    'metadata[stripe_mode]': 'test',
     'metadata[upsell]': offer,
     'expand[0]': 'latest_invoice.payment_intent'
   });
@@ -67,8 +70,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY;
-  if (!stripeSecretKey) return res.status(500).json({ error: 'Stripe secret key not configured' });
+  const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY_TEST;
+  if (!stripeSecretKey) return res.status(500).json({ error: 'Stripe test secret key not configured' });
 
   const { offer, session_id, payment_intent_id, order = {} } = req.body || {};
   const selected = OFFERS[offer];
@@ -108,6 +111,7 @@ export default async function handler(req, res) {
         confirm: 'true',
         description: selected.name,
         'metadata[funnel]': '40-product-ads',
+        'metadata[stripe_mode]': 'test',
         'metadata[upsell]': offer
       });
       piParams.append('payment_method_types[]', 'card');

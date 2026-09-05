@@ -14,8 +14,10 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY;
-  if (!stripeSecretKey) return res.status(500).json({ error: 'Stripe secret key not configured' });
+  const stripeSecretKey = process.env.STRIPE_SECRET_API_KEY_TEST;
+  const stripePublishableKey = process.env.STRIPE_PUBLISHABLE_KEY_TEST;
+  if (!stripeSecretKey) return res.status(500).json({ error: 'Stripe test secret key not configured' });
+  if (!stripePublishableKey) return res.status(500).json({ error: 'Stripe test publishable key not configured' });
 
   const { customer = {}, strategyReport = false, utm = {} } = req.body || {};
   if (!customer.email || !String(customer.email).includes('@')) {
@@ -53,6 +55,7 @@ export default async function handler(req, res) {
       setup_future_usage: 'off_session',
       'automatic_payment_methods[enabled]': 'true',
       'metadata[funnel]': '40-product-ads',
+      'metadata[stripe_mode]': 'test',
       'metadata[product]': '40-product-ad-variations',
       'metadata[strategy_report]': strategyReport ? 'yes' : 'no'
     });
@@ -68,11 +71,12 @@ export default async function handler(req, res) {
     if (!paymentRes.ok) return res.status(400).json({ error: payment.error?.message || 'Failed to create payment intent' });
 
     return res.status(200).json({
-      publishable_key: process.env.STRIPE_PUBLISHABLE_KEY || '',
+      publishable_key: stripePublishableKey,
       client_secret: payment.client_secret,
       payment_intent_id: payment.id,
       customer_id: stripeCustomer.id,
-      amount
+      amount,
+      mode: 'test'
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
