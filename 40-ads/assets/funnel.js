@@ -131,6 +131,14 @@
       if (paymentTotal) paymentTotal.textContent = '£' + currentTotal() + ' today';
     }
 
+    function clearCheckoutFields() {
+      Array.from(form.elements).forEach((el) => {
+        if (!el.name || el.type === 'checkbox') return;
+        if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+      });
+    }
+
     async function loadPaymentElement(data, strategyReport) {
       const total = strategyReport ? 46 : 27;
       const res = await fetch('/api/40-ads-checkout', {
@@ -169,12 +177,9 @@
     }
 
     track('InitiateCheckout', { currency: 'GBP', value: 27 });
+    clearCheckoutFields();
+    window.setTimeout(clearCheckoutFields, 250);
     updateTotalLabel();
-    Array.from(form.elements).forEach((el) => {
-      if (!el.name) return;
-      const current = order().customer[el.name];
-      if (current && el.type !== 'checkbox') el.value = current;
-    });
     if (bump) {
       bump.addEventListener('change', () => {
         updateTotalLabel();

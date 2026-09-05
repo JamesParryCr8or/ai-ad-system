@@ -13,20 +13,38 @@
   <div class="wrap">
     <div class="progress"><div class="progress-label"><span>Checkout</span><span>Step 1 of 4</span></div><div class="bar" style="--step:25%"><span></span></div></div>
     <div class="checkout-grid">
-      <form class="checkout-card" data-checkout-form>
+      <form class="checkout-card" data-checkout-form autocomplete="off">
         <a class="brand" href="/40-ads/" data-preserve-utm><img src="/CR8OR AI Logo (1080 X 1080).png" alt="">CR8OR AI</a>
         <h1 style="font-size:2.4rem;margin:22px 0 12px">Secure Checkout</h1>
         <div class="form-grid">
-          <div class="field"><label>First name</label><input name="firstName" autocomplete="given-name" placeholder="James" required></div>
-          <div class="field"><label>Last name</label><input name="lastName" autocomplete="family-name" placeholder="Parry" required></div>
-          <div class="field full"><label>Email</label><input name="email" type="email" autocomplete="email" placeholder="james@example.com" required></div>
-          <div class="field full"><label>Telephone number, optional</label><div class="phone-row"><select name="countryCode" aria-label="Country code"><option value="+44" selected>UK +44</option><option value="+353">IE +353</option><option value="+1">US +1</option><option value="+61">AU +61</option><option value="+64">NZ +64</option><option value="+33">FR +33</option><option value="+49">DE +49</option></select><input name="telephone" autocomplete="tel-national" inputmode="tel" placeholder="7700 900123"></div></div>
-          <div class="field"><label>Business name</label><input name="businessName" placeholder="CR8OR AI" required></div>
-          <div class="field full"><label>Website URL</label><input name="website" type="url" value="https://" placeholder="https://example.com" required></div>
-          <div class="field full"><label>Billing address</label><textarea name="billingAddress" autocomplete="billing street-address" placeholder="71-75 Shelton Street, London, WC2H 9JQ" required></textarea></div>
+          <div class="field"><label>First name</label><input name="firstName" autocomplete="off" placeholder="First name" required></div>
+          <div class="field"><label>Last name</label><input name="lastName" autocomplete="off" placeholder="Last name" required></div>
+          <div class="field full"><label>Email</label><input name="email" type="email" autocomplete="off" placeholder="you@company.com" required></div>
+          <div class="field full"><label>Telephone number, optional</label><input name="telephone" autocomplete="new-password" inputmode="tel" placeholder="+44 7700 900123"></div>
+          <div class="field"><label>Business name</label><input name="businessName" autocomplete="off" placeholder="Business name" required></div>
+          <div class="field full"><label>Website URL</label><input name="website" type="url" autocomplete="off" placeholder="https://yourstore.com" required></div>
         </div>
+        <fieldset class="billing-fields">
+          <legend>Billing Address</legend>
+          <div class="form-grid">
+            <div class="field full"><label>Address line 1</label><input name="billingAddress1" autocomplete="new-password" placeholder="Street address" required></div>
+            <div class="field full"><label>Address line 2, optional</label><input name="billingAddress2" autocomplete="new-password" placeholder="Apartment, suite, unit or floor"></div>
+            <div class="field"><label>Town or city</label><input name="billingCity" autocomplete="new-password" placeholder="Town or city" required></div>
+            <div class="field"><label>Postcode</label><input name="billingPostcode" autocomplete="new-password" placeholder="Postcode" required></div>
+            <div class="field full"><label>Country</label><input name="billingCountry" autocomplete="new-password" placeholder="Country" required></div>
+          </div>
+        </fieldset>
         <div class="bump">
-          <label class="checkbox"><input type="checkbox" name="strategyReport" value="yes"><span><strong>Add My Creative Strategy Report for £19</strong><br>Receive a concise report covering customer angles, hooks, likely objections, competitor positioning and a recommended testing order.</span></label>
+          <label class="bump-inner">
+            <input type="checkbox" name="strategyReport" value="yes">
+            <span class="bump-check" aria-hidden="true"></span>
+            <span class="bump-copy">
+              <span class="bump-kicker">Optional add-on</span>
+              <strong>Add My Creative Strategy Report</strong>
+              <small>Customer angles, advertising hooks, likely objections, competitor positioning and a recommended testing order.</small>
+            </span>
+            <span class="bump-price">+£19</span>
+          </label>
         </div>
         <label class="checkbox"><input type="checkbox" name="termsAccepted" value="yes" required><span>I accept the terms, fulfilment policy and refund policy.</span></label>
         <div class="payment-panel" data-payment-panel>
