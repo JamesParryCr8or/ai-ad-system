@@ -97,6 +97,20 @@
     items.forEach((item) => io.observe(item));
   }
 
+  function bindBatchSlider() {
+    const slider = document.querySelector('[data-batch-slider]');
+    if (!slider) return;
+    const prev = document.querySelector('[data-batch-prev]');
+    const next = document.querySelector('[data-batch-next]');
+    const move = (direction) => {
+      const slide = slider.querySelector('.batch-slide');
+      const amount = slide ? slide.getBoundingClientRect().width + 18 : slider.clientWidth;
+      slider.scrollBy({ left: amount * direction, behavior: 'smooth' });
+    };
+    if (prev) prev.addEventListener('click', () => move(-1));
+    if (next) next.addEventListener('click', () => move(1));
+  }
+
   function bindCheckout() {
     const form = document.querySelector('[data-checkout-form]');
     if (!form) return;
@@ -365,6 +379,7 @@
   captureUtm();
   decorateLinks();
   initReveals();
+  bindBatchSlider();
   bindCheckout();
   bindUpsell();
   bindBrief();
