@@ -581,7 +581,9 @@
             align-items: center;
             justify-content: center;
             gap: 12px;
-            background: linear-gradient(135deg, var(--purple-500), var(--fuchsia-500));
+            background:
+                radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.32), transparent 34%),
+                linear-gradient(135deg, #7c3aed 0%, #c03df4 54%, #22d3ee 128%);
             color: white;
             padding: 18px 32px;
             border-radius: 100px;
@@ -590,8 +592,9 @@
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 0.08em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 15px 30px rgba(139, 92, 246, 0.3);
+            box-shadow: 0 24px 68px rgba(139, 92, 246, 0.42), 0 0 0 7px rgba(139, 92, 246, 0.08);
             position: relative;
             overflow: hidden;
             width: 100%;
@@ -609,8 +612,8 @@
 
         .quiz-cta:hover {
             transform: translateY(-6px);
-            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
-            filter: brightness(1.1);
+            box-shadow: 0 34px 84px rgba(217, 70, 239, 0.42), 0 12px 36px rgba(34, 211, 238, 0.2), 0 0 0 8px rgba(139, 92, 246, 0.12);
+            filter: saturate(1.12) brightness(1.06);
         }
 
         .quiz-cta svg {
@@ -619,6 +622,60 @@
 
         .quiz-cta:hover svg {
             transform: translateX(6px);
+        }
+
+        /* ── Client logo marquee ── */
+        .logo-marquee {
+            position: relative;
+            overflow: hidden;
+            padding: 6px 0;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            width: max-content;
+            gap: 16px;
+            animation: logo-scroll 46s linear infinite;
+        }
+
+        .logo-marquee:hover .logo-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes logo-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-50% - 8px)); }
+        }
+
+        .logo-chip {
+            flex: 0 0 auto;
+            width: 168px;
+            height: 88px;
+            display: grid;
+            place-items: center;
+            padding: 16px 20px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+        }
+
+        .logo-chip img {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 560px) {
+            .logo-chip { width: 132px; height: 74px; padding: 12px 15px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
         }
 
         /* ── Proof Section ── */
@@ -2179,6 +2236,46 @@
 
         </section>
 
+
+        <!-- CLIENT LOGO MARQUEE -->
+        <section class="logo-strip-section" style="margin: 80px 0;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--emerald-400);">Brands We&rsquo;ve Worked With</div>
+                <p style="color: var(--text-secondary); max-width: 620px; margin: 14px auto 34px;">Creative and paid media delivered for household names and challenger brands alike.</p>
+            </div>
+            <div class="logo-marquee">
+                <div class="logo-track">
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/tiktok.png" alt="TikTok"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/thg.png" alt="THG"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/unilever.png" alt="Unilever"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/pg.png" alt="Procter &amp; Gamble"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/jnj.png" alt="Johnson &amp; Johnson"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/nestle.png" alt="Nestlé"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/boots.png" alt="Boots"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/gillette.png" alt="Gillette"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/nintendo.png" alt="Nintendo"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/nicorette.png" alt="Nicorette"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/honda.png" alt="Honda"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/purina.png" alt="Purina"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/oralb.png" alt="Oral-B"></div>
+                    <div class="logo-chip"><img src="/40-ads/assets/logos/nato.png" alt="NATO"></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/tiktok.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/thg.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/unilever.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/pg.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/jnj.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nestle.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/boots.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/gillette.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nintendo.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nicorette.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/honda.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/purina.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/oralb.png" alt=""></div>
+                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nato.png" alt=""></div>
+                </div>
+            </div>
+        </section>
 
         <!-- 🏢 INDUSTRIES WE SERVE -->
         <section class="industries-section" style="animation: fadeUp 0.8s ease-out both;">
