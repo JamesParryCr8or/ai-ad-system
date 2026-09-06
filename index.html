@@ -663,8 +663,10 @@
         }
 
         .logo-chip img {
+            /* Explicit px cap: a percentage max-height will not resolve against
+               the auto-sized grid row, so near-square logos would overflow. */
             max-width: 100%;
-            max-height: 100%;
+            max-height: 56px;
             width: auto;
             height: auto;
             object-fit: contain;
@@ -672,6 +674,7 @@
 
         @media (max-width: 560px) {
             .logo-chip { width: 132px; height: 74px; padding: 12px 15px; }
+            .logo-chip img { max-height: 50px; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -2227,6 +2230,46 @@
                     </p>
                 </div>
             </div>
+            <!-- CLIENT LOGO MARQUEE -->
+            <section class="logo-strip-section" style="margin: 60px 0 50px;">
+                <div class="proof-header">
+                    <div class="header-badge" style="color: var(--emerald-400);">Brands We&rsquo;ve Worked With</div>
+                    <p style="color: var(--text-secondary); max-width: 620px; margin: 14px auto 34px;">Creative and paid media delivered for household names and challenger brands alike.</p>
+                </div>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/tiktok.png" alt="TikTok"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/thg.png" alt="THG"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/unilever.png" alt="Unilever"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/pg.png" alt="Procter &amp; Gamble"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/jnj.png" alt="Johnson &amp; Johnson"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nestle.png" alt="Nestlé"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/boots.png" alt="Boots"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/gillette.png" alt="Gillette"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nintendo.png" alt="Nintendo"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nicorette.png" alt="Nicorette"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/honda.png" alt="Honda"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/purina.png" alt="Purina"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/oralb.png" alt="Oral-B"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nato.png" alt="NATO"></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/tiktok.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/thg.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/unilever.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/pg.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/jnj.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nestle.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/boots.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/gillette.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nintendo.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nicorette.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/honda.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/purina.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/oralb.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nato.png" alt=""></div>
+                    </div>
+                </div>
+            </section>
+
             <div class="calendar-embed">
                 <iframe src="https://api.leadconnectorhq.com/widget/booking/vgGPyGGNGNmBGXwGNDHM" allow="payment"
                     style="width: 100%;border:none;overflow: hidden;" scrolling="no"
@@ -2236,46 +2279,6 @@
 
         </section>
 
-
-        <!-- CLIENT LOGO MARQUEE -->
-        <section class="logo-strip-section" style="margin: 80px 0;">
-            <div class="proof-header">
-                <div class="header-badge" style="color: var(--emerald-400);">Brands We&rsquo;ve Worked With</div>
-                <p style="color: var(--text-secondary); max-width: 620px; margin: 14px auto 34px;">Creative and paid media delivered for household names and challenger brands alike.</p>
-            </div>
-            <div class="logo-marquee">
-                <div class="logo-track">
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/tiktok.png" alt="TikTok"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/thg.png" alt="THG"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/unilever.png" alt="Unilever"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/pg.png" alt="Procter &amp; Gamble"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/jnj.png" alt="Johnson &amp; Johnson"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/nestle.png" alt="Nestlé"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/boots.png" alt="Boots"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/gillette.png" alt="Gillette"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/nintendo.png" alt="Nintendo"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/nicorette.png" alt="Nicorette"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/honda.png" alt="Honda"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/purina.png" alt="Purina"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/oralb.png" alt="Oral-B"></div>
-                    <div class="logo-chip"><img src="/40-ads/assets/logos/nato.png" alt="NATO"></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/tiktok.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/thg.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/unilever.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/pg.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/jnj.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nestle.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/boots.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/gillette.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nintendo.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nicorette.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/honda.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/purina.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/oralb.png" alt=""></div>
-                    <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/nato.png" alt=""></div>
-                </div>
-            </div>
-        </section>
 
         <!-- 🏢 INDUSTRIES WE SERVE -->
         <section class="industries-section" style="animation: fadeUp 0.8s ease-out both;">
