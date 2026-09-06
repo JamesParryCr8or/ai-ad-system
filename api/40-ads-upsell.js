@@ -2,6 +2,7 @@ const BASE_URL = process.env.CR8OR_FUNNEL_BASE_URL || 'https://scale.cr8or.ai';
 
 const OFFERS = {
   campaignSetup: { name: 'Meta Campaign Launch', amount: 19900, mode: 'payment', next: '/40-ads/creator-ai' },
+  campaignSetupLite: { name: 'Meta Campaign Launch (Essentials)', amount: 9900, mode: 'payment', next: '/40-ads/creator-ai' },
   creatorAi: { name: 'Creator AI Annual Access', amount: 19700, mode: 'subscription', interval: 'year', next: '/40-ads/optimisation' },
   optimisation: { name: '30-Day Campaign Optimisation Sprint', amount: 39900, mode: 'payment', next: '/40-ads/brief' }
 };

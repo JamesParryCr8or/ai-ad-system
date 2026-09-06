@@ -268,21 +268,25 @@
   }
 
   function bindUpsell() {
-    const accept = document.querySelector('[data-upsell-accept]');
-    const decline = document.querySelector('[data-upsell-decline]');
+    const accepts = Array.from(document.querySelectorAll('[data-upsell-accept]'));
+    const declines = Array.from(document.querySelectorAll('[data-upsell-decline]'));
+    if (!accepts.length && !declines.length) return;
     const agreement = document.querySelector('[data-renewal-agreement]');
-    if (!accept && !decline) return;
-    const offer = accept ? accept.dataset.upsellAccept : decline.dataset.upsellDecline;
-    const values = { campaignSetup: 199, creatorAi: 197, optimisation: 399 };
-    track('UpsellViewed', { offer, value: values[offer], currency: 'GBP' });
+    const values = { campaignSetup: 199, campaignSetupLite: 99, creatorAi: 197, optimisation: 399 };
+    const primary = accepts.length ? accepts[0].dataset.upsellAccept : declines[0].dataset.upsellDecline;
+    track('UpsellViewed', { offer: primary, value: values[primary], currency: 'GBP' });
+
     if (agreement) {
-      agreement.addEventListener('change', () => { accept.disabled = !agreement.checked; });
-      accept.disabled = !agreement.checked;
+      const syncAgreement = () => accepts.forEach((btn) => { btn.disabled = !agreement.checked; });
+      agreement.addEventListener('change', syncAgreement);
+      syncAgreement();
     }
-    if (accept) {
+
+    accepts.forEach((accept) => {
       accept.addEventListener('click', async () => {
+        const offer = accept.dataset.upsellAccept;
         const next = accept.dataset.next || '/40-ads/brief/';
-        accept.disabled = true;
+        accepts.forEach((btn) => { btn.disabled = true; });
         accept.textContent = 'Adding securely...';
         saveOrder({ selections: { [offer]: true } });
         track('UpsellAccepted', { offer, value: values[offer], currency: 'GBP' });
@@ -300,16 +304,31 @@
           window.location.href = appendUtm(next);
         }
       });
-    }
-    if (decline) {
-      decline.addEventListener('click', async (event) => {
+    });
+
+    declines.forEach((decline) => {
+      decline.addEventListener('click', (event) => {
         event.preventDefault();
+        const offer = decline.dataset.upsellDecline;
         const next = decline.getAttribute('href');
         track('UpsellDeclined', { offer, currency: 'GBP' });
-        await postWebhook('upsell_declined', { offer });
+        postWebhook('upsell_declined', { offer });
+
+        // A decline that points at a downsell reveals it instead of leaving.
+        // The attribute is cleared so a second decline continues down the funnel.
+        const panelId = decline.dataset.downsell;
+        const panel = panelId ? document.getElementById(panelId) : null;
+        if (panel) {
+          declines.forEach((btn) => { delete btn.dataset.downsell; });
+          panel.hidden = false;
+          const downsellOffer = panel.dataset.downsellOffer || '';
+          track('DownsellViewed', { offer: downsellOffer, value: values[downsellOffer], currency: 'GBP' });
+          panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
         window.location.href = appendUtm(next);
       });
-    }
+    });
   }
 
   function bindBrief() {
@@ -372,6 +391,7 @@
       ['40 Product Ad Variations', true],
       ['Creative Strategy Report', current.selections.strategyReport],
       ['Meta Campaign Launch', current.selections.campaignSetup],
+      ['Meta Campaign Launch (Essentials)', current.selections.campaignSetupLite],
       ['Creator AI Annual Access', current.selections.creatorAi],
       ['30-Day Optimisation Sprint', current.selections.optimisation]
     ].filter((item) => item[1]).map((item) => item[0]);

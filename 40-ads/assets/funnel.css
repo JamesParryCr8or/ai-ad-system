@@ -100,15 +100,15 @@ p { color: var(--muted); margin: 0 0 18px; }
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.2);
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.22), rgba(255,255,255,0) 45%),
-    var(--grad);
+    radial-gradient(circle at 16% 0%, rgba(255,255,255,0.32), transparent 34%),
+    linear-gradient(135deg, #7c3aed 0%, #c03df4 54%, #22d3ee 128%);
   color: #fff;
   text-decoration: none;
   font-weight: 900;
   cursor: pointer;
   isolation: isolate;
   overflow: hidden;
-  box-shadow: 0 18px 48px rgba(139, 92, 246, 0.36), inset 0 -2px 0 rgba(0,0,0,0.22);
+  box-shadow: 0 24px 68px rgba(139, 92, 246, 0.42), 0 0 0 7px rgba(139, 92, 246, 0.08);
   transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.18s ease, filter 0.18s ease;
 }
 .btn::before {
@@ -124,8 +124,9 @@ p { color: var(--muted); margin: 0 0 18px; }
 .btn:hover {
   transform: translateY(-2px) scale(1.015);
   filter: saturate(1.12);
-  box-shadow: 0 26px 70px rgba(217, 70, 239, 0.36), 0 10px 34px rgba(34, 211, 238, 0.18), inset 0 -2px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 30px 78px rgba(217, 70, 239, 0.4), 0 10px 34px rgba(34, 211, 238, 0.2), 0 0 0 8px rgba(139, 92, 246, 0.12);
 }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none; filter: none; }
 .btn:hover::before { left: 108%; }
 .btn.secondary { background: rgba(255,255,255,0.05); border-color: var(--line); box-shadow: none; color: var(--text); }
 .btn.ghost { background: transparent; border-color: transparent; box-shadow: none; color: var(--muted); }
@@ -134,10 +135,6 @@ p { color: var(--muted); margin: 0 0 18px; }
   min-height: 70px;
   padding: 13px 18px 13px 28px;
   gap: 16px;
-  background:
-    radial-gradient(circle at 16% 0%, rgba(255,255,255,0.32), transparent 34%),
-    linear-gradient(135deg, #7c3aed 0%, #c03df4 54%, #22d3ee 128%);
-  box-shadow: 0 24px 68px rgba(139, 92, 246, 0.42), 0 0 0 7px rgba(139, 92, 246, 0.08);
 }
 .btn-hero span { font-size: 1.02rem; }
 .btn-hero small {
@@ -594,7 +591,76 @@ input:focus, textarea:focus, select:focus { border-color: var(--blue); box-shado
 .leo-collage img:nth-child(5) {
   transform: translateY(18px);
 }
+.wait-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  text-align: center;
+  margin: 0 0 26px;
+  padding: 16px 22px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(251, 113, 133, 0.42);
+  background: linear-gradient(135deg, rgba(251,113,133,0.16), rgba(217,70,239,0.12));
+}
+.wait-banner strong {
+  color: #fff;
+  font-family: Outfit, "Plus Jakarta Sans", Inter, sans-serif;
+  font-size: clamp(1.15rem, 2.6vw, 1.6rem);
+  font-weight: 900;
+  line-height: 1.15;
+}
+.wait-banner span { color: var(--muted); font-size: 0.92rem; }
 .upsell-hero { text-align: center; padding: 70px 0 34px; }
+.upsell-hero h1 { margin-inline: auto; }
+.upsell-hero .lead { margin-inline: auto; }
+.result-caption {
+  max-width: 1120px;
+  margin: 0 auto 16px;
+  text-align: center;
+}
+.result-caption .eyebrow { margin-bottom: 10px; }
+.result-caption h3 {
+  color: #fff;
+  font-size: clamp(1.25rem, 3vw, 1.95rem);
+  margin-bottom: 10px;
+}
+.result-caption h3 em {
+  font-style: normal;
+  background: linear-gradient(120deg, var(--mint), var(--blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.result-caption p { color: var(--soft); font-size: 0.88rem; margin: 0; }
+.downsell-panel {
+  max-width: 900px;
+  margin: 34px auto 0;
+  border-color: rgba(52, 211, 153, 0.45);
+  box-shadow: 0 26px 80px rgba(52, 211, 153, 0.14);
+}
+.downsell-flag {
+  display: inline-block;
+  margin-bottom: 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(52, 211, 153, 0.16);
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  color: var(--mint);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.price-was {
+  color: var(--soft);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: line-through;
+  margin-bottom: -8px;
+}
+.cta-repeat { max-width: 900px; margin: 34px auto 0; text-align: center; }
 .offer-panel { max-width: 800px; margin: 0 auto; }
 .campaign-setup-page .offer-panel {
   max-width: 900px;

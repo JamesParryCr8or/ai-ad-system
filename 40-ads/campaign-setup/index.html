@@ -11,6 +11,10 @@
 <main class="page campaign-setup-page">
   <div class="wrap section tight">
     <div class="progress"><div class="progress-label"><span>Step 2 of 4 - Optional Campaign Launch</span><span>50%</span></div><div class="bar" style="--step:50%"><span></span></div></div>
+    <div class="wait-banner">
+      <strong>Wait! Your Order Is Not Finished Yet!</strong>
+      <span>Your 40 ads are secured. There are two quick options left before your brief.</span>
+    </div>
     <section class="upsell-hero">
       <div class="eyebrow">Your ads are being created</div>
       <h1>Would You Like Us to Launch Them Too?</h1>
@@ -30,9 +34,25 @@
       </div>
       <p class="video-caption">One minute on how we set up and manage campaigns that turn ad spend into customers.</p>
     </div>
+    <div class="result-caption">
+      <div class="eyebrow">Real Account, Real Numbers</div>
+      <h3>Results I delivered in a client&rsquo;s account: a <em>5.39 ROAS on £1.646 million</em> in sales</h3>
+      <p>£305,325 of ad spend returned £1,646,671 in tracked purchase value across 55 campaigns. One client account, shown to illustrate how these campaigns are structured. It is not a projection of your own results.</p>
+    </div>
     <figure class="campaign-proof-image">
-      <img src="/40-ads/assets/meta-ads-manager.png" alt="Meta Ads Manager campaign dashboard showing campaign performance">
+      <img src="/40-ads/assets/meta-ads-manager.png" alt="Meta Ads Manager dashboard showing £305,325 spent returning £1,646,671 in purchase value across 55 campaigns">
     </figure>
+    <section class="card offer-panel">
+      <h2>Meta Campaign Launch</h2>
+      <div class="price">£199</div>
+      <div class="split">
+        <div><h3>Included</h3><ul class="list"><li>One Meta advertising campaign</li><li>Up to three ad sets</li><li>Upload and organisation of selected creatives</li><li>Basic primary text and headlines</li><li>Campaign naming structure</li><li>Budget recommendation</li><li>Seven-day launch health check</li></ul></div>
+        <div><h3>Not included</h3><ul class="list no"><li>Advertising spend</li><li>Ongoing campaign management</li><li>Pixel or Conversions API repairs</li><li>Catalogue creation</li><li>Landing-page development</li><li>Guaranteed results</li></ul></div>
+      </div>
+      <p class="notice">This service requires an active Meta advertising account, a functioning website and working conversion tracking. If technical repairs are required, these will be quoted separately before work begins.</p>
+      <button class="btn full" data-upsell-accept="campaignSetup" data-next="/40-ads/creator-ai/">Yes - Launch My Campaign for £199</button>
+      <a class="decline" href="/40-ads/creator-ai/" data-upsell-decline="campaignSetup" data-downsell="campaign-downsell">No thanks, I’ll launch the ads myself</a>
+    </section>
     <section class="wins-section">
       <div class="eyebrow">From the Frontlines</div>
       <h2>Client Wins &amp; Daily Logs</h2>
@@ -69,16 +89,23 @@
       </div>
       <p class="notice wins-note">Screenshots are from live client ad accounts managed by CR8OR AI. They illustrate the campaign structure and management approach behind this service. They are not a projection of the results your own account will produce.</p>
     </section>
-    <section class="card offer-panel">
-      <h2>Meta Campaign Launch</h2>
-      <div class="price">£199</div>
+    <div class="cta-repeat">
+      <button class="btn full" data-upsell-accept="campaignSetup" data-next="/40-ads/creator-ai/">Yes - Launch My Campaign for £199</button>
+      <a class="decline" href="/40-ads/creator-ai/" data-upsell-decline="campaignSetup" data-downsell="campaign-downsell">No thanks, I’ll launch the ads myself</a>
+    </div>
+    <section class="card offer-panel downsell-panel" id="campaign-downsell" data-downsell-offer="campaignSetupLite" hidden>
+      <div class="downsell-flag">One-time reduced price</div>
+      <h2>Let Us Launch It for Half</h2>
+      <div class="price-was">£199</div>
+      <div class="price">£99</div>
+      <p class="lead" style="margin-inline:auto">Understood on the £199. Before you launch it yourself, here is the same campaign launch at half the price. Identical deliverables, identical process, one-time offer on this page only.</p>
       <div class="split">
         <div><h3>Included</h3><ul class="list"><li>One Meta advertising campaign</li><li>Up to three ad sets</li><li>Upload and organisation of selected creatives</li><li>Basic primary text and headlines</li><li>Campaign naming structure</li><li>Budget recommendation</li><li>Seven-day launch health check</li></ul></div>
         <div><h3>Not included</h3><ul class="list no"><li>Advertising spend</li><li>Ongoing campaign management</li><li>Pixel or Conversions API repairs</li><li>Catalogue creation</li><li>Landing-page development</li><li>Guaranteed results</li></ul></div>
       </div>
-      <p class="notice">This service requires an active Meta advertising account, a functioning website and working conversion tracking. If technical repairs are required, these will be quoted separately before work begins.</p>
-      <button class="btn full" data-upsell-accept="campaignSetup" data-next="/40-ads/creator-ai/">Yes - Launch My Campaign for £199</button>
-      <a class="decline" href="/40-ads/creator-ai/" data-upsell-decline="campaignSetup">No thanks, I’ll launch the ads myself</a>
+      <p class="notice">Same requirements as above: an active Meta advertising account, a functioning website and working conversion tracking. This reduced price is not available after you leave this page.</p>
+      <button class="btn full" data-upsell-accept="campaignSetupLite" data-next="/40-ads/creator-ai/">Yes - Launch My Campaign for £99</button>
+      <a class="decline" href="/40-ads/creator-ai/" data-upsell-decline="campaignSetupLite">No thanks, I’ll still launch the ads myself</a>
     </section>
   </div>
 </main>
