@@ -154,7 +154,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
         <div><Icon name="globe"/><span><strong>Your timezone</strong>{timezone.replaceAll('_', ' ')}</span></div>
       </div>
       <div className="cr8-calendar__host">
-        <img src="https://msgsndr-private.storage.googleapis.com/user/wrbiVrpfXVbAMAodROWY/profile/4cfcd733-cfd4-4fa9-8a69-6480b0bb996d.png" alt="James Parry" />
+        <img src="/Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" />
         <span><strong>James Parry</strong>Founder, CR8OR AI</span>
       </div>
     </aside>
