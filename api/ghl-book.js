@@ -1,9 +1,9 @@
 import {
   GHL_ASSIGNED_USER_ID,
-  GHL_CALENDAR_ID,
   GHL_LOCATION_ID,
   ghlRequest,
   normalizeSlots,
+  resolveCalendarId,
   safeErrorResponse,
 } from './_ghl.js';
 
@@ -28,12 +28,16 @@ export default async function handler(req, res) {
   const timezone = clean(req.body?.timezone, 80) || 'Europe/London';
   const startTime = clean(req.body?.startTime, 80);
   const consent = req.body?.consent === true;
+  const calendarId = resolveCalendarId(req.body?.calendarId);
 
   if (!firstName || !lastName || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
     return res.status(400).json({ error: 'Please enter valid contact details.' });
   }
   if (!consent) {
     return res.status(400).json({ error: 'Please confirm the consent statement.' });
+  }
+  if (!calendarId) {
+    return res.status(400).json({ error: 'Unknown calendar.' });
   }
 
   const start = new Date(startTime);
@@ -52,7 +56,7 @@ export default async function handler(req, res) {
       timezone,
     });
     const availability = normalizeSlots(
-      await ghlRequest(`/calendars/${GHL_CALENDAR_ID}/free-slots?${slotParams}`),
+      await ghlRequest(`/calendars/${calendarId}/free-slots?${slotParams}`),
     );
     const availableStarts = Object.values(availability).flat().map((slot) => new Date(slot).getTime());
     if (!availableStarts.includes(start.getTime())) {
@@ -99,11 +103,11 @@ export default async function handler(req, res) {
       appointment = await ghlRequest('/calendars/events/appointments', {
         method: 'POST',
         body: JSON.stringify({
-          calendarId: GHL_CALENDAR_ID,
+          calendarId,
           locationId: GHL_LOCATION_ID,
           contactId,
           assignedUserId: GHL_ASSIGNED_USER_ID,
-          title: `${firstName} ${lastName} — Exploration Call`,
+          title: `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
           description: [notes, 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
           startTime,
           endTime,
@@ -130,6 +134,7 @@ export default async function handler(req, res) {
       appointmentId: appointment.id,
       startTime: appointment.startTime || startTime,
       endTime: appointment.endTime || endTime,
+      meetingUrl: appointment.address || appointment.meetingUrl || null,
     });
   } catch (error) {
     return safeErrorResponse(res, error, 'We could not complete the booking. Please try again.');

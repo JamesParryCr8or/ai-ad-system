@@ -18,11 +18,14 @@ function Icon({ name }) {
     globe: <><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></>,
     check: <path d="m5 12 4 4L19 6"/>,
     arrow: <path d="m9 18 6-6-6-6"/>,
+    calendar: <><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01"/></>,
   };
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
 
-function CalendarWidget() {
+function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }) {
+  const isAppCalendar = variant === 'app';
+  const calendarTitle = isAppCalendar ? 'CR8OR AI — App Exploration Call' : 'CR8OR AI — Exploration Call';
   const today = useMemo(() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }, []);
   const [month, setMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
   const [slots, setSlots] = useState({});
@@ -44,7 +47,7 @@ function CalendarWidget() {
     const rangeEnd = new Date(Math.min(monthEnd.getTime(), rangeStart.getTime() + 31 * DAY_MS));
     setLoading(true);
     setLoadError('');
-    fetch(`/api/ghl-availability?startDate=${rangeStart.getTime()}&endDate=${rangeEnd.getTime()}&timezone=${encodeURIComponent(timezone)}`, { signal: controller.signal })
+    fetch(`/api/ghl-availability?startDate=${rangeStart.getTime()}&endDate=${rangeEnd.getTime()}&timezone=${encodeURIComponent(timezone)}&calendarId=${encodeURIComponent(calendarId)}`, { signal: controller.signal })
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || 'Unable to load availability.');
@@ -53,7 +56,7 @@ function CalendarWidget() {
       .catch((error) => { if (error.name !== 'AbortError') setLoadError(error.message); })
       .finally(() => setLoading(false));
     return () => controller.abort();
-  }, [month, timezone, today]);
+  }, [month, timezone, today, calendarId]);
 
   const days = useMemo(() => {
     const first = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -80,7 +83,7 @@ function CalendarWidget() {
       const response = await fetch('/api/ghl-book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, startTime: selectedSlot, timezone }),
+        body: JSON.stringify({ ...form, startTime: selectedSlot, timezone, calendarId }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || 'We could not complete the booking.');
@@ -93,15 +96,58 @@ function CalendarWidget() {
     }
   };
 
+  const downloadCalendarInvite = () => {
+    const start = booking?.startTime || selectedSlot;
+    const end = booking?.endTime || new Date(new Date(start).getTime() + 30 * 60 * 1000).toISOString();
+    const toIcsDate = (value) => new Date(value).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    const escapeIcs = (value) => String(value || '').replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/([,;])/g, '\\$1');
+    const uid = `${booking?.appointmentId || Date.now()}@scale.cr8or.ai`;
+    const meetingLocation = booking?.meetingUrl || 'Google Meet — link sent by email';
+    const description = booking?.meetingUrl
+      ? `Your ${calendarTitle}. Join Google Meet: ${booking.meetingUrl}`
+      : `Your ${calendarTitle}. Your Google Meet link has been sent by email.`;
+    const ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//CR8OR AI//Exploration Call//EN',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      `UID:${escapeIcs(uid)}`,
+      `DTSTAMP:${toIcsDate(new Date())}`,
+      `DTSTART:${toIcsDate(start)}`,
+      `DTEND:${toIcsDate(end)}`,
+      'STATUS:CONFIRMED',
+      `SUMMARY:${escapeIcs(calendarTitle)}`,
+      `DESCRIPTION:${escapeIcs(description)}`,
+      `LOCATION:${escapeIcs(meetingLocation)}`,
+      'ORGANIZER;CN=James Parry:mailto:james@cr8or.co.uk',
+      `ATTENDEE;CN=${escapeIcs(`${form.firstName} ${form.lastName}`)};RSVP=TRUE:mailto:${escapeIcs(form.email)}`,
+      'URL:https://scale.cr8or.ai/',
+      'END:VEVENT',
+      'END:VCALENDAR',
+    ].join('\r\n');
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = isAppCalendar
+      ? 'cr8or-ai-app-exploration-call.ics'
+      : 'cr8or-ai-exploration-call.ics';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
   const availableDates = Object.keys(slots).length;
   const canGoBack = month > new Date(today.getFullYear(), today.getMonth(), 1);
 
   return <section className="cr8-calendar" aria-label="Book an exploration call">
     <div className="cr8-calendar__glow" />
     <aside className="cr8-calendar__intro">
-      <div className="cr8-calendar__eyebrow"><span /> Strategy session</div>
-      <h3>Let’s map your<br/><em>growth system.</em></h3>
-      <p>A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.</p>
+      <div className="cr8-calendar__eyebrow"><span /> {isAppCalendar ? 'App strategy session' : 'Strategy session'}</div>
+      <h3>{isAppCalendar ? <>Let’s map your<br/><em>app system.</em></> : <>Let’s map your<br/><em>growth system.</em></>}</h3>
+      <p>{isAppCalendar ? 'A focused exploration call to shape your app, prioritise the right features and map the clearest route from idea to launch.' : 'A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.'}</p>
       <div className="cr8-calendar__facts">
         <div><Icon name="clock"/><span><strong>30 minutes</strong>No drawn-out sales pitch</span></div>
         <div><Icon name="video"/><span><strong>Google Meet</strong>Link sent after booking</span></div>
@@ -167,10 +213,11 @@ function CalendarWidget() {
         <h4>You’re in. Let’s build<br/>something remarkable.</h4>
         <p>Your invite and Google Meet link are on their way to <strong>{form.email}</strong>.</p>
         <div className="cr8-calendar__selection"><Icon name="check"/><span><strong>{formatLongDate(booking?.startTime || selectedSlot, timezone)} at {formatTime(booking?.startTime || selectedSlot, timezone)}</strong>30 minutes · Google Meet</span></div>
+        <button type="button" className="cr8-calendar__ical" onClick={downloadCalendarInvite}><Icon name="calendar"/><span><strong>Add to calendar</strong>Download .ics file</span><Icon name="arrow"/></button>
       </div>}
     </div>
   </section>;
 }
 
 const root = document.getElementById('ghl-calendar-root');
-if (root) createRoot(root).render(<CalendarWidget />);
+if (root) createRoot(root).render(<CalendarWidget calendarId={root.dataset.calendarId} variant={root.dataset.variant} />);

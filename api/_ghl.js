@@ -1,8 +1,14 @@
 const GHL_BASE_URL = 'https://services.leadconnectorhq.com';
 
 export const GHL_CALENDAR_ID = process.env.GHL_CALENDAR_ID || 'vgGPyGGNGNmBGXwGNDHM';
+export const GHL_APP_CALENDAR_ID = process.env.GHL_APP_CALENDAR_ID || 'OxRH5g7JiswQd2BSSpWN';
 export const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID || 'u3QaT76YAw3PJvfiuGkZ';
 export const GHL_ASSIGNED_USER_ID = process.env.GHL_ASSIGNED_USER_ID || 'wrbiVrpfXVbAMAodROWY';
+
+export function resolveCalendarId(requestedId) {
+  const calendarId = String(requestedId || GHL_CALENDAR_ID);
+  return [GHL_CALENDAR_ID, GHL_APP_CALENDAR_ID].includes(calendarId) ? calendarId : null;
+}
 
 export function getGhlToken() {
   return process.env.GHL_API_KEY || process.env.GHL_PRIVATE_INTEGRATION_TOKEN;
