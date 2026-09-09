@@ -2142,6 +2142,10 @@
             overflow: hidden;
         }
 
+        #book-discovery-call {
+            scroll-margin-top: 32px;
+        }
+
         .calendar-embed iframe {
             display: block;
             min-height: 720px;
@@ -2271,7 +2275,7 @@
                 </div>
             </section>
 
-            <div class="calendar-embed">
+            <div class="calendar-embed" id="book-discovery-call">
                 <div id="ghl-calendar-root" aria-live="polite"></div>
             </div>
             <script src="/assets/calendar-widget.js" defer></script>
@@ -3692,8 +3696,8 @@
 
     <!-- Sticky Bottom Bar -->
     <div id="sticky-cta-bar" class="sticky-cta">
-        <a href="quiz-funnel.html" class="quiz-cta">
-            <span>START AI GROWTH ASSESSMENT →</span>
+        <a href="#book-discovery-call" class="quiz-cta">
+            <span>BOOK DISCOVERY CALL →</span>
         </a>
     </div>
 </body>
