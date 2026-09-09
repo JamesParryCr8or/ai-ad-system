@@ -37,7 +37,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [booking, setBooking] = useState(null);
-  const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '', notes: '', consent: false });
+  const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '', notes: '', consent: true });
   const timezone = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London', []);
 
   useEffect(() => {
@@ -139,6 +139,25 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   };
 
+  const googleCalendarUrl = () => {
+    const start = booking?.startTime || selectedSlot;
+    const end = booking?.endTime || new Date(new Date(start).getTime() + 30 * 60 * 1000).toISOString();
+    const toGoogleDate = (value) => new Date(value).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+    const meetingLocation = booking?.meetingUrl || 'Google Meet — link sent by email';
+    const details = booking?.meetingUrl
+      ? `Your ${calendarTitle}. Join Google Meet: ${booking.meetingUrl}`
+      : `Your ${calendarTitle}. Your Google Meet link has been sent by email.`;
+    const params = new URLSearchParams({
+      action: 'TEMPLATE',
+      text: calendarTitle,
+      dates: `${toGoogleDate(start)}/${toGoogleDate(end)}`,
+      details,
+      location: meetingLocation,
+      ctz: timezone,
+    });
+    return `https://calendar.google.com/calendar/render?${params.toString()}`;
+  };
+
   const availableDates = Object.keys(slots).length;
   const canGoBack = month > new Date(today.getFullYear(), today.getMonth(), 1);
 
@@ -213,6 +232,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
         <h4>You’re in. Let’s build<br/>something remarkable.</h4>
         <p>Your invite and Google Meet link are on their way to <strong>{form.email}</strong>.</p>
         <div className="cr8-calendar__selection"><Icon name="check"/><span><strong>{formatLongDate(booking?.startTime || selectedSlot, timezone)} at {formatTime(booking?.startTime || selectedSlot, timezone)}</strong>30 minutes · Google Meet</span></div>
+        <a className="cr8-calendar__ical" href={googleCalendarUrl()} target="_blank" rel="noopener noreferrer"><Icon name="calendar"/><span><strong>Add to Google Calendar</strong>Open directly in Google Calendar</span><Icon name="arrow"/></a>
         <button type="button" className="cr8-calendar__ical" onClick={downloadCalendarInvite}><Icon name="calendar"/><span><strong>Add to calendar</strong>Download .ics file</span><Icon name="arrow"/></button>
       </div>}
     </div>
