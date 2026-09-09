@@ -59,40 +59,70 @@ export default async function handler(req, res) {
       return res.status(409).json({ error: 'That time has just been taken. Please choose another slot.' });
     }
 
-    const contactData = await ghlRequest('/contacts/upsert', {
-      method: 'POST',
-      body: JSON.stringify({
-        firstName,
-        lastName,
-        name: `${firstName} ${lastName}`,
-        email,
-        phone,
-        locationId: GHL_LOCATION_ID,
-        timezone,
-        source: 'CR8OR website calendar',
-      }),
-    });
-    const contactId = contactData?.contact?.id;
+    let contactId;
+    try {
+      const contactData = await ghlRequest('/contacts/', {
+        method: 'POST',
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          name: `${firstName} ${lastName}`,
+          email,
+          phone,
+          locationId: GHL_LOCATION_ID,
+          timezone,
+          source: 'CR8OR website calendar',
+        }),
+      });
+      contactId = contactData?.contact?.id;
+    } catch (error) {
+      // Locations that block duplicate contacts return the existing ID in the error metadata.
+      contactId = error?.details?.meta?.contactId
+        || error?.details?.contactId
+        || error?.details?.data?.contactId;
+      if (!contactId) {
+        console.error('HighLevel contact stage failed', error?.details || error);
+        if (error?.statusCode === 401 || error?.statusCode === 403) {
+          return res.status(503).json({
+            error: 'Booking setup is missing contact permission. Please try again shortly.',
+            code: 'GHL_CONTACT_PERMISSION',
+          });
+        }
+        throw error;
+      }
+    }
     if (!contactId) throw new Error('HighLevel did not return a contact ID');
 
     const endTime = new Date(start.getTime() + 30 * 60 * 1000).toISOString();
-    const appointment = await ghlRequest('/calendars/events/appointments', {
-      method: 'POST',
-      body: JSON.stringify({
-        calendarId: GHL_CALENDAR_ID,
-        locationId: GHL_LOCATION_ID,
-        contactId,
-        assignedUserId: GHL_ASSIGNED_USER_ID,
-        title: `${firstName} ${lastName} — Exploration Call`,
-        description: [notes, 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
-        startTime,
-        endTime,
-        appointmentStatus: 'confirmed',
-        ignoreDateRange: false,
-        ignoreFreeSlotValidation: false,
-        toNotify: true,
-      }),
-    });
+    let appointment;
+    try {
+      appointment = await ghlRequest('/calendars/events/appointments', {
+        method: 'POST',
+        body: JSON.stringify({
+          calendarId: GHL_CALENDAR_ID,
+          locationId: GHL_LOCATION_ID,
+          contactId,
+          assignedUserId: GHL_ASSIGNED_USER_ID,
+          title: `${firstName} ${lastName} — Exploration Call`,
+          description: [notes, 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
+          startTime,
+          endTime,
+          appointmentStatus: 'confirmed',
+          ignoreDateRange: false,
+          ignoreFreeSlotValidation: false,
+          toNotify: true,
+        }),
+      });
+    } catch (error) {
+      console.error('HighLevel appointment stage failed', error?.details || error);
+      if (error?.statusCode === 401 || error?.statusCode === 403) {
+        return res.status(503).json({
+          error: 'Booking setup is missing appointment permission. Please try again shortly.',
+          code: 'GHL_APPOINTMENT_PERMISSION',
+        });
+      }
+      throw error;
+    }
 
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).json({
