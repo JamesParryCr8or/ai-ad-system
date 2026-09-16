@@ -1,6 +1,7 @@
 import http from 'node:http';
 import { readFile, stat } from 'node:fs/promises';
 import path from 'node:path';
+import growthResearch from '../api/growth-research.js';
 
 const root = process.cwd();
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.woff2': 'font/woff2' };
@@ -8,6 +9,19 @@ const routes = new Set(['/api/ghl-availability', '/api/ghl-book']);
 http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
+    if (url.pathname === '/api/growth-research') {
+      let body = '';
+      for await (const chunk of req) {
+        body += chunk;
+        if (body.length > 5000) { res.writeHead(413).end(); return; }
+      }
+      req.body = body ? JSON.parse(body) : {};
+      req.query = Object.fromEntries(url.searchParams);
+      res.status = code => { res.statusCode = code; return res; };
+      res.json = data => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(data)); };
+      await growthResearch(req, res);
+      return;
+    }
     // Use the deployed calendar so local previews have real availability.
     if (routes.has(url.pathname)) {
       if (!['GET', 'POST'].includes(req.method)) { res.writeHead(405).end(); return; }

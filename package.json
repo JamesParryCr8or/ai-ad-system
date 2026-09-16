@@ -3,14 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build:calculator": "esbuild ./src/growth-calculator.jsx --bundle --minify --format=iife --target=es2020 --outfile=./assets/growth-calculator.js",
     "preview": "node scripts/preview.mjs",
     "build:calendar": "esbuild ./src/calendar-widget.jsx --bundle --minify --format=iife --target=es2020 --outfile=./assets/calendar-widget.js"
   },
   "dependencies": {
+    "cheerio": "^1.2.0",
+    "lucide-react": "^1.46.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "esbuild": "^0.25.9"
   }
 }
