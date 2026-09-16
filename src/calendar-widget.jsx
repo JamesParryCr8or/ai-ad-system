@@ -242,5 +242,6 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
   </section>;
 }
 
-const root = document.getElementById('ghl-calendar-root');
-if (root) createRoot(root).render(<CalendarWidget calendarId={root.dataset.calendarId} variant={root.dataset.variant} />);
+document.querySelectorAll('#ghl-calendar-root, [data-calendar-root]').forEach((root) => {
+  createRoot(root).render(<CalendarWidget calendarId={root.dataset.calendarId} variant={root.dataset.variant} />);
+});
