@@ -1,0 +1,2517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Ads Scale System — Shopping, Merchant Centre & High-Intent Leads | CR8OR</title>
+    <link rel="icon" type="image/png" href="/CR8OR AI Logo (1080 X 1080).png">
+    <meta name="description" content="Expert Google Ads growth for brands that want limitless scale, qualified high-intent leads, Shopping domination, and Merchant Centre optimisation without Facebook tyre kickers.">
+    <meta property="og:title" content="Google Ads Scale System — Shopping, Merchant Centre & High-Intent Leads | CR8OR">
+    <meta property="og:description" content="Scale with Google Ads, Shopping, Merchant Centre optimisation and qualified buyer intent instead of low-intent social traffic.">
+    <meta property="og:image" content="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image-gen/010e8a6c-7f05-4732-9ba4-aef76c24a24a/d13566b9-91e4-4a9a-b648-946749579d95.png">
+    <meta property="og:url" content="https://scale.cr8or.ai/google-ads/">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="/assets/calendar-widget.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+        :root {
+            --bg-deep: #07060E;
+            --bg-surface: #0D0B1A;
+            --bg-card: #13102B;
+            --bg-card-hover: #1A1640;
+            --purple-100: #F3E8FF;
+            --purple-200: #DDD6FE;
+            --purple-300: #C4B5FD;
+            --purple-400: #A78BFA;
+            --purple-500: #8B5CF6;
+            --purple-600: #7C3AED;
+            --purple-700: #6D28D9;
+            --purple-800: #5B21B6;
+            --purple-900: #4C1D95;
+            --violet-500: #8B5CF6;
+            --fuchsia-400: #E879F9;
+            --fuchsia-500: #D946EF;
+            --cyan-400: #22D3EE;
+            --emerald-400: #34D399;
+            --amber-400: #FBBF24;
+            --rose-400: #FB7185;
+            --text-primary: #F1EEFF;
+            --text-secondary: #A5A0C0;
+            --text-muted: #6B6590;
+            --border: rgba(139, 92, 246, 0.15);
+            --glow: rgba(139, 92, 246, 0.3);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── Ambient background ── */
+        .ambient {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(139, 92, 246, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 90%, rgba(217, 70, 239, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse 50% 40% at 50% 50%, rgba(34, 211, 238, 0.03) 0%, transparent 60%);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── Layout ── */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 20px 80px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 40px 40px 100px;
+            }
+        }
+
+        /* ── Limited Time Banner ── */
+        .top-banner {
+            background: linear-gradient(90deg, var(--purple-600), var(--fuchsia-600));
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        @media (min-width: 768px) {
+            .header {
+                margin-bottom: 48px;
+            }
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 20px;
+        }
+
+        .header .badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4);
+            }
+
+            50% {
+                opacity: 0.7;
+                box-shadow: 0 0 0 6px rgba(52, 211, 153, 0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(32px, 7vw, 64px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .header p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        @media (min-width: 768px) {
+            .header p {
+                font-size: 18px;
+            }
+        }
+
+        /* ── Phase sections ── */
+        .phase {
+            margin-bottom: 24px;
+            animation: fadeUp 0.6s ease-out both;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .phase-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .phase-number {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+        }
+
+        .phase-title {
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .phase-subtitle {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            text-transform: none;
+        }
+
+        /* Phase colour themes */
+        .phase--research .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--research .phase-title {
+            color: var(--cyan-400);
+        }
+
+        .phase--creative .phase-number {
+            background: rgba(217, 70, 239, 0.15);
+            color: var(--fuchsia-400);
+            border: 1px solid rgba(217, 70, 239, 0.25);
+        }
+
+        .phase--creative .phase-title {
+            color: var(--fuchsia-400);
+        }
+
+        .phase--concepts .phase-number {
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--purple-400);
+            border: 1px solid rgba(139, 92, 246, 0.25);
+        }
+
+        .phase--concepts .phase-title {
+            color: var(--purple-400);
+        }
+
+        .phase--deploy .phase-number {
+            background: rgba(251, 191, 36, 0.15);
+            color: var(--amber-400);
+            border: 1px solid rgba(251, 191, 36, 0.25);
+        }
+
+        .phase--deploy .phase-title {
+            color: var(--amber-400);
+        }
+
+        .phase--capture .phase-number {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--emerald-400);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+        }
+
+        .phase--capture .phase-title {
+            color: var(--emerald-400);
+        }
+
+        .phase--nurture .phase-number {
+            background: rgba(251, 113, 133, 0.15);
+            color: var(--rose-400);
+            border: 1px solid rgba(251, 113, 133, 0.25);
+        }
+
+        .phase--nurture .phase-title {
+            color: var(--rose-400);
+        }
+
+        .phase--loop .phase-number {
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .phase--loop .phase-title {
+            color: var(--cyan-400);
+        }
+
+        /* ── Cards grid ── */
+        .cards {
+            display: grid;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .cards {
+                gap: 10px;
+            }
+        }
+
+        .cards--4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .cards--3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .cards--5 {
+            grid-template-columns: repeat(5, 1fr);
+        }
+
+        .cards--6 {
+            grid-template-columns: repeat(6, 1fr);
+        }
+
+        @media (max-width: 1024px) {
+
+            .cards--4,
+            .cards--5,
+            .cards--6 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            .cards--4,
+            .cards--5,
+            .cards--6,
+            .cards--3 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .cards--4,
+            .cards--3,
+            .cards--5,
+            .cards--6 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-accent, var(--purple-500)), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(139, 92, 246, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.1);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            font-size: 22px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .card-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .card-detail {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .card--cyan {
+            --card-accent: var(--cyan-400);
+        }
+
+        .card--fuchsia {
+            --card-accent: var(--fuchsia-400);
+        }
+
+        .card--purple {
+            --card-accent: var(--purple-400);
+        }
+
+        .card--amber {
+            --card-accent: var(--amber-400);
+        }
+
+        .card--emerald {
+            --card-accent: var(--emerald-400);
+        }
+
+        .card--rose {
+            --card-accent: var(--rose-400);
+        }
+
+        /* ── Flow connector ── */
+        .flow-connector {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 0;
+            position: relative;
+        }
+
+        .flow-connector .line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+        }
+
+        .flow-connector .arrow {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 100px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .flow-connector .arrow svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: var(--purple-400);
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            animation: bounce-down 1.5s ease-in-out infinite;
+        }
+
+        @keyframes bounce-down {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(3px);
+            }
+        }
+
+        /* ── VSL Section ── */
+        .vsl-section {
+            text-align: center;
+            margin: 32px 0 80px;
+            animation: fadeUp 1s ease-out both;
+        }
+
+        .vsl-headline {
+            font-size: clamp(28px, 6vw, 64px);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 30px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        @media (min-width: 768px) {
+            .vsl-headline {
+                margin-bottom: 40px;
+            }
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto 50px;
+            aspect-ratio: 16 / 9;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.1);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .video-container:hover {
+            transform: scale(1.005);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 80px rgba(139, 92, 246, 0.2);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle at center, var(--bg-card-hover), var(--bg-card));
+        }
+
+        .play-button {
+            width: 90px;
+            height: 90px;
+            background: var(--purple-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 30px var(--purple-600));
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 4px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-container:hover .play-button {
+            transform: scale(1.15);
+            background: var(--purple-500);
+        }
+
+        .quiz-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background:
+                radial-gradient(circle at 16% 0%, rgba(255, 255, 255, 0.32), transparent 34%),
+                linear-gradient(135deg, #7c3aed 0%, #c03df4 54%, #22d3ee 128%);
+            color: white;
+            padding: 18px 32px;
+            border-radius: 100px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 24px 68px rgba(139, 92, 246, 0.42), 0 0 0 7px rgba(139, 92, 246, 0.08);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .quiz-cta {
+                padding: 24px 56px;
+                font-size: 20px;
+                gap: 16px;
+                box-shadow: 0 20px 40px rgba(139, 92, 246, 0.3);
+            }
+        }
+
+        .quiz-cta:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 34px 84px rgba(217, 70, 239, 0.42), 0 12px 36px rgba(34, 211, 238, 0.2), 0 0 0 8px rgba(139, 92, 246, 0.12);
+            filter: saturate(1.12) brightness(1.06);
+        }
+
+        .quiz-cta svg {
+            transition: transform 0.3s;
+        }
+
+        .quiz-cta:hover svg {
+            transform: translateX(6px);
+        }
+
+        /* ── Client logo marquee ── */
+        .logo-marquee {
+            position: relative;
+            overflow: hidden;
+            padding: 6px 0;
+            -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+            mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+        }
+
+        .logo-track {
+            display: flex;
+            width: max-content;
+            gap: 16px;
+            animation: logo-scroll 46s linear infinite;
+        }
+
+        .logo-marquee:hover .logo-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes logo-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-50% - 8px)); }
+        }
+
+        .logo-chip {
+            flex: 0 0 auto;
+            width: 168px;
+            height: 88px;
+            display: grid;
+            place-items: center;
+            padding: 16px 20px;
+            border-radius: 14px;
+            background: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
+        }
+
+        .logo-chip img {
+            /* Explicit px cap: a percentage max-height will not resolve against
+               the auto-sized grid row, so near-square logos would overflow. */
+            max-width: 100%;
+            max-height: 56px;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+        }
+
+        @media (max-width: 560px) {
+            .logo-chip { width: 132px; height: 74px; padding: 12px 15px; }
+            .logo-chip img { max-height: 50px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .logo-track { animation: none; flex-wrap: wrap; width: 100%; justify-content: center; }
+        }
+
+        /* ── Proof Section ── */
+        .proof-section {
+            margin: 60px 0;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(52, 211, 153, 0.05), rgba(139, 92, 246, 0.05));
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            border-radius: 32px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeUp 0.8s ease-out both;
+        }
+
+        @media (min-width: 768px) {
+            .proof-section {
+                margin: 100px 0;
+                padding: 60px;
+            }
+        }
+
+        .proof-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .proof-header h2 {
+            font-size: clamp(32px, 4vw, 42px);
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #fff, var(--emerald-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-bottom: 80px;
+        }
+
+        .stat-card {
+            background: rgba(7, 6, 14, 0.6);
+            padding: 32px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            border-color: var(--emerald-400);
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--emerald-400);
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .case-study-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .case-study-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+
+        @media (min-width: 1100px) {
+            .case-study-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 32px;
+                margin-top: 60px;
+            }
+        }
+
+        .case-card {
+            background: rgba(13, 11, 26, 0.4);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--purple-400);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .case-card-image {
+            width: 100%;
+            aspect-ratio: 16/10;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .case-card-content {
+            padding: 32px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-tag {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--emerald-400);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .case-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .case-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .case-stats {
+            margin-top: auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 20px;
+        }
+
+        .case-stat-item .val {
+            display: block;
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .case-stat-item .lbl {
+            display: block;
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .case-study-visuals {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 32px;
+            align-items: center;
+            background: rgba(13, 11, 26, 0.4);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .case-image-wrapper {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .case-image {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .case-image-wrapper:hover .case-image {
+            transform: scale(1.05);
+        }
+
+        .case-content h3 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        .case-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .case-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .case-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .case-list li svg {
+            color: var(--emerald-400);
+            flex-shrink: 0;
+        }
+
+        .case-study-sites {
+            margin: 120px 0;
+            text-align: center;
+        }
+
+        .website-tile-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 60px auto 0;
+        }
+
+        @media (min-width: 700px) {
+            .website-tile-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 24px;
+            }
+        }
+
+        @media (min-width: 1120px) {
+            .website-tile-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+            }
+        }
+
+        .website-tile {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: rgba(13, 11, 26, 0.58);
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+        }
+
+        .website-tile:hover {
+            transform: translateY(-8px);
+            border-color: rgba(52, 211, 153, 0.48);
+            background: rgba(19, 16, 43, 0.86);
+            box-shadow: 0 24px 54px rgba(0, 0, 0, 0.38);
+        }
+
+        .website-tile-preview {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.14), rgba(34, 211, 238, 0.08));
+        }
+
+        .website-tile-preview img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1), filter 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .website-tile:hover .website-tile-preview img {
+            transform: scale(1.06);
+            filter: saturate(1.08) contrast(1.05);
+        }
+
+        .website-tile-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            min-height: 92px;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .website-tile-name {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .website-tile-url {
+            margin-top: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-muted);
+            word-break: break-word;
+        }
+
+        .website-tile-arrow {
+            width: 36px;
+            height: 36px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--emerald-400);
+            border: 1px solid rgba(52, 211, 153, 0.28);
+            background: rgba(52, 211, 153, 0.08);
+        }
+
+        .financial-reporting {
+            margin: 120px 0;
+            padding: 28px;
+            border: 1px solid rgba(34, 211, 238, 0.16);
+            border-radius: 28px;
+            background:
+                linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(139, 92, 246, 0.06) 48%, rgba(52, 211, 153, 0.07)),
+                rgba(13, 11, 26, 0.48);
+            overflow: hidden;
+        }
+
+        @media (min-width: 900px) {
+            .financial-reporting {
+                padding: 48px;
+            }
+        }
+
+        .financial-reporting-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 32px;
+            align-items: center;
+        }
+
+        @media (min-width: 1100px) {
+            .financial-reporting-layout {
+                grid-template-columns: minmax(280px, 0.38fr) minmax(0, 0.62fr);
+                gap: 44px;
+            }
+        }
+
+        .financial-reporting-copy {
+            text-align: left;
+        }
+
+        .financial-reporting-copy h2 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 800;
+            line-height: 1.08;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--cyan-400), var(--emerald-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .financial-reporting-copy p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .financial-reporting-points {
+            display: grid;
+            gap: 12px;
+            margin: 28px 0;
+        }
+
+        .financial-reporting-point {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .financial-reporting-point svg {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            color: var(--emerald-400);
+        }
+
+        .financial-reporting-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            color: #07120f;
+            background: linear-gradient(135deg, var(--emerald-400), var(--cyan-400));
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            box-shadow: 0 16px 30px rgba(34, 211, 238, 0.18);
+        }
+
+        .financial-reporting-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .financial-reporting-frame {
+            min-width: 0;
+            overflow: hidden;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #f8f9fa;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        .financial-reporting-frame iframe {
+            width: 100%;
+            height: min(72vh, 760px);
+            min-height: 520px;
+            display: block;
+            border: 0;
+            background: #fff;
+        }
+
+        @media (max-width: 640px) {
+            .financial-reporting {
+                margin: 80px 0;
+                padding: 20px;
+                border-radius: 22px;
+            }
+
+            .financial-reporting-frame iframe {
+                min-height: 460px;
+            }
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+
+        /* ── Feedback loop ── */
+        .feedback-loop {
+            margin-top: 40px;
+            padding: 24px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(139, 92, 246, 0.05), rgba(217, 70, 239, 0.05));
+            border: 1px solid rgba(34, 211, 238, 0.15);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .feedback-loop {
+                padding: 28px 32px;
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .feedback-loop .loop-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: rgba(34, 211, 238, 0.1);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            animation: spin-slow 6s linear infinite;
+        }
+
+        .loop-content h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--cyan-400);
+            margin-bottom: 4px;
+        }
+
+        .loop-content p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .loop-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .loop-tag {
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            background: rgba(34, 211, 238, 0.1);
+            color: var(--cyan-400);
+            border: 1px solid rgba(34, 211, 238, 0.15);
+        }
+
+        @keyframes spin-slow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ── Parallel Channels ── */
+        .parallel-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .parallel-section {
+            background: rgba(13, 11, 26, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .parallel-section .section-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 14px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .parallel-section .mini-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
+        }
+
+        .mini-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            transition: all 0.3s;
+        }
+
+        .mini-card:hover {
+            background: var(--bg-card-hover);
+            transform: translateY(-1px);
+        }
+
+        .mini-card .mc-icon {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .mini-card .mc-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .mini-card .mc-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            margin-top: 2px;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        .footer .brand {
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--purple-400), var(--fuchsia-400));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 900px) {
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .case-study-visuals {
+                grid-template-columns: 1fr;
+            }
+
+            .parallel-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── AI Arsenal Section ── */
+        .ai-arsenal-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 80px;
+            border-radius: 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            background: var(--bg-surface);
+            padding: 80px 40px;
+        }
+
+        .ai-arsenal-wrapper .ambient-glow {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(34, 211, 238, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(232, 121, 249, 0.05) 0%, transparent 40%);
+        }
+
+        .ai-arsenal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .arsenal-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .arsenal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-400);
+            margin-bottom: 24px;
+        }
+
+        .arsenal-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--emerald-400);
+            box-shadow: 0 0 8px var(--emerald-400);
+            animation: arsenal-pulse 2s infinite;
+        }
+
+        @keyframes arsenal-pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        .arsenal-header h2 {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, #FFF 0%, var(--purple-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .arsenal-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .model-category {
+            margin-bottom: 40px;
+            background: rgba(13, 11, 26, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        .category-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .category-icon {
+            font-size: 24px;
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .category-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFF;
+        }
+
+        .category-info span {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+        }
+
+        .model-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .model-preview-card {
+            min-width: 0;
+            overflow: hidden;
+            border: 1px solid rgba(34, 211, 238, 0.22);
+            border-radius: 18px;
+            background: rgba(19, 16, 43, 0.72);
+            transition: var(--transition);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+        }
+
+        .model-preview-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--cyan-400);
+            box-shadow: 0 24px 52px rgba(0, 0, 0, 0.36);
+        }
+
+        .model-preview-media {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .model-preview-media img,
+        .model-preview-media video {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .model-preview-media video {
+            background: #05040a;
+        }
+
+        .model-preview-body {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px 16px;
+        }
+
+        .model-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .model-chip:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--purple-400);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .model-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: rgba(255, 255, 255, 0.05);
+            flex-shrink: 0;
+        }
+
+        .model-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .model-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .model-provider {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .model-chip.pro {
+            border-color: rgba(34, 211, 238, 0.3);
+        }
+
+        .model-chip.pro .model-name {
+            color: var(--cyan-400);
+        }
+
+        .arsenal-footer {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .arsenal-footer p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .ai-arsenal-wrapper {
+                padding: 40px 20px;
+                border-radius: 20px;
+            }
+
+            .model-category {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .model-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-grid {
+                gap: 12px;
+            }
+
+            .stat-card {
+                padding: 20px 10px;
+            }
+
+            .stat-value {
+                font-size: 24px;
+            }
+        }
+
+        /* ── Industries Grid ── */
+        .industries-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .industries-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 40px;
+        }
+
+        .industry-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .industry-card:hover {
+            border-color: var(--purple-400);
+            background: var(--bg-card-hover);
+        }
+
+        .industry-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .industry-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ── Founder Section ── */
+        .founder-section {
+            margin: 100px 0;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            padding: 40px;
+        }
+
+        @media (min-width: 900px) {
+            .founder-section {
+                grid-template-columns: 1fr 1.5fr;
+                padding: 60px;
+                gap: 80px;
+            }
+        }
+
+        .founder-image-wrapper {
+            position: relative;
+        }
+
+        .founder-image {
+            width: 100%;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+        }
+
+        .founder-content h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            background: linear-gradient(135deg, #fff, var(--purple-300));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .founder-content p {
+            color: var(--text-secondary);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        /* ── Pricing & Guarantee ── */
+        .pricing-section {
+            margin: 100px 0;
+            text-align: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1), transparent);
+            border-radius: 40px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .price-box {
+            margin: 40px 0;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-muted);
+            font-size: 24px;
+        }
+
+        .new-price {
+            font-size: 80px;
+            font-weight: 900;
+            color: white;
+            display: block;
+            line-height: 1;
+        }
+
+        .guarantee-box {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid var(--emerald-400);
+            padding: 32px;
+            border-radius: 24px;
+            max-width: 700px;
+            margin: 40px auto;
+        }
+
+        .guarantee-box h3 {
+            color: var(--emerald-400);
+            margin-bottom: 12px;
+        }
+
+        /* ── FAQ Section ── */
+        .faq-section {
+            margin: 100px 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px 24px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 24px 20px;
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* ── iPhone Mockup Styling ── */
+        .iphone-mockup-container {
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+            aspect-ratio: 0.5;
+        }
+
+        .iphone-mockup-container .iphone-frame {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow:
+                0 0 0 3px #333,
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 2px 4px rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .iphone-frame {
+            transform: scale(1.02);
+        }
+
+        .iphone-mockup-container .iphone-screen {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            border-radius: 42px;
+            overflow: hidden;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .iphone-mockup-container .notch {
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 15px 15px;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .iphone-mockup-container .notch::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 6px;
+            background: #333;
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 42px;
+            overflow: hidden;
+        }
+
+        .iphone-mockup-container .mockup-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 42px;
+        }
+
+        .iphone-mockup-container .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .iphone-mockup-container .side-button {
+            position: absolute;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 3px;
+        }
+
+        .iphone-mockup-container .volume-up {
+            top: 120px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .volume-down {
+            top: 170px;
+            left: -4px;
+            width: 8px;
+            height: 40px;
+        }
+
+        .iphone-mockup-container .power-button {
+            top: 140px;
+            right: -4px;
+            width: 8px;
+            height: 60px;
+        }
+
+        .iphone-mockup-container .youtube-controls {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 10px 15px 15px;
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .iphone-mockup-container:hover .youtube-controls {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .progress-container-yt {
+            margin-bottom: 8px;
+        }
+
+        .iphone-mockup-container .progress-bar-yt {
+            position: relative;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .progress-fill-yt {
+            height: 100%;
+            background: #ff0000;
+            border-radius: 2px;
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .iphone-mockup-container .progress-handle {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            left: 0%;
+        }
+
+        .iphone-mockup-container .progress-bar-yt:hover .progress-handle {
+            opacity: 1;
+        }
+
+        .iphone-mockup-container .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .iphone-mockup-container .left-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .iphone-mockup-container .yt-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 24px;
+            height: 24px;
+        }
+
+        .iphone-mockup-container .yt-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .iphone-mockup-container .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .iphone-mockup-container .volume-slider-wrapper {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s ease;
+        }
+
+        .iphone-mockup-container .volume-control:hover .volume-slider-wrapper {
+            width: 50px;
+        }
+
+        .iphone-mockup-container .volume-slider-yt {
+            width: 50px;
+            height: 3px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .volume-slider-yt::-webkit-slider-thumb {
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .iphone-mockup-container .time-display {
+            color: white;
+            font-size: 11px;
+            white-space: nowrap;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .iphone-mockup-container {
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .iphone-mockup-container {
+                max-width: 200px;
+            }
+
+            .iphone-mockup-container .notch {
+                width: 100px;
+                height: 20px;
+            }
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .header .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 100px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--purple-300);
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 5vw, 56px);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--purple-300) 50%, var(--fuchsia-400) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .header p {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .vsl-headline {
+            font-size: clamp(32px, 6vw, 72px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 40px;
+            background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.04em;
+        }
+
+        .vsl-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto 60px;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .vsl-video-box {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .vsl-cta-box {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .calendar-embed {
+            width: 100%;
+            max-width: 1000px;
+            margin: 10px auto 0;
+            padding: 18px;
+            border-radius: 24px;
+            background: rgba(13, 11, 26, 0.72);
+            border: 1px solid rgba(139, 92, 246, 0.22);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.32);
+            overflow: hidden;
+        }
+
+        #book-discovery-call {
+            scroll-margin-top: 32px;
+        }
+
+        .calendar-embed iframe {
+            display: block;
+            min-height: 720px;
+            border-radius: 18px;
+            background: #fff;
+        }
+
+        /* ── Sticky Bottom Bar ── */
+        .sticky-cta {
+            position: fixed;
+            bottom: -120px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 15px 20px;
+            z-index: 9999;
+            transition: bottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta .quiz-cta {
+            margin: 0;
+            max-width: 500px;
+            width: 100%;
+            padding: 18px 30px;
+            font-size: 16px;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .sticky-cta .quiz-cta span {
+                font-size: 14px;
+            }
+        }
+
+        .google-proof-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        .google-proof-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
+        }
+
+        .google-proof-card img {
+            width: 100%;
+            display: block;
+            background: #eef1f4;
+        }
+
+        .google-proof-card-body {
+            padding: 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .google-proof-card-body h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .google-proof-card-body p {
+            color: var(--text-secondary);
+            line-height: 1.55;
+        }
+
+        .google-proof-wide {
+            grid-column: 1 / -1;
+        }
+
+        .google-proof-wide img {
+            max-height: 620px;
+            object-fit: contain;
+        }
+
+        .platform-shot {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+        }
+
+        .platform-shot img {
+            width: 100%;
+            display: block;
+            background: #eef1f4;
+        }
+
+        .platform-shot-caption {
+            padding: 22px;
+            text-align: left;
+            border-top: 1px solid var(--border);
+        }
+
+        .platform-shot-caption h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .platform-shot-caption p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient"></div>
+    <div class="noise"></div>
+    <div class="container">
+        <header class="header" style="animation: fadeUp 0.6s ease-out both; padding-top: 20px;">
+            <div class="badge"><span class="dot"></span>Google Ads Scale System</div>
+            <h1>Limitless Google Ads Scale</h1>
+            <p>Shopping, Search, Performance Max and Merchant Centre engineered to capture buyers with intent, not Facebook tyre kickers scrolling past your offer.</p>
+        </header>
+
+        <section class="vsl-section" style="animation: fadeUp 0.8s ease-out both;">
+            <h2 class="vsl-headline">Scale With Google Ads Built For <br>Qualified High-Intent Demand</h2>
+            <div class="vsl-grid">
+                <div class="vsl-video-box">
+                    <video id="vsl-video" src="https://ykdzidlftkyendrutgti.supabase.co/storage/v1/object/public/image_upload/video/1787055241021_Marketing_Fiverr_1.mp4" poster="/40-ads/assets/vsl-poster.jpg" preload="metadata" controls playsinline style="width: 100%; height: 100%; object-fit: cover; border-radius: 24px; display: block;">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="vsl-cta-box">
+                    <a href="#book-discovery-call" class="quiz-cta" style="max-width: 480px; width: 100%; padding: 25px 40px; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);">
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                            <span style="letter-spacing: 0.1em; font-weight: 800;">BOOK GOOGLE ADS SCALE AUDIT</span>
+                            <span style="font-size: 14px; opacity: 0.9; font-weight: 600; letter-spacing: 0.05em;">No pitch. Account clarity. Scale plan.</span>
+                        </div>
+                    </a>
+                    <p style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8;">For ecommerce, lead-gen and serious growth accounts</p>
+                </div>
+            </div>
+
+            <section class="logo-strip-section" style="margin: 60px 0 50px;">
+                <div class="proof-header">
+                    <div class="header-badge" style="color: var(--emerald-400);">Brands We&rsquo;ve Worked With</div>
+                    <p style="color: var(--text-secondary); max-width: 680px; margin: 14px auto 34px;">Performance systems, ecommerce growth, paid media and conversion infrastructure for household names, challenger brands and founder-led operators.</p>
+                </div>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/tiktok.png" alt="TikTok"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/thg.png" alt="THG"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/unilever.png" alt="Unilever"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/pg.png" alt="Procter &amp; Gamble"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/jnj.png" alt="Johnson &amp; Johnson"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nestle.png" alt="Nestle"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/boots.png" alt="Boots"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/gillette.png" alt="Gillette"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/nintendo.png" alt="Nintendo"></div>
+                        <div class="logo-chip"><img src="/40-ads/assets/logos/honda.png" alt="Honda"></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/thg.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/unilever.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/pg.png" alt=""></div>
+                        <div class="logo-chip" aria-hidden="true"><img src="/40-ads/assets/logos/boots.png" alt=""></div>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+        <section class="proof-section">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--emerald-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Proof Of Scale</div>
+                <h2>Google Ads Built To Compound</h2>
+            </div>
+            <div class="case-study-visuals">
+                <div class="case-image-wrapper"><img src="/google-ads/assets/hairmax-google-results-recent.png" alt="HairMax Google Ads results from 2023 to 2025 showing conversion value, cost and cost per conversion value" class="case-image"></div>
+                <div class="case-content"><span class="case-tag">Scale Mission: HairMax</span>
+                    <h3>+160% Revenue Growth With Google, Shopping &amp; Full-Funnel Scale</h3>
+                    <p>HairMax already had demand and strong Google activity. The recent account view shows 1.16M conversion value against £225K spend, with Google still providing the scalable demand base while feed, campaigns, landing pages and profit visibility improved around it.</p>
+                    <ul class="case-list">
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Merchant Centre and Shopping feed tightened around product visibility</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Google campaigns supported by stronger landing pages, CRM and creative testing</li>
+                        <li><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>Profit reporting connected so scale decisions were made at SKU level</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="google-proof-grid">
+                <div class="platform-shot google-proof-wide">
+                    <img src="/google-ads/assets/hairmax-google-results-all-time.png" alt="HairMax Google Ads all-time performance showing 1.91M conversion value and 7.10 conversion value over cost" loading="lazy">
+                    <div class="platform-shot-caption">
+                        <div class="case-tag">All-Time Google Ads View</div>
+                        <h3>1.91M conversion value tracked inside Google Ads</h3>
+                        <p>Long-range account history gives the context needed to separate real scale from short-term spikes, then rebuild around the products and searches that deserve more budget.</p>
+                    </div>
+                </div>
+                <div class="platform-shot google-proof-wide">
+                    <img src="/google-ads/assets/google-ads-hairmax.png" alt="HairMax Google Ads chart showing 8.10 conversion value over cost, 1.22M purchases or sales and £151K cost" loading="lazy">
+                    <div class="platform-shot-caption">
+                        <div class="case-tag">Google Ads Scale Snapshot</div>
+                        <h3>8.10 conversion value over cost at £151K spend</h3>
+                        <p>Proof that Google can keep producing qualified revenue when campaign structure, feed quality, conversion tracking and scale decisions are all pulling in the same direction.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="case-study-grid">
+                <div class="case-card"><img src="/google-ads/assets/store-quality.png" alt="Google Merchant Centre exceptional store quality rating" class="case-card-image"><div class="case-card-content"><span class="case-tag">Merchant Centre</span><h3>Exceptional Feed Health</h3><p>Shopping growth begins before the campaign. The feed and store quality signals need to be clean, complete and strategically structured so Google has the right data to rank and convert your products.</p><div class="case-stats"><div class="case-stat-item"><span class="val">GMC</span><span class="lbl">Optimised</span></div><div class="case-stat-item"><span class="val">SKU</span><span class="lbl">Control</span></div><div class="case-stat-item"><span class="val">PMax</span><span class="lbl">Ready</span></div></div></div></div>
+                <div class="case-card"><img src="/Case%20Studies/Results/PCP%20Leads%20%C2%A39%20Per%20E-Sign%2C%20%C2%A319%20ID%2C%20%C2%A371%20Docs%20Uploaded.png" alt="Lead generation results" class="case-card-image"><div class="case-card-content"><span class="case-tag">Qualified Lead Gen</span><h3>High-Intent Leads At Scale</h3><p>Lead-gen campaigns need more than cheap forms. They need qualification, tracking, follow-up and feedback so the algorithm learns the difference between real intent and noise.</p><div class="case-stats"><div class="case-stat-item"><span class="val">17K</span><span class="lbl">Claimants</span></div><div class="case-stat-item"><span class="val">7K+</span><span class="lbl">Signs</span></div><div class="case-stat-item"><span class="val">CRM</span><span class="lbl">Synced</span></div></div></div></div>
+                <div class="case-card" style="border-style: dashed; background: transparent; justify-content: center; align-items: center; padding: 40px; text-align: center;"><h3 style="margin-bottom: 20px;">Your Account Is Next</h3><p>Bring the Google Ads account, Merchant Centre and landing page. I will show you what is blocking scale and where the fastest profit is hiding.</p><a href="#book-discovery-call" class="quiz-cta" style="width: 100%; justify-content: center; padding: 18px 24px; font-size: 14px;">BOOK GOOGLE ADS AUDIT</a></div>
+            </div>
+        </section>
+
+        <section aria-label="Book a Google Ads audit">
+            <div class="calendar-embed" id="book-discovery-call">
+                <div id="ghl-calendar-root" aria-live="polite"></div>
+            </div>
+            <script src="/assets/calendar-widget.js" defer></script>
+        </section>
+
+        <section class="industries-section" style="animation: fadeUp 0.8s ease-out both;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Google Ads Growth Lanes</div>
+                <h2 style="font-size: clamp(32px, 6vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 40px; background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Built For Buyers Already Searching</h2>
+            </div>
+            <div class="industries-grid">
+                <div class="industry-card"><span class="industry-icon">SHOP</span><div class="industry-name">Google Shopping</div></div>
+                <div class="industry-card"><span class="industry-icon">PMax</span><div class="industry-name">Performance Max</div></div>
+                <div class="industry-card"><span class="industry-icon">SEA</span><div class="industry-name">High-Intent Search</div></div>
+                <div class="industry-card"><span class="industry-icon">YTB</span><div class="industry-name">YouTube Demand</div></div>
+                <div class="industry-card"><span class="industry-icon">LEAD</span><div class="industry-name">Qualified Lead Gen</div></div>
+                <div class="industry-card"><span class="industry-icon">GMC</span><div class="industry-name">Merchant Centre</div></div>
+                <div class="industry-card"><span class="industry-icon">SKU</span><div class="industry-name">Feed Segmentation</div></div>
+                <div class="industry-card"><span class="industry-icon">PROF</span><div class="industry-name">Profit-Led Scale</div></div>
+            </div>
+        </section>
+
+        <section class="creative-gallery" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--cyan-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Merchant Centre Weaponry</div>
+                <h2 style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 20px;">Shopping Feed Optimisation &amp; Domination</h2>
+                <p style="color: var(--text-secondary); max-width: 760px; margin: 20px auto; font-size: 18px;">Most agencies treat the product feed as admin. I treat titles, descriptions, attributes, custom labels, product types, reviews, diagnostics and exclusions as the machinery that decides whether Google sends you buyers or waste.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 50px; text-align: left;">
+                <div class="creative-card" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 28px;"><div class="case-tag">Feed Architecture</div><h3 style="margin: 12px 0;">Product data built for visibility</h3><p style="color: var(--text-secondary); line-height: 1.6;">Titles, attributes, product types, variants and custom labels structured so Shopping and PMax understand what should scale.</p></div>
+                <div class="creative-card" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 28px;"><div class="case-tag">Merchant Centre Health</div><h3 style="margin: 12px 0;">Fix the leaks before adding budget</h3><p style="color: var(--text-secondary); line-height: 1.6;">Disapprovals, diagnostics, shipping settings, reviews, GTINs, policy issues and account quality handled before they cap performance.</p></div>
+                <div class="creative-card" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 28px;"><div class="case-tag">Shopping Domination</div><h3 style="margin: 12px 0;">Segment winners from waste</h3><p style="color: var(--text-secondary); line-height: 1.6;">Campaigns split by margin, intent, category, seasonality and conversion quality so budget moves toward profitable demand.</p></div>
+                <div class="creative-card" style="background: var(--bg-card); border-radius: 20px; border: 1px solid var(--border); padding: 28px;"><div class="case-tag">Conversion Tracking</div><h3 style="margin: 12px 0;">Clean data for smarter bidding</h3><p style="color: var(--text-secondary); line-height: 1.6;">Primary conversions, enhanced conversions, consent mode and offline quality signals aligned so Google optimises for the leads and sales you actually want.</p></div>
+            </div>
+
+            <div class="google-proof-grid">
+                <div class="google-proof-card">
+                    <img src="/google-ads/assets/store-quality.png" alt="Google Merchant Centre store quality score marked Exceptional in the United Kingdom" loading="lazy">
+                    <div class="google-proof-card-body">
+                        <div class="case-tag">Store Quality</div>
+                        <h3>Exceptional shopping experience signal</h3>
+                        <p>Google rewards clean merchant operations. Delivery, returns, site quality and store signals all support stronger Shopping visibility.</p>
+                    </div>
+                </div>
+                <div class="google-proof-card">
+                    <img src="/google-ads/assets/merchant-centre-scorecard.png" alt="Google Merchant Centre shopping experience scorecard showing delivery, returns, browsing and speed metrics" loading="lazy">
+                    <div class="google-proof-card-body">
+                        <div class="case-tag">Merchant Centre</div>
+                        <h3>Operational metrics that influence scale</h3>
+                        <p>Shipping, returns, browsing experience and site speed matter when you are trying to dominate Shopping rather than simply appear in it.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ai-arsenal-wrapper" style="animation: fadeUp 0.8s ease-out both;">
+            <div class="ambient-glow"></div>
+            <div class="ai-arsenal-container">
+                <div class="arsenal-header">
+                    <div class="arsenal-badge"><span class="dot"></span>Upper-Funnel To Bottom-Line</div>
+                    <h2>The Google Ads Scale Stack</h2>
+                    <p>This is not set-and-forget media buying. It is account structure, Shopping feed control, Merchant Centre health, conversion tracking, landing page iteration, lead qualification, profitability reporting and weekly scale decisions working together.</p>
+                </div>
+                <div class="cards cards--4">
+                    <div class="card card--cyan"><span class="card-icon">01</span><div class="card-name">Search Intent Capture</div><div class="card-detail">Keywords · terms · match types · negatives · buyer-stage structure</div></div>
+                    <div class="card card--purple"><span class="card-icon">02</span><div class="card-name">Shopping &amp; PMax Control</div><div class="card-detail">Feed segments · asset groups · exclusions · product priority</div></div>
+                    <div class="card card--emerald"><span class="card-icon">03</span><div class="card-name">Qualified Lead Filtering</div><div class="card-detail">CRM signals · call quality · form intent · offline conversion value</div></div>
+                    <div class="card card--rose"><span class="card-icon">04</span><div class="card-name">Profit Feedback Loop</div><div class="card-detail">SKU margin · CAC · MER · repeat rate · budget moves</div></div>
+                </div>
+                <div class="arsenal-footer"><p>The goal is simple: make Google easier to scale because the feed is cleaner, conversion data is sharper, the landing page converts harder, and budget moves toward actual profit.</p></div>
+            </div>
+        </section>
+
+        <section class="founder-section">
+            <div class="founder-image-wrapper"><img src="/Landing%20Page/Headhot%20James%20Parry.png" alt="James Parry" class="founder-image"></div>
+            <div class="founder-content">
+                <div class="header-badge" style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Google Ads Operator</div>
+                <h2>Hey, I'm James Parry</h2>
+                <p>Over the last 10 years I have worked across CPG, DTC, ecommerce and lead-generation accounts where profitable scale depends on more than simply pushing budget.</p>
+                <p>I have built and scaled my own DTC brand, worked inside accounts where Google carried the revenue load, and solved the unglamorous problems that stop Shopping and Search from scaling: feed quality, tracking, landing pages, contribution margin and offer economics.</p>
+                <p>CR8OR brings that operator view into Google Ads: campaigns built around intent, Merchant Centre built for visibility, and reporting built around profit rather than vanity ROAS.</p>
+            </div>
+        </section>
+
+
+        <section class="financial-reporting">
+            <div class="financial-reporting-layout">
+                <div class="financial-reporting-copy">
+                    <div class="header-badge" style="color: var(--cyan-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 14px; font-weight: 700; text-transform: uppercase;">Profit-Led Google Scaling</div>
+                    <h2>Scale Google Ads from profit, not surface-level ROAS</h2>
+                    <p>Google Ads can look healthy while margin quietly disappears. I connect spend, revenue, product economics and contribution margin so Shopping, Search and PMax budgets move toward the products and keywords that actually grow the business.</p>
+                    <div class="financial-reporting-points">
+                        <div class="financial-reporting-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>SKU-level visibility across spend, revenue, margin, stock and refund pressure.</div>
+                        <div class="financial-reporting-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Search terms, Shopping segments and campaign changes read against commercial outcomes.</div>
+                        <div class="financial-reporting-point"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>Built for founders who want to push Google hard without scaling unprofitable demand.</div>
+                    </div>
+                    <a class="financial-reporting-link" href="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsj41n_VCCN4alEX7dCjq9--WdW5_NYgNzKiVJLd_tZFljLHQ3ke0gqp675dG9VgPe3t_LX3aPKwW8/pubhtml?gid=0&amp;single=true" target="_blank" rel="noopener noreferrer">Open Full Report<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7"></path><path d="M8 7h9v9"></path></svg></a>
+                </div>
+                <div class="financial-reporting-frame"><iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTsj41n_VCCN4alEX7dCjq9--WdW5_NYgNzKiVJLd_tZFljLHQ3ke0gqp675dG9VgPe3t_LX3aPKwW8/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false" title="Published financial reporting spreadsheet" loading="lazy"></iframe></div>
+            </div>
+        </section>
+
+        <section class="case-study-sites">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--emerald-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Conversion Infrastructure</div>
+                <h2>Landing Pages That Turn Clicks Into Revenue</h2>
+                <p style="color: var(--text-secondary); max-width: 660px; margin: 20px auto 0;">Google traffic is expensive when the page is weak. These are examples of ecommerce and lead-gen surfaces that support profitable acquisition.</p>
+            </div>
+            <div class="website-tile-grid">
+                <a class="website-tile" href="https://hairmax.co.uk/" target="_blank" rel="noopener noreferrer" aria-label="Open HairMax case study website"><div class="website-tile-preview"><img src="/Case%20Studies/Website%20Screenshots/HairMax%20Website.png" alt="Screenshot of HairMax website" loading="lazy"></div><div class="website-tile-body"><div><div class="website-tile-name">HairMax</div><div class="website-tile-url">hairmax.co.uk</div></div><span class="website-tile-arrow" aria-hidden="true">-&gt;</span></div></a>
+                <a class="website-tile" href="https://dreamsilk.io/" target="_blank" rel="noopener noreferrer" aria-label="Open DREAMSILK case study website"><div class="website-tile-preview"><img src="https://image.thum.io/get/width/1200/crop/750/noanimate/https://dreamsilk.io/" alt="Screenshot of DREAMSILK website" loading="lazy"></div><div class="website-tile-body"><div><div class="website-tile-name">DREAMSILK</div><div class="website-tile-url">dreamsilk.io</div></div><span class="website-tile-arrow" aria-hidden="true">-&gt;</span></div></a>
+                <a class="website-tile" href="https://avantisdirect.com/" target="_blank" rel="noopener noreferrer" aria-label="Open Advantis Direct case study website"><div class="website-tile-preview"><img src="/Case%20Studies/Website%20Screenshots/Avantis%20Direct%20Website.png" alt="Screenshot of Advantis Direct website" loading="lazy"></div><div class="website-tile-body"><div><div class="website-tile-name">Advantis Direct</div><div class="website-tile-url">avantisdirect.com</div></div><span class="website-tile-arrow" aria-hidden="true">-&gt;</span></div></a>
+            </div>
+        </section>
+
+        <section class="brand-wall-section" style="margin: 120px 0; text-align: center;">
+            <div class="proof-header">
+                <div class="header-badge" style="color: var(--purple-400); letter-spacing: 0.2em; font-size: 12px; margin-bottom: 10px; font-weight: 700; text-transform: uppercase;">Google Ads Scale Audit</div>
+                <h2 style="font-size: clamp(32px, 6vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 26px; background: linear-gradient(to bottom, #fff 20%, var(--purple-300) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Ready To Dominate Google Shopping?</h2>
+                <p style="color: var(--text-secondary); max-width: 760px; margin: 0 auto 36px; font-size: 18px; line-height: 1.7;">I will review the account, Merchant Centre, feed, tracking and landing page, then show you the fastest route to more qualified demand and cleaner scale.</p>
+                <a href="#book-discovery-call" class="quiz-cta" style="display: inline-block; max-width: 550px; width: 100%; padding: 25px 50px; text-align: center; box-shadow: 0 20px 40px rgba(168, 85, 247, 0.4);"><span style="display: block; font-size: 20px; letter-spacing: 0.1em; font-weight: 700;">BOOK GOOGLE ADS AUDIT</span><span style="display: block; font-size: 14px; opacity: 0.9; margin-top: 6px;">Free audit. No junior buyer. No fluff.</span></a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        window.addEventListener('scroll', function () {
+            const stickyBar = document.getElementById('sticky-cta-bar');
+            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            if (scrollPercent > 25) {
+                stickyBar.classList.add('visible');
+            } else {
+                stickyBar.classList.remove('visible');
+            }
+        });
+    </script>
+
+    <div id="sticky-cta-bar" class="sticky-cta">
+        <a href="#book-discovery-call" class="quiz-cta"><span>BOOK GOOGLE ADS AUDIT</span></a>
+    </div>
+</body>
+
+</html>
+<!-- Deployment Trigger: March 8, 2026 - Reordered sections sync -->
+
+
+

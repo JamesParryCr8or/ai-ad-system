@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "preview": "node scripts/preview.mjs",
     "build:calendar": "esbuild ./src/calendar-widget.jsx --bundle --minify --format=iife --target=es2020 --outfile=./assets/calendar-widget.js"
   },
   "dependencies": {

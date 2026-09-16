@@ -1,0 +1,44 @@
+import http from 'node:http';
+import { readFile, stat } from 'node:fs/promises';
+import path from 'node:path';
+
+const root = process.cwd();
+const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.woff2': 'font/woff2' };
+const routes = new Set(['/api/ghl-availability', '/api/ghl-book']);
+http.createServer(async (req, res) => {
+  try {
+    const url = new URL(req.url, 'http://localhost');
+    // Use the deployed calendar so local previews have real availability.
+    if (routes.has(url.pathname)) {
+      if (!['GET', 'POST'].includes(req.method)) { res.writeHead(405).end(); return; }
+      const chunks = [];
+      let size = 0;
+      for await (const chunk of req) {
+        size += chunk.length;
+        if (size > 16384) { res.writeHead(413).end(); return; }
+        chunks.push(chunk);
+      }
+      const upstream = await fetch(`https://scale.cr8or.ai${url.pathname}${url.search}`, {
+        method: req.method,
+        headers: { 'Content-Type': 'application/json' },
+        body: req.method === 'POST' ? Buffer.concat(chunks) : undefined,
+        signal: AbortSignal.timeout(20000),
+      });
+      const data = await upstream.json().catch(() => ({ error: 'The calendar is temporarily unavailable.' }));
+      res.writeHead(upstream.status, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+      res.end(JSON.stringify(data));
+      return;
+    }
+    let file = path.resolve(root, '.' + decodeURIComponent(url.pathname));
+    const relative = path.relative(root, file);
+    if (relative.startsWith('..') || path.isAbsolute(relative) || relative.split(path.sep).some(part => part.startsWith('.')) || /^(api|src|scripts)([\\/]|$)/.test(relative)) {
+      res.writeHead(403).end('Forbidden'); return;
+    }
+    if ((await stat(file)).isDirectory()) file = path.join(file, 'index.html');
+    res.writeHead(200, { 'Content-Type': types[path.extname(file).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-store' });
+    res.end(await readFile(file));
+  } catch {
+    res.writeHead(req.url.startsWith('/api/') ? 502 : 404, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ error: req.url.startsWith('/api/') ? 'The calendar is temporarily unavailable. Please try again.' : 'Not found' }));
+  }
+}).listen(Number(process.env.PORT || 4173), '127.0.0.1', () => console.log(`Preview: http://localhost:${process.env.PORT || 4173}/google-ads/`));

@@ -3,6 +3,11 @@ import { createRoot } from 'react-dom/client';
 import './calendar-widget.css';
 
 const DAY_MS = 86400000;
+async function calendarResponse(response, fallback) {
+  const data = await response.json().catch(() => null);
+  if (!data || !response.ok) throw new Error(data?.error || fallback);
+  return data;
+}
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const pad = (value) => String(value).padStart(2, '0');
@@ -49,8 +54,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
     setLoadError('');
     fetch(`/api/ghl-availability?startDate=${rangeStart.getTime()}&endDate=${rangeEnd.getTime()}&timezone=${encodeURIComponent(timezone)}&calendarId=${encodeURIComponent(calendarId)}`, { signal: controller.signal })
       .then(async (response) => {
-        const data = await response.json();
-        if (!response.ok) throw new Error(data.error || 'Unable to load availability.');
+        const data = await calendarResponse(response, 'Unable to load available times. Please try again shortly.');
         setSlots(data.slots || {});
       })
       .catch((error) => { if (error.name !== 'AbortError') setLoadError(error.message); })
@@ -85,8 +89,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...form, startTime: selectedSlot, timezone, calendarId }),
       });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || 'We could not complete the booking.');
+      const data = await calendarResponse(response, 'We could not confirm your booking. Please try again shortly.');
       setBooking(data);
       setStep('success');
     } catch (error) {
