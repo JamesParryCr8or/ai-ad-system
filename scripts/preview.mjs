@@ -5,11 +5,11 @@ import growthResearch from '../api/growth-research.js';
 
 const root = process.cwd();
 const types = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.woff2': 'font/woff2' };
-const routes = new Set(['/api/ghl-availability', '/api/ghl-book']);
+const routes = new Set(['/api/ghl-availability', '/api/ghl-book', '/api/growth-research']);
 http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, 'http://localhost');
-    if (url.pathname === '/api/growth-research') {
+    if (url.pathname === '/api/growth-research' && process.env.APIFY_API_KEY?.trim()) {
       let body = '';
       for await (const chunk of req) {
         body += chunk;
@@ -22,7 +22,7 @@ http.createServer(async (req, res) => {
       await growthResearch(req, res);
       return;
     }
-    // Use the deployed calendar so local previews have real availability.
+    // Use deployed integrations when their credentials are not available locally.
     if (routes.has(url.pathname)) {
       if (!['GET', 'POST'].includes(req.method)) { res.writeHead(405).end(); return; }
       const chunks = [];
