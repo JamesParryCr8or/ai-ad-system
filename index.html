@@ -2184,6 +2184,20 @@
             border-radius: 12px;
         }
 
+        .sticky-cta .whatsapp-cta {
+            display: none;
+        }
+
+        @media (max-width: 1024px) {
+            .sticky-cta .desktop-sales-cta {
+                display: none;
+            }
+
+            .sticky-cta .whatsapp-cta {
+                display: inline-flex;
+            }
+        }
+
         @media (max-width: 600px) {
             .sticky-cta .quiz-cta span {
                 font-size: 14px;
@@ -3702,7 +3716,10 @@
 
     <!-- Sticky Bottom Bar -->
     <div id="sticky-cta-bar" class="sticky-cta">
-        <a href="https://wa.me/447792723483" class="quiz-cta" target="_blank" rel="noopener noreferrer" aria-label="Message James on WhatsApp">
+        <a href="#book-discovery-call" class="quiz-cta desktop-sales-cta">
+            <span>SCALE MY SALES NOW</span>
+        </a>
+        <a href="https://wa.me/447792723483" class="quiz-cta whatsapp-cta" target="_blank" rel="noopener noreferrer" aria-label="Message James on WhatsApp">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align: middle; margin-right: 9px;"><path d="M12.04 2C6.51 2 2 6.5 2 12.03c0 1.77.46 3.5 1.34 5.02L2 22l5.1-1.31a9.96 9.96 0 0 0 4.94 1.3h.01c5.53 0 10.03-4.5 10.03-10.03C22.08 6.5 17.57 2 12.04 2Zm0 18.31c-1.5 0-2.96-.4-4.24-1.16l-.3-.18-3.03.78.81-2.95-.2-.3a8.27 8.27 0 0 1-1.28-4.46c0-4.56 3.71-8.27 8.27-8.27s8.27 3.71 8.27 8.27-3.71 8.27-8.27 8.27Zm4.53-6.2c-.25-.13-1.48-.73-1.71-.81-.23-.09-.4-.13-.57.13-.17.25-.65.81-.8.98-.15.17-.3.19-.55.06-.25-.13-1.06-.39-2.02-1.25a7.6 7.6 0 0 1-1.4-1.75c-.15-.25-.02-.38.11-.51.12-.12.25-.3.38-.45.13-.15.17-.25.25-.42.08-.17.04-.32-.02-.45-.06-.13-.57-1.37-.78-1.88-.2-.49-.41-.42-.57-.43h-.48c-.17 0-.44.06-.67.32-.23.25-.88.86-.88 2.1s.9 2.44 1.03 2.61c.13.17 1.77 2.7 4.29 3.79.6.26 1.07.42 1.44.54.61.19 1.16.16 1.6.1.49-.07 1.48-.6 1.69-1.18.21-.58.21-1.08.15-1.18-.06-.1-.23-.17-.48-.3Z"/></svg><span>MESSAGE JAMES ON WHATSAPP</span>
         </a>
     </div>
