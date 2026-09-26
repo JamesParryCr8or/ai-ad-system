@@ -28,9 +28,10 @@ export default async function handler(req, res) {
   const timezone = clean(req.body?.timezone, 80) || 'Europe/London';
   const startTime = clean(req.body?.startTime, 80);
   const consent = req.body?.consent === true;
+  const isSoftwareSetup = req.body?.bookingPurpose === 'free-software';
   const calendarId = resolveCalendarId(req.body?.calendarId);
 
-  if (!firstName || !lastName || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
+  if (!firstName || (!lastName && !isSoftwareSetup) || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
     return res.status(400).json({ error: 'Please enter valid contact details.' });
   }
   if (!consent) {
@@ -65,7 +66,7 @@ export default async function handler(req, res) {
 
     let contactId;
     try {
-      const contactData = await ghlRequest('/contacts/', {
+      const contactData = await ghlRequest(isSoftwareSetup ? '/contacts/upsert' : '/contacts/', {
         method: 'POST',
         body: JSON.stringify({
           firstName,
@@ -75,7 +76,7 @@ export default async function handler(req, res) {
           phone,
           locationId: GHL_LOCATION_ID,
           timezone,
-          source: 'CR8OR website calendar',
+          ...(isSoftwareSetup ? {} : { source: 'CR8OR website calendar' }),
         }),
       });
       contactId = contactData?.contact?.id;
@@ -107,8 +108,8 @@ export default async function handler(req, res) {
           locationId: GHL_LOCATION_ID,
           contactId,
           assignedUserId: GHL_ASSIGNED_USER_ID,
-          title: `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
-          description: [notes, 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
+          title: isSoftwareSetup ? `${firstName} ${lastName} — Growth Stack Setup` : `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
+          description: [isSoftwareSetup ? 'Free software growth stack setup session' : '', notes, isSoftwareSetup ? 'Visitor requested contact about software access and setup.' : 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
           startTime,
           endTime,
           appointmentStatus: 'confirmed',

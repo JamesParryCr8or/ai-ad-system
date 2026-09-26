@@ -28,9 +28,10 @@ function Icon({ name }) {
   return <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{paths[name]}</svg>;
 }
 
-function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }) {
+function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', initialContact = {} }) {
   const isAppCalendar = variant === 'app';
-  const calendarTitle = isAppCalendar ? 'CR8OR AI — App Exploration Call' : 'CR8OR AI — Exploration Call';
+  const isSetupCalendar = variant === 'setup';
+  const calendarTitle = isSetupCalendar ? 'CR8OR AI — Growth Stack Setup' : isAppCalendar ? 'CR8OR AI — App Exploration Call' : 'CR8OR AI — Exploration Call';
   const today = useMemo(() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }, []);
   const [month, setMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
   const [slots, setSlots] = useState({});
@@ -42,7 +43,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [booking, setBooking] = useState(null);
-  const [form, setForm] = useState({ firstName: '', lastName: '', phone: '', email: '', notes: '', consent: true });
+  const [form, setForm] = useState({ firstName: initialContact.firstName || '', lastName: initialContact.lastName || '', phone: initialContact.phone || '', email: initialContact.email || '', notes: '', consent: true });
   const timezone = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London', []);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
       const response = await fetch('/api/ghl-book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, startTime: selectedSlot, timezone, calendarId }),
+        body: JSON.stringify({ ...form, startTime: selectedSlot, timezone, calendarId, ...(isSetupCalendar ? { bookingPurpose: 'free-software' } : {}) }),
       });
       const data = await calendarResponse(response, 'We could not confirm your booking. Please try again shortly.');
       setBooking(data);
@@ -164,12 +165,12 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
   const availableDates = Object.keys(slots).length;
   const canGoBack = month > new Date(today.getFullYear(), today.getMonth(), 1);
 
-  return <section className="cr8-calendar" aria-label="Book an exploration call">
+  return <section className="cr8-calendar" aria-label={isSetupCalendar ? 'Book a growth stack setup session' : 'Book an exploration call'}>
     <div className="cr8-calendar__glow" />
     <aside className="cr8-calendar__intro">
-      <div className="cr8-calendar__eyebrow"><span /> {isAppCalendar ? 'App strategy session' : 'Strategy session'}</div>
-      <h3>{isAppCalendar ? <>Let’s map your<br/><em>app system.</em></> : <>Let’s map your<br/><em>growth system.</em></>}</h3>
-      <p>{isAppCalendar ? 'A focused exploration call to shape your app, prioritise the right features and map the clearest route from idea to launch.' : 'A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.'}</p>
+      <div className="cr8-calendar__eyebrow"><span /> {isSetupCalendar ? 'Your setup shortcut' : isAppCalendar ? 'App strategy session' : 'Strategy session'}</div>
+      <h3>{isSetupCalendar ? <>Let’s speed-run<br/><em>your setup.</em></> : isAppCalendar ? <>Let’s map your<br/><em>app system.</em></> : <>Let’s map your<br/><em>growth system.</em></>}</h3>
+      <p>{isSetupCalendar ? 'You can access and set up the tools yourself. Book time with James to put the stack to work faster and map it to your business.' : isAppCalendar ? 'A focused exploration call to shape your app, prioritise the right features and map the clearest route from idea to launch.' : 'A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.'}</p>
       <div className="cr8-calendar__facts">
         <div><Icon name="clock"/><span><strong>30 minutes</strong>No drawn-out sales pitch</span></div>
         <div><Icon name="video"/><span><strong>Google Meet</strong>Link sent after booking</span></div>
@@ -219,14 +220,14 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
         <div className="cr8-calendar__selection"><Icon name="check"/><span><strong>{formatLongDate(selectedSlot, timezone)} at {formatTime(selectedSlot, timezone)}</strong>30 minutes · Google Meet</span></div>
         <div className="cr8-calendar__fields">
           <label><span>First name</span><input required autoComplete="given-name" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })}/></label>
-          <label><span>Last name</span><input required autoComplete="family-name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}/></label>
+          <label><span>Last name</span><input required={!isSetupCalendar} autoComplete="family-name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}/></label>
           <label><span>Phone</span><input required type="tel" autoComplete="tel" placeholder="+44 7400 123456" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}/></label>
           <label><span>Email</span><input required type="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/></label>
           <label className="is-wide"><span>Anything we should know? <small>Optional</small></span><textarea rows="3" placeholder="Tell us a little about your current setup…" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })}/></label>
         </div>
-        <label className="cr8-calendar__consent"><input type="checkbox" required checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })}/><i><Icon name="check"/></i><span>I confirm that I want to receive content from CR8OR AI using the contact information I provide.</span></label>
+        <label className="cr8-calendar__consent"><input type="checkbox" required checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })}/><i><Icon name="check"/></i><span>{isSetupCalendar ? 'I agree to be contacted about my software access and setup session using these details.' : 'I confirm that I want to receive content from CR8OR AI using the contact information I provide.'}</span></label>
         {submitError && <div className="cr8-calendar__form-error">{submitError}</div>}
-        <button className="cr8-calendar__book" disabled={submitting}>{submitting ? <><i/> Securing your time…</> : <>Schedule exploration call <Icon name="arrow"/></>}</button>
+        <button className="cr8-calendar__book" disabled={submitting}>{submitting ? <><i/> Securing your time…</> : <>{isSetupCalendar ? 'Book my setup session' : 'Schedule exploration call'} <Icon name="arrow"/></>}</button>
         <p className="cr8-calendar__privacy">Your information is kept private and never sold.</p>
       </form>}
 
@@ -243,5 +244,5 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads' }
 }
 
 document.querySelectorAll('#ghl-calendar-root, [data-calendar-root]').forEach((root) => {
-  createRoot(root).render(<CalendarWidget calendarId={root.dataset.calendarId} variant={root.dataset.variant} />);
+  createRoot(root).render(<CalendarWidget calendarId={root.dataset.calendarId} variant={root.dataset.variant} initialContact={{ firstName: root.dataset.firstName, lastName: root.dataset.lastName, email: root.dataset.email, phone: root.dataset.phone }} />);
 });
