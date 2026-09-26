@@ -1,6 +1,17 @@
 const form = document.querySelector('#website-form');
 const button = form.querySelector('button');
 const error = document.querySelector('#form-error');
+const stickyOrder = document.createElement('div');
+stickyOrder.className = 'sticky-order';
+stickyOrder.hidden = true;
+stickyOrder.innerHTML = '<div class="sticky-order-inner wrap"><p><strong>Your bespoke website</strong><span>£49/month · Hosting included</span></p><a class="button primary" href="#access">Order your website now <span aria-hidden="true">→</span></a></div>';
+document.body.append(stickyOrder);
+document.body.classList.add('has-sticky-order');
+const accessCard = document.querySelector('#access');
+const updateStickyOrder = () => { stickyOrder.hidden = accessCard.getBoundingClientRect().bottom > 0; };
+window.addEventListener('scroll', updateStickyOrder, { passive: true });
+window.addEventListener('resize', updateStickyOrder);
+updateStickyOrder();
 let requestId = crypto.randomUUID();
 if (new URLSearchParams(location.search).get('checkout') === 'cancelled') {
   error.textContent = 'Checkout was cancelled. You can enter your details again whenever you’re ready.';
