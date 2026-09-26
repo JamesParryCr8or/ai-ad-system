@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://scale.cr8or.ai/sitemap.xml
