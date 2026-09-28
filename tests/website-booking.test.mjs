@@ -63,7 +63,7 @@ test('website call requires payment and reserves a full hour', async () => {
     assert.equal(booked.statusCode, 200);
     assert.equal(new Date(appointment.endTime).getTime() - new Date(appointment.startTime).getTime(), 60 * 60000);
     assert.match(appointment.title, /Website Exploration Call/);
-    assert.equal(appointment.ignoreFreeSlotValidation, false);
+    assert.equal(appointment.ignoreFreeSlotValidation, true);
   } finally {
     globalThis.fetch = originalFetch;
     if (originalStripeKey === undefined) delete process.env.STRIPE_SECRET_API_KEY;

@@ -138,7 +138,9 @@ export default async function handler(req, res) {
           endTime,
           appointmentStatus: 'confirmed',
           ignoreDateRange: false,
-          ignoreFreeSlotValidation: false,
+          // The shared calendar defaults to 30-minute slots. For this call we recheck
+          // both adjacent slots above, then reserve them as one 60-minute appointment.
+          ignoreFreeSlotValidation: isWebsiteExploration,
           toNotify: true,
         }),
       });
