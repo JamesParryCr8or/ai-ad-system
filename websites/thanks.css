@@ -1,0 +1,4 @@
+.order.is-confirmed{max-width:1120px}
+.order.is-confirmed>p,.order.is-confirmed #next-steps>p{max-width:720px}
+.order #website-calendar{margin:32px 0 28px}
+.order #calendar-retry{padding:10px 16px;border:1px solid var(--purple);border-radius:8px;background:transparent;color:var(--purple);cursor:pointer}

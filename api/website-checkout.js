@@ -28,7 +28,13 @@ export default async function handler(req, res) {
     try {
       const session = await stripe(`checkout/sessions/${encodeURIComponent(id)}`);
       if (session.metadata?.offer !== offer || session.currency !== 'gbp' || session.amount_total !== 4900) return res.status(404).json({ error: 'Order not found.' });
-      return res.status(200).json({ paid: session.status === 'complete' && session.payment_status === 'paid', reference: session.id });
+      const paid = session.status === 'complete' && session.payment_status === 'paid';
+      let contact = null;
+      if (paid && typeof session.customer === 'string') {
+        const customer = await stripe(`customers/${encodeURIComponent(session.customer)}`).catch(() => null);
+        if (customer) contact = { name: customer.name || '', email: customer.email || '', phone: customer.phone || '' };
+      }
+      return res.status(200).json({ paid, reference: session.id, ...(contact ? { contact } : {}) });
     } catch (error) {
       if (error.statusCode === 404) return res.status(404).json({ error: 'Order not found.' });
       return res.status(503).json({ error: 'We could not verify your payment yet. Please refresh shortly.' });
@@ -61,7 +67,7 @@ export default async function handler(req, res) {
       'line_items[0][price_data][unit_amount]': '4900',
       'line_items[0][price_data][recurring][interval]': 'month',
       'line_items[0][price_data][product_data][name]': 'CR8OR Bespoke Website',
-      'line_items[0][price_data][product_data][description]': 'Done-for-you website, hosting and standard annual domain (or connect your own). Delivery within 7 days after we receive your brief and assets.',
+      'line_items[0][price_data][product_data][description]': 'Personally planned, done-for-you website with a one-hour exploration call with James, hosting and a standard annual domain (or connect your own). Delivery within 7 days after we receive your brief and assets.',
       'line_items[0][quantity]': '1',
       'metadata[offer]': offer, 'metadata[ghl_contact_id]': contactId,
       'subscription_data[metadata][offer]': offer, 'subscription_data[metadata][ghl_contact_id]': contactId,

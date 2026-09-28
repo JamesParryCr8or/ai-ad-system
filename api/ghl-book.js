@@ -29,6 +29,7 @@ export default async function handler(req, res) {
   const startTime = clean(req.body?.startTime, 80);
   const consent = req.body?.consent === true;
   const isSoftwareSetup = req.body?.bookingPurpose === 'free-software';
+  const isWebsiteExploration = req.body?.bookingPurpose === 'website-exploration';
   const calendarId = resolveCalendarId(req.body?.calendarId);
 
   if (!firstName || (!lastName && !isSoftwareSetup) || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
@@ -44,6 +45,26 @@ export default async function handler(req, res) {
   const start = new Date(startTime);
   if (!Number.isFinite(start.getTime()) || start.getTime() < Date.now()) {
     return res.status(400).json({ error: 'Please choose an available future time.' });
+  }
+
+  if (isWebsiteExploration) {
+    const sessionId = clean(req.body?.websiteSessionId, 220);
+    if (!/^cs_(live|test)_[a-zA-Z0-9]{20,200}$/.test(sessionId) || !process.env.STRIPE_SECRET_API_KEY) {
+      return res.status(403).json({ error: 'A confirmed website purchase is required to book this call.' });
+    }
+    try {
+      const payment = await fetch(`https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}`, {
+        headers: { Authorization: `Bearer ${process.env.STRIPE_SECRET_API_KEY}` },
+        signal: AbortSignal.timeout(15000),
+      });
+      if (!payment.ok) throw new Error('Payment lookup failed');
+      const session = await payment.json();
+      if (session.metadata?.offer !== 'bespoke-website-49' || session.currency !== 'gbp' || session.amount_total !== 4900 || session.status !== 'complete' || session.payment_status !== 'paid') {
+        return res.status(403).json({ error: 'A confirmed website purchase is required to book this call.' });
+      }
+    } catch {
+      return res.status(503).json({ error: 'We could not verify your website purchase. Please try again shortly.' });
+    }
   }
 
   try {
@@ -63,10 +84,13 @@ export default async function handler(req, res) {
     if (!availableStarts.includes(start.getTime())) {
       return res.status(409).json({ error: 'That time has just been taken. Please choose another slot.' });
     }
+    if (isWebsiteExploration && !availableStarts.includes(start.getTime() + 30 * 60 * 1000)) {
+      return res.status(409).json({ error: 'That full hour is no longer available. Please choose another time.' });
+    }
 
     let contactId;
     try {
-      const contactData = await ghlRequest(isSoftwareSetup ? '/contacts/upsert' : '/contacts/', {
+      const contactData = await ghlRequest(isSoftwareSetup || isWebsiteExploration ? '/contacts/upsert' : '/contacts/', {
         method: 'POST',
         body: JSON.stringify({
           firstName,
@@ -76,7 +100,7 @@ export default async function handler(req, res) {
           phone,
           locationId: GHL_LOCATION_ID,
           timezone,
-          ...(isSoftwareSetup ? {} : { source: 'CR8OR website calendar' }),
+          ...(isSoftwareSetup || isWebsiteExploration ? {} : { source: 'CR8OR website calendar' }),
         }),
       });
       contactId = contactData?.contact?.id;
@@ -98,7 +122,7 @@ export default async function handler(req, res) {
     }
     if (!contactId) throw new Error('HighLevel did not return a contact ID');
 
-    const endTime = new Date(start.getTime() + 30 * 60 * 1000).toISOString();
+    const endTime = new Date(start.getTime() + (isWebsiteExploration ? 60 : 30) * 60 * 1000).toISOString();
     let appointment;
     try {
       appointment = await ghlRequest('/calendars/events/appointments', {
@@ -108,8 +132,8 @@ export default async function handler(req, res) {
           locationId: GHL_LOCATION_ID,
           contactId,
           assignedUserId: GHL_ASSIGNED_USER_ID,
-          title: isSoftwareSetup ? `${firstName} ${lastName} — Growth Stack Setup` : `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
-          description: [isSoftwareSetup ? 'Free software growth stack setup session' : '', notes, isSoftwareSetup ? 'Visitor requested contact about software access and setup.' : 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
+          title: isWebsiteExploration ? `${firstName} ${lastName} — Website Exploration Call` : isSoftwareSetup ? `${firstName} ${lastName} — Growth Stack Setup` : `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
+          description: [isWebsiteExploration ? 'One-hour website exploration call included with the £49/month website purchase.' : isSoftwareSetup ? 'Free software growth stack setup session' : '', notes, isSoftwareSetup ? 'Visitor requested contact about software access and setup.' : 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
           startTime,
           endTime,
           appointmentStatus: 'confirmed',
