@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './calendar-widget.css';
 
@@ -48,28 +48,54 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
   const [booking, setBooking] = useState(null);
   const [form, setForm] = useState({ firstName: initialContact.firstName || '', lastName: initialContact.lastName || '', phone: initialContact.phone || '', email: initialContact.email || '', notes: '', consent: true });
   const timezone = useMemo(() => Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/London', []);
+  const automaticMonthAdvances = useRef(0);
 
   useEffect(() => {
     const controller = new AbortController();
+    let isAdvancing = false;
     const rangeStart = new Date(Math.max(today.getTime(), month.getTime()));
     const monthEnd = new Date(month.getFullYear(), month.getMonth() + 1, 1);
     const rangeEnd = new Date(Math.min(monthEnd.getTime(), rangeStart.getTime() + 31 * DAY_MS));
     setLoading(true);
     setLoadError('');
+    setSlots({});
+    setSelectedDate('');
+    setSelectedSlot('');
     fetch(`/api/ghl-availability?startDate=${rangeStart.getTime()}&endDate=${rangeEnd.getTime()}&timezone=${encodeURIComponent(timezone)}&calendarId=${encodeURIComponent(calendarId)}`, { signal: controller.signal })
       .then(async (response) => {
         const data = await calendarResponse(response, 'Unable to load available times. Please try again shortly.');
+        let monthSlots;
         if (isWebsiteCalendar) {
-          setSlots(Object.fromEntries(Object.entries(data.slots || {}).map(([day, times]) => {
+          monthSlots = Object.fromEntries(Object.entries(data.slots || {}).map(([day, times]) => {
             const available = new Set(times.map(time => new Date(time).getTime()));
             return [day, times.filter(time => available.has(new Date(time).getTime() + 30 * 60000))];
-          }).filter(([, times]) => times.length)));
-        } else setSlots(data.slots || {});
+          }).filter(([, times]) => times.length));
+        } else monthSlots = data.slots || {};
+
+        const monthPrefix = `${month.getFullYear()}-${pad(month.getMonth() + 1)}`;
+        monthSlots = Object.fromEntries(Object.entries(monthSlots)
+          .filter(([day, times]) => day.startsWith(monthPrefix) && times.length));
+        const firstAvailableDate = Object.keys(monthSlots).sort()[0];
+        if (!firstAvailableDate && automaticMonthAdvances.current < 12) {
+          automaticMonthAdvances.current += 1;
+          isAdvancing = true;
+          setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1));
+          return;
+        }
+
+        automaticMonthAdvances.current = 0;
+        setSlots(monthSlots);
+        if (firstAvailableDate) setSelectedDate(firstAvailableDate);
       })
       .catch((error) => { if (error.name !== 'AbortError') setLoadError(error.message); })
-      .finally(() => setLoading(false));
+      .finally(() => { if (!controller.signal.aborted && !isAdvancing) setLoading(false); });
     return () => controller.abort();
   }, [month, timezone, today, calendarId, isWebsiteCalendar]);
+
+  const changeMonth = (offset) => {
+    automaticMonthAdvances.current = 0;
+    setMonth(new Date(month.getFullYear(), month.getMonth() + offset, 1));
+  };
 
   const days = useMemo(() => {
     const first = new Date(month.getFullYear(), month.getMonth(), 1);
@@ -196,9 +222,9 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
         <div className="cr8-calendar__picker">
           <div className="cr8-calendar__month">
             <div className="cr8-calendar__month-nav">
-              <button type="button" disabled={!canGoBack} onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))} aria-label="Previous month">‹</button>
+              <button type="button" disabled={!canGoBack} onClick={() => changeMonth(-1)} aria-label="Previous month">‹</button>
               <strong>{MONTHS[month.getMonth()]} <span>{month.getFullYear()}</span></strong>
-              <button type="button" onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1, 1))} aria-label="Next month">›</button>
+              <button type="button" onClick={() => changeMonth(1)} aria-label="Next month">›</button>
             </div>
             <div className="cr8-calendar__weekdays">{WEEKDAYS.map((day) => <span key={day}>{day}</span>)}</div>
             <div className={`cr8-calendar__days ${loading ? 'is-loading' : ''}`}>
@@ -210,7 +236,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
               })}
             </div>
             {loadError && <div className="cr8-calendar__notice is-error">{loadError}<button type="button" onClick={() => setMonth(new Date(month))}>Try again</button></div>}
-            {!loading && !loadError && !availableDates && <div className="cr8-calendar__notice">No remaining times this month. Try the next one.</div>}
+            {!loading && !loadError && !availableDates && <div className="cr8-calendar__notice">No available times found in the next 12 months. Please try another month or message James to arrange a time.</div>}
           </div>
           <div className="cr8-calendar__times">
             <div className="cr8-calendar__times-title">{selectedDate ? new Date(`${selectedDate}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' }) : 'Select a date'}<span>{selectedDate ? `${slots[selectedDate]?.length || 0} times available` : 'Available days are highlighted'}</span></div>
