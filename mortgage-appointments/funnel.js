@@ -35,7 +35,7 @@ form.addEventListener('submit', async event => {
   if (!/^\+?[\d\s().-]+$/.test(phone) || phone.replace(/\D/g,'').length < 7 || phone.replace(/\D/g,'').length > 15) { error.textContent = 'Please enter a valid phone number.'; error.hidden = false; form.elements.phone.focus(); return; }
   button.disabled = true; button.textContent = 'Saving your details…';
   try {
-    const response = await fetch('/api/mortgage-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ ...Object.fromEntries(new FormData(form)), authorisation:state.authorisation, capacity:state.capacity, attribution:state.attribution, consent:form.elements.consent.checked }), signal:AbortSignal.timeout(30000) });
+    const response = await fetch('/api/mortgage-lead', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({ ...Object.fromEntries(new FormData(form)), capacity:state.capacity, caseType:state.caseType, attribution:state.attribution, consent:form.elements.consent.checked }), signal:AbortSignal.timeout(30000) });
     const data = await response.json().catch(() => null);
     if (!response.ok || !data?.success) throw new Error(data?.error || 'We couldn’t save your details. Please try again.');
     state.submitted = true; save(); location.assign('/mortgage-appointments/how-it-works/');
