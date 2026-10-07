@@ -65,7 +65,22 @@ details{border-color:#e1e5eb}
 summary{color:#172338}
 .section a:not(.button){color:#503185}
 .hero-image img{font-family:Outfit,Arial,sans-serif}
-@media(max-width:760px){.screen{padding-top:32px}.hero{padding-top:30px}.hero h1{font-size:clamp(34px,9vw,45px);letter-spacing:-1.2px}.hero-copy{font-size:17px}.hero-image{height:230px;margin:23px auto 20px;border-radius:13px}.hero-image img{object-position:center}.hero-image figcaption{font-size:10px}.appointment-preview{margin-top:30px}.quiz{padding-top:24px}.quiz h1{font-size:clamp(29px,8vw,38px)}.cards,.billing{grid-template-columns:1fr}}
+.booking-section--early{margin:0 auto 12px;padding:36px;max-width:1000px;border:1px solid #ded5ec;border-radius:20px;background:linear-gradient(145deg,#fbf9ff,#fff 58%);box-shadow:0 16px 44px #1723380b}
+.booking-heading{max-width:650px;margin:0 auto 26px}
+.booking-heading h2{margin:10px 0 12px}
+.booking-heading>p{margin:0 auto;color:#4f5e72}
+.booking-section--early #ghl-calendar-root{max-width:100%;margin:0 auto}
+.booking-reassurance{display:flex;align-items:center;justify-content:center;gap:9px;flex-wrap:wrap;margin:18px 0 0;font-size:13px;color:#536174}
+.booking-reassurance svg{width:19px;height:19px;fill:none;stroke:#137653;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.booking-reassurance span{color:#a3aab3}
+.card{position:relative;padding-top:24px}
+.card-icon{display:grid;place-items:center;width:43px;height:43px;margin:17px 0 0;border:1px solid #e2d7f1;border-radius:12px;background:#f4effa;color:#6841a5}
+.card-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin-top:13px}
+.billing-row{align-items:center}
+.billing-row>svg{width:20px;height:20px;flex:0 0 20px;fill:none;stroke:#6841a5;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.billing-row>span{flex:1}
+@media(max-width:760px){.screen{padding-top:32px}.hero{padding-top:30px}.hero h1{font-size:clamp(34px,9vw,45px);letter-spacing:-1.2px}.hero-copy{font-size:17px}.hero-image{height:230px;margin:23px auto 20px;border-radius:13px}.hero-image img{object-position:center}.hero-image figcaption{font-size:10px}.appointment-preview{margin-top:30px}.quiz{padding-top:24px}.quiz h1{font-size:clamp(29px,8vw,38px)}.cards,.billing{grid-template-columns:1fr}.booking-section--early{padding:28px 16px;border-radius:16px;margin-left:-4px;margin-right:-4px}.booking-heading{margin-bottom:20px}.booking-reassurance{font-size:12px;gap:7px}.billing-row{gap:10px}.card-icon{margin-top:13px}}
 .choices button{display:flex;align-items:center;gap:14px;padding-left:14px;padding-right:48px}
 .choice-icon{width:40px;height:40px;flex:0 0 40px;padding:9px;border-radius:11px;background:#f1ebf9;color:#6841a5;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .choice-copy{flex:1;min-width:0}
