@@ -1,0 +1,12 @@
+.cr8-calendar{background:#fff;border:1px solid #e0e4eb;box-shadow:0 18px 55px #17233812;color:#172338}
+.cr8-calendar__glow{display:none}
+.cr8-calendar__intro{background:#fff;border-color:#e0e4eb}
+.cr8-calendar__eyebrow{color:#6641a5}
+.cr8-calendar__intro h3,.cr8-calendar__intro h3 em{color:#172338;background:none;-webkit-text-fill-color:initial}
+.cr8-calendar__intro h3 em{color:#5f389f}
+.cr8-calendar__intro>p,.cr8-calendar__facts span,.cr8-calendar__host span{color:#536174}
+.cr8-calendar__facts strong,.cr8-calendar__host strong{color:#26354b}
+.cr8-calendar__facts>div>svg{color:#6841a5}
+.cr8-calendar__host{border-color:#e0e4eb}
+.cr8-calendar__host img{border-color:#d7c7ed;background:#f4effa}
+.cr8-calendar__panel{background:#f8f9fb}

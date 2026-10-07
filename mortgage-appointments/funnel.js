@@ -12,9 +12,9 @@ document.querySelectorAll('[data-privacy]').forEach(el => el.addEventListener('c
 privacy?.querySelector('.close').addEventListener('click', () => privacy.close());
 function render() {
   let step = location.hash.slice(1) || 'intro';
-  if (!['intro','authorisation','capacity','contact'].includes(step)) step = 'intro';
-  if ((step === 'capacity' || step === 'contact') && !state.authorisation) step = 'authorisation';
-  if (step === 'contact' && !state.capacity) step = 'capacity';
+  if (!['intro','capacity','case-type','contact'].includes(step)) step = 'intro';
+  if ((step === 'case-type' || step === 'contact') && !state.capacity) step = 'capacity';
+  if (step === 'contact' && !state.caseType) step = 'case-type';
   document.querySelectorAll('.screen').forEach(el => el.hidden = el.id !== step);
   document.querySelectorAll('[data-answer]').forEach(el => el.setAttribute('aria-pressed', String(state[el.dataset.answer] === el.dataset.value)));
   window.scrollTo(0,0);
@@ -22,7 +22,7 @@ function render() {
 }
 document.querySelectorAll('[data-back]').forEach(el => el.addEventListener('click', () => { location.hash = el.dataset.back; }));
 document.querySelectorAll('[data-answer]').forEach(el => el.addEventListener('click', () => {
-  state[el.dataset.answer] = el.dataset.value; save(); location.hash = el.dataset.answer === 'authorisation' ? 'capacity' : 'contact';
+  state[el.dataset.answer] = el.dataset.value; save(); location.hash = el.dataset.answer === 'capacity' ? 'case-type' : 'contact';
 }));
 window.addEventListener('hashchange', render); render();
 const form = document.querySelector('#lead-form');

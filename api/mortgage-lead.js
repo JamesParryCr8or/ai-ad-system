@@ -32,9 +32,9 @@ export default async function handler(req, res) {
 
   const business = clean(body.business, 160);
   const area = clean(body.area, 160);
-  const authorisation = clean(body.authorisation, 80);
   const capacity = clean(body.capacity, 30);
-  if (!business || !area || !['Directly authorised', 'Appointed representative', 'In progress / other'].includes(authorisation) || !['5–10', '11–20', '21–40', '40+'].includes(capacity)) {
+  const caseType = clean(body.caseType, 80);
+  if (!business || !area || !['First-time buyers', 'Remortgages', 'Home movers', 'Buy-to-let', 'Protection', 'Several case types'].includes(caseType) || !['5–10', '11–20', '21–40', '40+', 'Not sure yet'].includes(capacity)) {
     return res.status(400).json({ error: 'Please complete your business details and both questions.' });
   }
   const [firstName, ...rest] = name.split(' ');
@@ -62,7 +62,7 @@ export default async function handler(req, res) {
           'Mortgage appointment enquiry requested at ' + new Date().toISOString(),
           'Page: https://scale.cr8or.ai/mortgage-appointments/',
           'Contact permission: visitor requested contact by CR8OR by email or phone about mortgage appointment services (form notice v1).',
-          `Business: ${business}`, `Coverage: ${area}`, `Authorisation: ${authorisation}`, `Monthly capacity: ${capacity}`, 
+          `Business: ${business}`, `Coverage: ${area}`, `Target attended appointments per month: ${capacity}`, `Mortgage client focus: ${caseType}`,
           ...attribution,
         ].join('\n') }),
       }),
