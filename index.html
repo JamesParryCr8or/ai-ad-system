@@ -2222,6 +2222,238 @@
         .vsl-cta-box .agency-contrast{max-width:660px;margin:0;color:var(--text-secondary);font-size:13px;line-height:1.6;letter-spacing:0;text-transform:none}
         @media(max-width:600px){.header{margin-bottom:16px}.header .badge{margin-bottom:16px}.header h1{font-size:clamp(34px,8.5vw,44px);line-height:1.12;margin-bottom:14px}.header p{font-size:15px;line-height:1.5}.vsl-cta-box .agency-contrast{font-size:12px}}
     </style>
+    <style>
+        /* Homepage light refresh: keep the established purple action buttons intact. */
+        :root {
+            --bg-deep: #ffffff;
+            --bg-surface: #f8f7fb;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f6f3fb;
+            --purple-300: #674293;
+            --purple-400: #68439c;
+            --text-primary: #172338;
+            --text-secondary: #475569;
+            --text-muted: #647187;
+            --border: rgba(65, 48, 94, 0.15);
+            --glow: rgba(124, 58, 237, 0.12);
+        }
+
+        body {
+            background: #fff;
+            color: var(--text-primary);
+        }
+
+        .ambient,
+        .noise {
+            display: none;
+        }
+
+        h1, h2, h3, h4, h5, h6,
+        .card-name, .industry-name, .faq-question,
+        .financial-reporting-point, .category-info h3,
+        .model-name, .website-tile-name, .founder-section {
+            color: var(--text-primary);
+        }
+
+        p, .header p, .header .agency-contrast,
+        .arsenal-header p, .financial-reporting-copy p,
+        .faq-answer, .case-card-content p, .website-tile-proof,
+        .model-provider, .category-info span, .footer {
+            color: var(--text-secondary);
+        }
+
+        .header h1,
+        .vsl-headline,
+        .proof-header h2,
+        .financial-reporting-copy h2,
+        .arsenal-header h2,
+        .industries-section .proof-header h2,
+        .founder-content h2 {
+            background: none !important;
+            color: var(--text-primary) !important;
+            -webkit-text-fill-color: var(--text-primary) !important;
+        }
+
+        .header a:not(.quiz-cta) {
+            color: #5b3698 !important;
+        }
+
+        .header-badge, .eyebrow, .phase-title, .arsenal-badge,
+        .category-label, .case-tag, .header .badge {
+            color: #5b3698 !important;
+        }
+
+        .header-badge, .arsenal-badge {
+            border-color: #dfd5ed;
+        }
+
+        .phase--research .phase-title,
+        .phase--loop .phase-title,
+        .loop-content h3,
+        .loop-tag {
+            color: #08778c !important;
+        }
+
+        .phase--creative .phase-title {
+            color: #a22a9a !important;
+        }
+
+        .phase--deploy .phase-title {
+            color: #8a5c00 !important;
+        }
+
+        .phase--capture .phase-title,
+        .case-tag, .stat-value, .website-tile-proof strong,
+        .website-tile-arrow, .case-list li svg,
+        .financial-reporting-point svg {
+            color: #137653 !important;
+        }
+
+        .phase--nurture .phase-title {
+            color: #ae3e54 !important;
+        }
+
+        .guarantee-box h3 {
+            color: #137653;
+        }
+
+        .card, .case-card, .website-tile, .stat-card,
+        .industry-card, .mini-card, .model-chip, .faq-item,
+        .founder-section, .billing-panel, .model-category,
+        .model-preview-card {
+            background: #fff;
+            border-color: #e1e5ec;
+            box-shadow: 0 8px 28px rgba(23, 35, 56, 0.07);
+            color: var(--text-primary);
+        }
+
+        .case-content h3 {
+            color: var(--text-primary) !important;
+        }
+
+        .card:hover, .industry-card:hover, .mini-card:hover,
+        .model-chip:hover, .website-tile:hover {
+            background: #f8f6fc;
+            border-color: #d5c8e9;
+        }
+
+        .logo-chip, .category-icon {
+            background: #f7f5fa;
+            border-color: #e6e2eb;
+        }
+
+        .proof-section, .financial-reporting, .feedback-loop,
+        .parallel-section, .pricing-section, .guarantee-box {
+            background-color: #faf9fc;
+            border-color: #e4e1eb;
+            box-shadow: 0 12px 36px rgba(23, 35, 56, 0.05);
+        }
+
+        .parallel-section {
+            background: #f8f7fb;
+        }
+
+        .stat-card {
+            border-color: #e1e5ec;
+        }
+
+        .new-price,
+        .category-info h3,
+        .cr8-calendar__intro h3,
+        .cr8-calendar__intro .cr8-calendar__facts strong,
+        .cr8-calendar__host strong {
+            color: var(--text-primary) !important;
+        }
+
+        .cr8-calendar__intro h3 em {
+            background: none;
+            color: #624095;
+            -webkit-text-fill-color: #624095;
+        }
+
+        .calendar-embed {
+            background: #fff;
+            border-color: #e1e5ec;
+            box-shadow: 0 14px 42px rgba(23, 35, 56, 0.08);
+        }
+
+        .cr8-calendar {
+            --c-line: #e1e5ec;
+            --c-muted: #596579;
+            background: #fff;
+            border-color: #e1e5ec;
+            box-shadow: 0 18px 48px rgba(23, 35, 56, 0.09);
+            color: var(--text-primary);
+        }
+
+        .cr8-calendar__intro,
+        .cr8-calendar__panel {
+            background: #fff;
+        }
+
+        .cr8-calendar__eyebrow,
+        .cr8-calendar__facts > div > svg,
+        .cr8-calendar__host span {
+            color: #624095;
+        }
+
+        .cr8-calendar__host span,
+        .cr8-calendar__intro > p,
+        .cr8-calendar__facts span {
+            color: #596579;
+        }
+
+        .cr8-calendar__host img {
+            background: #f1edf7;
+        }
+
+        .sticky-cta {
+            bottom: calc(-120px - env(safe-area-inset-bottom, 0px));
+            padding: 12px 20px calc(12px + env(safe-area-inset-bottom, 0px));
+            background: rgba(255, 255, 255, 0.96);
+            border-top: 1px solid #e1e5ec;
+            box-shadow: 0 -8px 28px rgba(23, 35, 56, 0.1);
+        }
+
+        .sticky-cta.visible {
+            bottom: 0;
+        }
+
+        .sticky-cta .desktop-sales-cta {
+            display: none !important;
+        }
+
+        .sticky-cta .whatsapp-cta {
+            display: inline-flex !important;
+            align-items: center;
+            justify-content: center;
+            max-width: 500px;
+            width: 100%;
+            min-height: 56px;
+            background: #25d366 !important;
+            border: 1px solid #25d366 !important;
+            color: #fff !important;
+            box-shadow: 0 8px 22px rgba(37, 211, 102, 0.24);
+        }
+
+        .sticky-cta .whatsapp-cta:hover {
+            background: #1eaf55 !important;
+            border-color: #1eaf55 !important;
+        }
+
+        @media (max-width: 600px) {
+            .sticky-cta .whatsapp-cta {
+                max-width: 500px;
+                padding: 15px 20px;
+                font-size: 15px;
+            }
+
+            .cr8-calendar__intro {
+                border-right: 0;
+                border-bottom: 1px solid #e1e5ec;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -3732,17 +3964,21 @@
             });
         });
 
-        // Sticky Bottom Bar Logic
-        window.addEventListener('scroll', function () {
+        // Reveal the WhatsApp bar after the first booking calendar has passed.
+        function updateStickyCta() {
             const stickyBar = document.getElementById('sticky-cta-bar');
-            const scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            const calendar = document.getElementById('book-discovery-call');
+            if (!stickyBar || !calendar) return;
 
-            if (scrollPercent > 25) {
+            if (calendar.getBoundingClientRect().bottom <= 0) {
                 stickyBar.classList.add('visible');
             } else {
                 stickyBar.classList.remove('visible');
             }
-        });
+        }
+        window.addEventListener('scroll', updateStickyCta, { passive: true });
+        window.addEventListener('resize', updateStickyCta);
+        updateStickyCta();
     </script>
 
     <!-- Sticky Bottom Bar -->
