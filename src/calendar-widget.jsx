@@ -29,12 +29,13 @@ function Icon({ name }) {
 }
 
 function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', initialContact = {} }) {
+  const isMortgageCalendar = variant === 'mortgage';
   const isAppCalendar = variant === 'app';
   const isGoogleCalendar = variant === 'google';
   const isSetupCalendar = variant === 'setup';
   const isWebsiteCalendar = variant === 'website';
   const durationMinutes = isWebsiteCalendar ? 60 : 30;
-  const calendarTitle = isWebsiteCalendar ? 'CR8OR AI — Website Exploration Call' : isGoogleCalendar ? 'CR8OR AI — Google Ads Review' : isSetupCalendar ? 'CR8OR AI — Growth Stack Setup' : isAppCalendar ? 'CR8OR AI — App Exploration Call' : 'CR8OR AI — Exploration Call';
+  const calendarTitle = isMortgageCalendar ? 'CR8OR AI — Mortgage Appointment Plan' : isWebsiteCalendar ? 'CR8OR AI — Website Exploration Call' : isGoogleCalendar ? 'CR8OR AI — Google Ads Review' : isSetupCalendar ? 'CR8OR AI — Growth Stack Setup' : isAppCalendar ? 'CR8OR AI — App Exploration Call' : 'CR8OR AI — Exploration Call';
   const today = useMemo(() => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }, []);
   const [month, setMonth] = useState(new Date(today.getFullYear(), today.getMonth(), 1));
   const [slots, setSlots] = useState({});
@@ -122,7 +123,7 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
       const response = await fetch('/api/ghl-book', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, ...(isGoogleCalendar ? { notes: `Google Ads review\n${form.notes}` } : {}), startTime: selectedSlot, timezone, calendarId, ...(isSetupCalendar ? { bookingPurpose: 'free-software' } : {}), ...(isWebsiteCalendar ? { bookingPurpose: 'website-exploration', websiteSessionId: new URLSearchParams(location.search).get('session_id') } : {}) }),
+        body: JSON.stringify({ ...form, ...(isGoogleCalendar ? { notes: `Google Ads review\n${form.notes}` } : {}), startTime: selectedSlot, timezone, calendarId, ...(isMortgageCalendar ? { bookingPurpose: 'mortgage-appointments' } : {}), ...(isSetupCalendar ? { bookingPurpose: 'free-software' } : {}), ...(isWebsiteCalendar ? { bookingPurpose: 'website-exploration', websiteSessionId: new URLSearchParams(location.search).get('session_id') } : {}) }),
       });
       const data = await calendarResponse(response, 'We could not confirm your booking. Please try again shortly.');
       setBooking(data);
@@ -199,12 +200,12 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
   const availableDates = Object.keys(slots).length;
   const canGoBack = month > new Date(today.getFullYear(), today.getMonth(), 1);
 
-  return <section className="cr8-calendar" aria-label={isWebsiteCalendar ? 'Book your website exploration call' : isGoogleCalendar ? 'Book a Google Ads review' : isSetupCalendar ? 'Book a growth stack setup session' : 'Book an exploration call'}>
+  return <section className="cr8-calendar" aria-label={isMortgageCalendar ? 'Book your mortgage appointment planning call' : isWebsiteCalendar ? 'Book your website exploration call' : isGoogleCalendar ? 'Book a Google Ads review' : isSetupCalendar ? 'Book a growth stack setup session' : 'Book an exploration call'}>
     <div className="cr8-calendar__glow" />
     <aside className="cr8-calendar__intro">
-      <div className="cr8-calendar__eyebrow"><span /> {isWebsiteCalendar ? 'Included with your website' : isGoogleCalendar ? 'Free Google Ads review' : isSetupCalendar ? 'Your setup shortcut' : isAppCalendar ? 'App strategy session' : 'Strategy session'}</div>
-      <h3>{isWebsiteCalendar ? <>Let’s plan your<br/><em>website together.</em></> : isGoogleCalendar ? <>Find your next<br/><em>growth opportunity.</em></> : isSetupCalendar ? <>Let’s speed-run<br/><em>your setup.</em></> : isAppCalendar ? <>Let’s map your<br/><em>app system.</em></> : <>Let’s map your<br/><em>growth system.</em></>}</h3>
-      <p>{isWebsiteCalendar ? 'Spend an hour with James exploring your business, the pages you need and the features that will make your website work harder.' : isGoogleCalendar ? 'A focused review of your campaigns, tracking and landing pages with James. Identify the next checks and improvements before increasing your budget.' : isSetupCalendar ? 'You can access and set up the tools yourself. Book time with James to put the stack to work faster and map it to your business.' : isAppCalendar ? 'A focused exploration call to shape your app, prioritise the right features and map the clearest route from idea to launch.' : 'A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.'}</p>
+      <div className="cr8-calendar__eyebrow"><span /> {isMortgageCalendar ? 'Your mortgage appointment plan' : isWebsiteCalendar ? 'Included with your website' : isGoogleCalendar ? 'Free Google Ads review' : isSetupCalendar ? 'Your setup shortcut' : isAppCalendar ? 'App strategy session' : 'Strategy session'}</div>
+      <h3>{isMortgageCalendar ? <>Let’s fill your<br/><em>calendar with intent.</em></> : isWebsiteCalendar ? <>Let’s plan your<br/><em>website together.</em></> : isGoogleCalendar ? <>Find your next<br/><em>growth opportunity.</em></> : isSetupCalendar ? <>Let’s speed-run<br/><em>your setup.</em></> : isAppCalendar ? <>Let’s map your<br/><em>app system.</em></> : <>Let’s map your<br/><em>growth system.</em></>}</h3>
+      <p>{isMortgageCalendar ? 'A free 30-minute call with James to discuss your target cases, capacity, qualification criteria and pay-per-show pricing.' : isWebsiteCalendar ? 'Spend an hour with James exploring your business, the pages you need and the features that will make your website work harder.' : isGoogleCalendar ? 'A focused review of your campaigns, tracking and landing pages with James. Identify the next checks and improvements before increasing your budget.' : isSetupCalendar ? 'You can access and set up the tools yourself. Book time with James to put the stack to work faster and map it to your business.' : isAppCalendar ? 'A focused exploration call to shape your app, prioritise the right features and map the clearest route from idea to launch.' : 'A focused exploration call to find the gaps in your ads, creative and CRM—and show you the clearest route forward.'}</p>
       <div className="cr8-calendar__facts">
         <div><Icon name="clock"/><span><strong>{durationMinutes} minutes</strong>{isWebsiteCalendar ? 'Personal planning session' : 'No drawn-out sales pitch'}</span></div>
         <div><Icon name="video"/><span><strong>Google Meet</strong>Link sent after booking</span></div>
@@ -254,14 +255,14 @@ function CalendarWidget({ calendarId = 'vgGPyGGNGNmBGXwGNDHM', variant = 'ads', 
         <div className="cr8-calendar__selection"><Icon name="check"/><span><strong>{formatLongDate(selectedSlot, timezone)} at {formatTime(selectedSlot, timezone)}</strong>{durationMinutes} minutes · Google Meet</span></div>
         <div className="cr8-calendar__fields">
           <label><span>First name</span><input required autoComplete="given-name" value={form.firstName} onChange={(e) => setForm({ ...form, firstName: e.target.value })}/></label>
-          <label><span>Last name</span><input required={!isSetupCalendar} autoComplete="family-name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}/></label>
+          <label><span>Last name</span><input required={!isSetupCalendar && !isMortgageCalendar} autoComplete="family-name" value={form.lastName} onChange={(e) => setForm({ ...form, lastName: e.target.value })}/></label>
           <label><span>Phone</span><input required type="tel" autoComplete="tel" placeholder="+44 7400 123456" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })}/></label>
           <label><span>Email</span><input required type="email" autoComplete="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })}/></label>
           <label className="is-wide"><span>{isWebsiteCalendar ? 'Your business, website goals and must-have features' : isGoogleCalendar ? 'Website, current or planned Google Ads budget and goal' : 'Anything we should know?'} <small>Optional</small></span><textarea rows="3" placeholder={isWebsiteCalendar ? 'Tell James about your business and what you need from your new website…' : isGoogleCalendar ? 'example.com · £3,000/month budget · Want to grow profit…' : 'Tell us a little about your current setup…'} value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })}/></label>
         </div>
-        <label className="cr8-calendar__consent"><input type="checkbox" required checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })}/><i><Icon name="check"/></i><span>{isWebsiteCalendar ? 'I agree to be contacted about my website and exploration call using these details.' : isGoogleCalendar ? 'I agree to be contacted about my Google Ads review using these details.' : isSetupCalendar ? 'I agree to be contacted about my software access and setup session using these details.' : 'I confirm that I want to receive content from CR8OR AI using the contact information I provide.'}</span></label>
+        <label className="cr8-calendar__consent"><input type="checkbox" required checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })}/><i><Icon name="check"/></i><span>{isMortgageCalendar ? 'I agree to be contacted about my mortgage appointment plan and this call using these details.' : isWebsiteCalendar ? 'I agree to be contacted about my website and exploration call using these details.' : isGoogleCalendar ? 'I agree to be contacted about my Google Ads review using these details.' : isSetupCalendar ? 'I agree to be contacted about my software access and setup session using these details.' : 'I confirm that I want to receive content from CR8OR AI using the contact information I provide.'}</span></label>
         {submitError && <div className="cr8-calendar__form-error">{submitError}</div>}
-        <button className="cr8-calendar__book" disabled={submitting}>{submitting ? <><i/> Securing your time…</> : <>{isWebsiteCalendar ? 'Book my one-hour website call' : isGoogleCalendar ? 'Book my free Google Ads review' : isSetupCalendar ? 'Book my setup session' : 'Schedule exploration call'} <Icon name="arrow"/></>}</button>
+        <button className="cr8-calendar__book" disabled={submitting}>{submitting ? <><i/> Securing your time…</> : <>{isMortgageCalendar ? 'Book my free appointment planning call' : isWebsiteCalendar ? 'Book my one-hour website call' : isGoogleCalendar ? 'Book my free Google Ads review' : isSetupCalendar ? 'Book my setup session' : 'Schedule exploration call'} <Icon name="arrow"/></>}</button>
         <p className="cr8-calendar__privacy">Your information is kept private and never sold.</p>
       </form>}
 

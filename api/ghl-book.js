@@ -28,11 +28,12 @@ export default async function handler(req, res) {
   const timezone = clean(req.body?.timezone, 80) || 'Europe/London';
   const startTime = clean(req.body?.startTime, 80);
   const consent = req.body?.consent === true;
+  const isMortgagePlan = req.body?.bookingPurpose === 'mortgage-appointments';
   const isSoftwareSetup = req.body?.bookingPurpose === 'free-software';
   const isWebsiteExploration = req.body?.bookingPurpose === 'website-exploration';
   const calendarId = resolveCalendarId(req.body?.calendarId);
 
-  if (!firstName || (!lastName && !isSoftwareSetup) || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
+  if (!firstName || (!lastName && !isSoftwareSetup && !isMortgagePlan) || !EMAIL_PATTERN.test(email) || !PHONE_PATTERN.test(phone)) {
     return res.status(400).json({ error: 'Please enter valid contact details.' });
   }
   if (!consent) {
@@ -90,7 +91,7 @@ export default async function handler(req, res) {
 
     let contactId;
     try {
-      const contactData = await ghlRequest(isSoftwareSetup || isWebsiteExploration ? '/contacts/upsert' : '/contacts/', {
+      const contactData = await ghlRequest(isSoftwareSetup || isWebsiteExploration || isMortgagePlan ? '/contacts/upsert' : '/contacts/', {
         method: 'POST',
         body: JSON.stringify({
           firstName,
@@ -100,7 +101,7 @@ export default async function handler(req, res) {
           phone,
           locationId: GHL_LOCATION_ID,
           timezone,
-          ...(isSoftwareSetup || isWebsiteExploration ? {} : { source: 'CR8OR website calendar' }),
+          ...(isSoftwareSetup || isWebsiteExploration || isMortgagePlan ? {} : { source: 'CR8OR website calendar' }),
         }),
       });
       contactId = contactData?.contact?.id;
@@ -132,8 +133,8 @@ export default async function handler(req, res) {
           locationId: GHL_LOCATION_ID,
           contactId,
           assignedUserId: GHL_ASSIGNED_USER_ID,
-          title: isWebsiteExploration ? `${firstName} ${lastName} — Website Exploration Call` : isSoftwareSetup ? `${firstName} ${lastName} — Growth Stack Setup` : `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
-          description: [isWebsiteExploration ? 'One-hour website exploration call included with the £49/month website purchase.' : isSoftwareSetup ? 'Free software growth stack setup session' : '', notes, isSoftwareSetup ? 'Visitor requested contact about software access and setup.' : 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
+          title: isMortgagePlan ? `${firstName} ${lastName} — Mortgage Appointment Plan` : isWebsiteExploration ? `${firstName} ${lastName} — Website Exploration Call` : isSoftwareSetup ? `${firstName} ${lastName} — Growth Stack Setup` : `${firstName} ${lastName} — ${calendarId === 'OxRH5g7JiswQd2BSSpWN' ? 'App' : 'AI Ad System'} Exploration Call`,
+          description: [isMortgagePlan ? 'Free mortgage appointment planning call. Visitor requested contact about pay-per-show mortgage appointment services.' : isWebsiteExploration ? 'One-hour website exploration call included with the £49/month website purchase.' : isSoftwareSetup ? 'Free software growth stack setup session' : '', notes, isSoftwareSetup ? 'Visitor requested contact about software access and setup.' : 'Website consent confirmed: yes'].filter(Boolean).join('\n\n'),
           startTime,
           endTime,
           appointmentStatus: 'confirmed',

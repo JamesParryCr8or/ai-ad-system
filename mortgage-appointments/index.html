@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mortgage appointments. Pay per show. | CR8OR AI</title>
+  <meta name="description" content="A mortgage broker acquisition service built around attended appointments. See how CR8OR attracts, qualifies and books prospects into your calendar.">
+  <meta property="og:title" content="Your next mortgage client starts with a conversation."><meta property="og:description" content="Qualified mortgage appointments. Booked into your calendar. Pay per show.">
+  <link rel="icon" href="/CR8OR%20AI%20Logo%20(1080%20X%201080).png"><link rel="stylesheet" href="/mortgage-appointments/style.css">
+  <script src="/mortgage-appointments/funnel.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><a class="brand" href="/mortgage-appointments/" aria-label="CR8OR AI mortgage appointments">CR8OR<span>AI</span><i></i></a><span class="header-note">Built for UK mortgage brokers</span></header>
+  <main id="main">
+    <section id="intro" class="screen hero">
+      <span class="eyebrow">MORTGAGE APPOINTMENTS · PAY PER SHOW</span>
+      <h1>Your next mortgage client<br> starts with <em>a conversation.</em></h1>
+      <p class="hero-copy">We attract, qualify and book mortgage prospects into your calendar.<br class="desktop"> You pay an appointment fee when they actually show up.</p>
+      <a class="button" href="#authorisation">See how it works <span aria-hidden="true">↗</span></a>
+      <p class="micro">2 quick questions · Free offer breakdown · No obligation</p>
+      <div class="appointment-preview" aria-label="Illustration of the pay-per-show process">
+        <div class="preview-top"><span class="eyebrow">FROM ENQUIRY TO CONVERSATION</span><span class="example">Illustrative workflow</span></div>
+        <div class="journey"><div><span class="stage-number">01</span><strong>Qualified prospect</strong><small>Matched to your criteria</small></div><span class="connector" aria-hidden="true">›</span><div><span class="stage-number">02</span><strong>In your calendar</strong><small>Confirmed &amp; reminded</small></div><span class="connector" aria-hidden="true">›</span><div class="show-stage"><span class="stage-number">✓</span><strong>They show. You pay.</strong><small>No show? No appointment fee.</small></div></div>
+      </div>
+      <div class="reassurance"><span>Qualification before booking</span><span>Appointments around your availability</span><span>Attendance-based fees</span></div>
+    </section>
+    <section id="authorisation" class="screen quiz" hidden>
+      <div class="progress-label"><button class="back" data-back="intro">‹ Back</button><span>ABOUT YOUR BUSINESS · 1 OF 2</span></div><div class="progress"><i style="width:33%"></i></div>
+      <span class="eyebrow">LET’S START WITH YOUR BUSINESS</span><h1 tabindex="-1">How is your firm<br> <em>authorised?</em></h1><p>So we can understand your setup before discussing a campaign.</p>
+      <div class="choices" role="group" aria-label="Authorisation status">
+        <button data-answer="authorisation" data-value="Directly authorised"><span>Directly authorised</span><small>Our firm holds its own FCA permissions</small></button>
+        <button data-answer="authorisation" data-value="Appointed representative"><span>Appointed representative</span><small>We operate through a network or principal</small></button>
+        <button data-answer="authorisation" data-value="In progress / other"><span>In progress / other</span><small>We’re setting up, or need to discuss our status</small></button>
+      </div><p class="micro">For broker businesses. This is not a mortgage application.</p>
+    </section>
+    <section id="capacity" class="screen quiz" hidden>
+      <div class="progress-label"><button class="back" data-back="authorisation">‹ Back</button><span>ABOUT YOUR BUSINESS · 2 OF 2</span></div><div class="progress"><i style="width:66%"></i></div>
+      <span class="eyebrow">A CALENDAR THAT FITS YOUR CAPACITY</span><h1 tabindex="-1">How many extra appointments<br> could you <em>take each month?</em></h1><p>Choose the volume your team could comfortably handle.</p>
+      <div class="choices compact" role="group" aria-label="Monthly appointment capacity"><button data-answer="capacity" data-value="5–10"><span>5–10 appointments</span></button><button data-answer="capacity" data-value="11–20"><span>11–20 appointments</span></button><button data-answer="capacity" data-value="21–40"><span>21–40 appointments</span></button><button data-answer="capacity" data-value="40+"><span>40+ appointments</span></button></div><p class="micro">This helps us plan. It isn’t a minimum order or a volume guarantee.</p>
+    </section>
+    <section id="contact" class="screen quiz contact" hidden>
+      <div class="progress-label"><button class="back" data-back="capacity">‹ Back</button><span>YOUR DETAILS · FINAL STEP</span></div><div class="progress"><i style="width:100%"></i></div>
+      <span class="eyebrow">THE FULL PICTURE, NEXT</span><h1 tabindex="-1">Let’s put more conversations<br> <em>in your calendar.</em></h1><p>Enter your details to see the full breakdown and discuss whether pay per show fits your brokerage.</p>
+      <form id="lead-form">
+        <div class="fields"><label>Full name<input name="name" autocomplete="name" maxlength="160" required placeholder="Alex Morgan"></label><label>Business name<input name="business" autocomplete="organization" maxlength="160" required placeholder="Your brokerage"></label><label>Work email<input name="email" type="email" autocomplete="email" maxlength="180" required placeholder="alex@yourbrokerage.co.uk"></label><label>Phone number<input name="phone" type="tel" autocomplete="tel" maxlength="30" required placeholder="07700 900123"></label><label class="wide">Where do you work?<input name="area" maxlength="160" required placeholder="e.g. Manchester, North West or UK-wide"></label></div>
+        <label class="honeypot" aria-hidden="true">Leave blank<input name="website" tabindex="-1" autocomplete="off"></label>
+        <label class="consent"><input name="consent" type="checkbox" required><span>I’d like CR8OR AI to contact me by email or phone about mortgage appointments. <a href="#privacy" data-privacy>How we use your details</a>.</span></label>
+        <p id="form-error" class="error" role="alert" hidden></p><button class="button" id="submit-button">Show me the full breakdown <span aria-hidden="true">↗</span></button><p class="micro">No payment details. No commitment to a campaign.</p>
+      </form>
+    </section>
+  </main>
+  <footer><span>© <span data-year></span> CR8OR AI</span><button class="text-button" data-privacy>Privacy &amp; your details</button><span>Marketing services for mortgage brokers</span></footer>
+  <dialog id="privacy"><button class="close" aria-label="Close privacy notice">×</button><h2>Your details. <em>A clear purpose.</em></h2><p>CR8OR AI uses your contact details, business information and answers to respond to your request and discuss our mortgage appointment service. We store this information in our HighLevel CRM. Campaign identifiers may be recorded to understand which advert brought you here.</p><p>Your details are kept in this tab’s session storage to preserve progress and pre-fill the booking form. They are not put in the page URL. We do not sell your contact information.</p><p>To ask about your data or stop further contact, email <a href="mailto:james@cr8or.co.uk">james@cr8or.co.uk</a>.</p></dialog>
+  <noscript><p class="noscript">Please enable JavaScript to complete the short form, or email <a href="mailto:james@cr8or.co.uk">james@cr8or.co.uk</a> to discuss mortgage appointments.</p></noscript>
+</body></html>
